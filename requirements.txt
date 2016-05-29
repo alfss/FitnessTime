@@ -1,0 +1,9 @@
+Django==1.9.6
+django-filter==0.13.0
+django-guardian==1.4.4
+django-rest-swagger==0.3.7
+djangorestframework==3.3.3
+Markdown==2.6.6
+psycopg2==2.6.1
+PyYAML==3.11
+six==1.10.0
