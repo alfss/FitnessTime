@@ -26,7 +26,9 @@ class Exercise(models.Model):
                                         format='JPEG',
                                         options={'quality': 99})
 
-    group_exercise = models.ForeignKey( 'GroupExercise', on_delete = models.CASCADE, )
+    group_exercise = models.ForeignKey( 'GroupExercise',
+                                        related_name='exercises',
+                                        on_delete = models.CASCADE, )
 
     def save(self, *args, **kwargs):
         print (self.example_photo)
