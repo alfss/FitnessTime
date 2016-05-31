@@ -1,13 +1,18 @@
 from django.conf import settings
 from django.db import models
-from sorl.thumbnail import ImageField, get_thumbnail
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
+from workout.tools import upload_to_id_image
 
-class SetExercise(models.Model):
+class GroupExercise(models.Model):
     title = models.CharField( max_length=255 )
     owner = models.ForeignKey( settings.AUTH_USER_MODEL )
 
     unique_together = (("title", "owner"),)
+
+    def __str__(self):
+        return  "%s owner:%s" % (self.title, self.owner)
 
 class Exercise(models.Model):
     priority = models.IntegerField( default=1 ) # for sorting
@@ -15,12 +20,18 @@ class Exercise(models.Model):
     repeat = models.CharField( max_length=255, default=3)
     weight = models.FloatField() #in kg
     rest_time = models.IntegerField() #in seconds
-    example_photo = ImageField(default=None)
+    example_photo = ProcessedImageField(default=None,
+                                        upload_to=upload_to_id_image,
+                                        processors=[ResizeToFill(400, 400)],
+                                        format='JPEG',
+                                        options={'quality': 99})
 
-    set_exercise = models.ForeignKey( 'SetExercise', on_delete = models.CASCADE, )
+    group_exercise = models.ForeignKey( 'GroupExercise', on_delete = models.CASCADE, )
 
     def save(self, *args, **kwargs):
-        if self.example_photo:
-            self.example_photo = get_thumbnail(self.example_photo, '500x500', quality=99, format='JPEG')
+        print (self.example_photo)
         super(Exercise, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return  "%s group_exercise = %s" % (self.title, self.group_exercise)
 
