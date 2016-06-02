@@ -14,6 +14,9 @@ class GroupExercise(models.Model):
     def __str__(self):
         return  "%s owner:%s" % (self.title, self.owner)
 
+    def is_owner(self, user):
+        return self.owner == user
+
 class Exercise(models.Model):
     priority = models.IntegerField( default=1 ) # for sorting
     title = models.CharField( max_length=255, unique=True)
@@ -30,8 +33,10 @@ class Exercise(models.Model):
                                         related_name='exercises',
                                         on_delete = models.CASCADE, )
 
+    def is_owner(self, user):
+        return self.group_exercise.owner == user
+
     def save(self, *args, **kwargs):
-        print (self.example_photo)
         super(Exercise, self).save(*args, **kwargs)
 
     def __str__(self):
