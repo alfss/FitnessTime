@@ -1,3 +1,4 @@
+defusedxml==0.4.1
 Django==1.9.6
 django-appconf==1.0.2
 django-extensions==1.6.7
@@ -7,11 +8,17 @@ django-imagekit==3.3
 django-rest-swagger==0.3.7
 djangorestframework==3.3.3
 Markdown==2.6.6
+oauthlib==1.1.2
 pilkit==1.1.13
 Pillow==3.2.0
 psycopg2==2.6.1
 py==1.4.31
+PyJWT==1.4.0
 pytest==2.9.1
+python-social-auth==0.2.19
+python3-openid==3.0.10
 PyYAML==3.11
+requests==2.10.0
+requests-oauthlib==0.6.1
 six==1.10.0
 sorl-thumbnail==12.3

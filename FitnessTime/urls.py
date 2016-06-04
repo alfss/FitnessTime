@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/v1/', include('FitnessTime.urls_api', namespace='api-v1')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
