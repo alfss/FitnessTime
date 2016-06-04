@@ -39,4 +39,4 @@ class Exercise(viewsets.ModelViewSet):
     serializer_class = serializers.ExerciseSerializer
 
     def get_queryset(self):
-        return models.Exercise.objects.filter(group_exercise__owner=self.request.user.pk).order_by('-id')
+        return models.Exercise.objects.filter(group_exercise__owner=self.request.user.pk).order_by('-priority')
