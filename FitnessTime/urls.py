@@ -18,7 +18,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from FitnessTime import views
+
 urlpatterns = [
+    url(r'^$', views.main, name='main'),
+    url(r'^signin$', views.signin, name='signin'),
     url(r'^admin/', admin.site.urls),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/v1/', include('FitnessTime.urls_api', namespace='api-v1')),

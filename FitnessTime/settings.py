@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'imagekit',
     'common',
     'workout',
+    'FitnessTime',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    'social.backends.vk.VKOAuth2',
     'social.backends.google.GooglePlusAuth',
     'django.contrib.auth.backends.ModelBackend',
 ]
@@ -137,6 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -146,8 +148,31 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    # 'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    # 'social.pipeline.debug.debug',
+)
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
+#dev settgins
 SOCIAL_AUTH_GOOGLE_PLUS_KEY="867124234625-k249s24gko2gdgc4an7li96kecvei8dp.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_PLUS_SECRET="p6oRoAe1I1XqcyNjNtoar4ns"
-#use url for login localhost:8000/login/google-plus/
+SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
+    'https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/plus.me',
+    'https://www.googleapis.com/auth/plus.profile.emails.read',
+]
+
+#dev settgins
+SOCIAL_AUTH_VK_OAUTH2_SECRET="7PWAPV6LJwURRm2VLYm7"
+SOCIAL_AUTH_VK_OAUTH2_KEY="5494236"
