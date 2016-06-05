@@ -12,6 +12,10 @@ dist/
 docs/_build/
 docs/locale/
 node_modules/
+/FitnessTime/static/js
+/FitnessTime/static/css
+/FitnessTime/static/fonts
+/FitnessTime/static/images
 bower_components/
 tests/coverage_html/
 tests/.coverage
