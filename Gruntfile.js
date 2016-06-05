@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 
     var globalConfig = {
+        src_images : 'FitnessTime/static_dist/images',
+        src_styles : 'FitnessTime/static_dist/less',
+        src_fonts : 'FitnessTime/static_dist/fonts',
+        src_scripts : 'FitnessTime/static_dist/js',
         images : 'FitnessTime/static/images',
-        styles : 'FitnessTime/static/less',
-        styles_css : 'FitnessTime/static/css',
-        fonts : 'FitnessTime/static/fonts',
         scripts : 'FitnessTime/static/js',
-        src : 'src',
+        styles : 'FitnessTime/static/css',
         bower_path : 'bower_components'
     };
 
@@ -59,7 +60,7 @@ module.exports = function(grunt) {
                     compress: true,  //minifying the result
                 },
                 files: {
-                    "<%= globalConfig.styles_css %>/base.css":"<%= globalConfig.styles %>/base.less"
+                    "<%= globalConfig.styles %>/base.css":"<%= globalConfig.src_styles %>/base.less"
                 }
             }
         },
@@ -69,7 +70,7 @@ module.exports = function(grunt) {
                 //tasks: ['jshint:gruntfile'],
             },
             src: {
-                files: ['<%= globalConfig.scripts %>/app/*.js', '<%= globalConfig.styles %>/**/*.less' ],
+                files: ['<%= globalConfig.src_scripts %>/**/*.js', '<%= globalConfig.src_styles %>/**/*.less' ],
                 tasks: ['default'],
             }
         }
