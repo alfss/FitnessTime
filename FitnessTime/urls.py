@@ -23,12 +23,14 @@ from django.conf.urls.static import static
 
 from FitnessTime import views
 from FitnessTime.forms import SiginForm
+from FitnessTime.views import register
 
 urlpatterns = [
     url(r'^$', views.main, name='main'),
     url(r'^app/', views.app, name='main-app'),
     #login
     url(r'^signin/$', login, { 'authentication_form': SiginForm }, name='login'),
+    url(r'^register/$', register, name='register'),
     url(r'^logout/$', logout_then_login, name='logout'),
     #password
     url(r'^password-change/$', password_change, name='password_change'),

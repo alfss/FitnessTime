@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <h1>Register</h1>
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {{ form.username.errors }}
+        {{ form.username.label }} {{ form.username }}
+
+        {{ form.password1.errors }}
+        {{ form.password1.label }} {{ form.password1 }}
+
+
+        {{ form.password2.errors }}
+        {{ form.password2.label }} {{ form.password2 }}
+
+        <button type="submit" class="btn btn-large btn-danger pull-right">{% trans 'Join Now' %}</button>
+    </form>
+{% endblock %}
