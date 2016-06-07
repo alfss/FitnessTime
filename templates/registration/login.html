@@ -1,16 +1,24 @@
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="ru">
 {% include "layouts/head.html" %}
 <body>
 <div class="container">
     <div class="row">
-        {% if form.errors %}
-            <p>Your username and password didn't match. Please try again.</p>
-        {% endif %}
+
         <form class="form-signin mg-btm" action="{% url 'login' %}" method="post" id="login-form">
             {% csrf_token %}
             <h3 class="heading-desc"> Sigin</h3>
+            <div class="error-box">
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             <div class="social-box">
                 <div class="row mg-btm">
                     <div class="col-md-12">
@@ -28,7 +36,9 @@
                 </div>
             </div>
             <div class="main-signin">
+                {{ form.username.errors }}
                 {{ form.username }}
+                {{ form.password.errors }}
                 {{ form.password }}
                 <input type="hidden" name="next" value="{{ next }}" />
                 <span class="clearfix"></span>
@@ -42,7 +52,7 @@
                         </div>
                     </div>
                     <div class="col-xs-6 col-md-6 pull-right">
-                        <button type="submit" class="btn btn-large btn-danger pull-right">Login</button>
+                        <button type="submit" class="btn btn-large btn-danger pull-right">{% trans 'Login' %}</button>
                     </div>
                 </div>
 
