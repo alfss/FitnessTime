@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from imagekit.admin import AdminThumbnail
 
-from workout.models import Exercise, GroupExercise
+from workout.models import Exercise, Training
 
 
 class ExerciseAdmin(admin.ModelAdmin):
@@ -13,7 +13,7 @@ class ExerciseAdmin(admin.ModelAdmin):
 admin.site.register(Exercise, ExerciseAdmin)
 
 
-class GroupExerciseAdmin(admin.ModelAdmin):
+class TraninngAdmin(admin.ModelAdmin):
     pass
-admin.site.register(GroupExercise, GroupExerciseAdmin)
+admin.site.register(Training, TraninngAdmin)
 

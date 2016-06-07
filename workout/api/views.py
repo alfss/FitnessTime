@@ -7,13 +7,13 @@ from .. import models
 import logging
 logger = logging.getLogger(__name__)
 
-class GroupExercise(viewsets.ModelViewSet):
+class TrainingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerPermission)
-    queryset = models.GroupExercise.objects.all()
-    serializer_class = serializers.GroupExerciseSerializer
+    queryset = models.Training.objects.all()
+    serializer_class = serializers.TrainingSerializer
 
     def get_queryset_list(self):
-        return models.GroupExercise.objects.filter(owner=self.request.user.pk).order_by('-id')
+        return models.Training.objects.filter(owner=self.request.user.pk).order_by('-id')
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset_list())
@@ -32,11 +32,11 @@ class GroupExercise(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         serializer.save(owner=self.request.user)
 
-class Exercise(viewsets.ModelViewSet):
+class ExerciseViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerPermission)
 
     queryset = models.Exercise.objects.all().order_by('-id')
     serializer_class = serializers.ExerciseSerializer
 
     def get_queryset(self):
-        return models.Exercise.objects.filter(group_exercise__owner=self.request.user.pk).order_by('-priority')
+        return models.Exercise.objects.filter(training__owner=self.request.user.pk).order_by('-priority')

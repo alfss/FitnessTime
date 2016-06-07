@@ -5,7 +5,7 @@ from imagekit.processors import ResizeToFill
 
 from workout.tools import upload_to_id_image
 
-class GroupExercise(models.Model):
+class Training(models.Model):
     title = models.CharField( max_length=255 )
     owner = models.ForeignKey( settings.AUTH_USER_MODEL )
 
@@ -29,16 +29,16 @@ class Exercise(models.Model):
                                         format='JPEG',
                                         options={'quality': 99})
 
-    group_exercise = models.ForeignKey( 'GroupExercise',
-                                        related_name='exercises',
-                                        on_delete = models.CASCADE, )
+    training = models.ForeignKey('Training',
+                                 related_name='exercises',
+                                 on_delete = models.CASCADE,)
 
     def is_owner(self, user):
-        return self.group_exercise.owner == user
+        return self.training.owner == user
 
     def save(self, *args, **kwargs):
         super(Exercise, self).save(*args, **kwargs)
 
     def __str__(self):
-        return  "%s group_exercise = %s" % (self.title, self.group_exercise)
+        return  "%s training = %s" % (self.title, self.training)
 
