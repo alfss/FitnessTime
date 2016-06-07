@@ -15,14 +15,30 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.views import login, logout_then_login, password_reset, \
+    password_reset_done, password_reset_confirm, password_reset_complete, \
+    password_change_done, password_change
 from django.conf import settings
 from django.conf.urls.static import static
 
 from FitnessTime import views
+from FitnessTime.forms import SiginForm
 
 urlpatterns = [
     url(r'^$', views.main, name='main'),
-    url(r'^signin$', views.signin, name='signin'),
+    url(r'^app/', views.app, name='main-app'),
+    #login
+    url(r'^signin/$', login, { 'authentication_form': SiginForm }, name='login'),
+    url(r'^logout/$', logout_then_login, name='logout'),
+    #password
+    url(r'^password-change/$', password_change, name='password_change'),
+    url(r'^password-change/done/$', password_change_done, name='password_change_done'),
+    url(r'^password-reset/$', password_reset, name='password_reset'),
+    url(r'^password-reset/done/$', password_reset_done, name='password_reset_done'),
+    url(r'^password-reset/token/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        password_reset_confirm, name='password_reset_confirm'),
+    url(r'^password-reset/token/done/$', password_reset_complete, name='password_reset_complete'),
+
     url(r'^admin/', admin.site.urls),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/v1/', include('FitnessTime.urls_api', namespace='api-v1')),

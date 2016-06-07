@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+{% include "layouts/head.html" %}
+<body>
+<div class="container">
+    <div class="row">
+        {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <form class="form-signin mg-btm" action="{% url 'login' %}" method="post" id="login-form">
+            {% csrf_token %}
+            <h3 class="heading-desc"> Sigin</h3>
+            <div class="social-box">
+                <div class="row mg-btm">
+                    <div class="col-md-12">
+                        <a href="{% url 'social:begin' 'google-plus' %}" class="btn btn-google-signin btn-block">
+                            Sign in with Google
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{% url 'social:begin' 'vk-oauth2' %}" class="btn btn-vk-signin btn-block">
+                            Sign in with VK
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-signin">
+                {{ form.username }}
+                {{ form.password }}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <span class="clearfix"></span>
+            </div>
+            <div class="login-footer">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="left-section">
+                            <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                            <a href="">Sign up now</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 pull-right">
+                        <button type="submit" class="btn btn-large btn-danger pull-right">Login</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
