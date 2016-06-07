@@ -9,3 +9,9 @@ class IsOwnerPermission(BasePermission):
         if request.method in WRITE_METHODS and obj.is_owner(request.user):
             return True
         return False
+
+class ReadOnlyPermission(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return False
