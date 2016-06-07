@@ -8,7 +8,7 @@ from . import views
 urlpatterns = []
 
 router = routers.DefaultRouter()
-router.register('exercise', views.ExerciseViewSet)
-router.register('training', views.TrainingViewSet)
+router.register('exercise', views.ExerciseViewSet, 'exercise')
+router.register('training', views.TrainingViewSet, 'training')
 
 urlpatterns += router.urls
