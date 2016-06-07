@@ -164,6 +164,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
     # 'social.pipeline.debug.debug',
 )
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 2525
+
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
