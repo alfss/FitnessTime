@@ -20,7 +20,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
 class TrainingSerializer(serializers.ModelSerializer):
     exercises = ExerciseSerializer(many=True, read_only=True)
     owner = UserSerializer(read_only=True)
-    label = LabelField()
+    label = LabelField(required=False, allow_null=True)
     url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:training-detail', lookup_field='uuid')
 
     class Meta:

@@ -173,6 +173,9 @@ SOCIAL_AUTH_PIPELINE = (
     # 'social.pipeline.debug.debug',
 )
 
+
+AUTH_USER_MODEL = "common.User"
+
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 2525
 

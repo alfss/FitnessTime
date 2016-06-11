@@ -32,7 +32,7 @@ class TrainingViewSet(viewsets.ModelViewSet):
         try:
             uuid.UUID(label)
             queryset = queryset.filter(label__uuid=label)
-        except ValueError:
+        except (ValueError, TypeError):
             pass
 
         if label == 'null':

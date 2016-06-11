@@ -1,15 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User, Group
+from common.models import User
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail', lookup_field='uuid')
     class Meta:
         model = User
-        fields = ('id', 'username', 'url', )
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:group-detail')
-    class Meta:
-        model = Group
-        fields = ('id', 'name', 'url')
+        fields = ('uuid', 'username', 'url', )
