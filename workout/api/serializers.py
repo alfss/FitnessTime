@@ -1,17 +1,13 @@
 from rest_framework import serializers
 from common.api.serializers import UserSerializer
-from workout.models import Training, Exercise
+from workout.api.fields import TrainingField, LabelField
+from workout.models import Training, Exercise, Label
 
-class TrainingPKField(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-        user = self.context['request'].user
-        queryset = Training.objects.filter(owner=user)
-        return queryset
 
 class ExerciseSerializer(serializers.ModelSerializer):
-    training = TrainingPKField()
+    training = TrainingField()
     example_photo = serializers.ImageField(required=False)
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:exercise-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:exercise-detail', lookup_field='uuid')
 
     def filter_training(self, queryset):
         request = self.context['request']
@@ -19,15 +15,26 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = ('url', 'id', 'title', 'repeat', 'weight', 'rest_time', 'example_photo', 'training', )
+        fields = ('url', 'uuid', 'title', 'repeat', 'weight', 'rest_time', 'example_photo', 'training', )
 
 class TrainingSerializer(serializers.ModelSerializer):
     exercises = ExerciseSerializer(many=True, read_only=True)
     owner = UserSerializer(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:training-detail')
+    label = LabelField()
+    url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:training-detail', lookup_field='uuid')
 
     class Meta:
         model = Training
-        fields = ('url', 'id', 'owner', 'title', 'exercises', )
+        fields = ('url', 'uuid', 'owner', 'title', 'color', 'label', 'exercises', )
+
+class LabelSerializer(serializers.ModelSerializer):
+    trainings = TrainingSerializer(many=True, read_only=True)
+    owner = UserSerializer(read_only=True)
+    url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:label-detail', lookup_field='uuid')
+
+    class Meta:
+        model = Label
+        fields = ('url', 'uuid', 'title', 'owner', 'trainings', )
+
 
 
