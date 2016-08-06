@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from common.api.serializers import UserSerializer
+from common.api.serializers import UserMiniSerializer
 from workout.api.fields import TrainingField, LabelField
 from workout.models import Training, Exercise, Label
 
@@ -19,7 +19,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
 class TrainingSerializer(serializers.ModelSerializer):
     exercises = ExerciseSerializer(many=True, read_only=True)
-    owner = UserSerializer(read_only=True)
+    owner = UserMiniSerializer(read_only=True)
     label = LabelField(required=False, allow_null=True)
     url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:training-detail', lookup_field='uuid')
 
@@ -29,7 +29,7 @@ class TrainingSerializer(serializers.ModelSerializer):
 
 class LabelSerializer(serializers.ModelSerializer):
     trainings = TrainingSerializer(many=True, read_only=True)
-    owner = UserSerializer(read_only=True)
+    owner = UserMiniSerializer(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:label-detail', lookup_field='uuid')
 
     class Meta:
