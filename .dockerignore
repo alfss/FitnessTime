@@ -10,6 +10,7 @@ __pycache__
 
 node_modules/
 media/
+bower_components/
 
 .git/*
 !.git/HEAD

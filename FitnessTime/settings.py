@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'fitness_time',
         'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': '10.211.55.15',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
@@ -176,7 +176,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 AUTH_USER_MODEL = "common.User"
 
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = 'smtprelay'
 EMAIL_PORT = 2525
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'

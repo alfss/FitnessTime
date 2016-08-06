@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/srv/app
+    links:
+      - postgres
+    depends_on:
+      - postgres
+      - smtprelay
+
+  postgres:
+    image: postgres:9.5
+  smtprelay:
+    image: python:3.5
+    command: python -m smtpd -n -c DebuggingServer localhost:2525
+    expose:
+      - 2525
