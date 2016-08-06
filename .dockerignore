@@ -1,0 +1,16 @@
+*.mo
+*.pem
+*.pyc
+
+__pycache__
+.cache/
+.coverage
+.idea/
+.python-version
+
+node_modules/
+media/
+
+.git/*
+!.git/HEAD
+!.git/refs/heads/*
