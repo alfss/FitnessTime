@@ -55,3 +55,9 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
            └── register.html
   
 ```
+
+
+# Urls
+* http://X.X.X.X:8000/admin # урл чтоб авторизоваться , там можно данные создать
+* X.X.X.X:8000/api/v1/workout/ # тут входная точка API
+* X.X.X.X:8000/api/v1/workout/ # тут вспомогательная
