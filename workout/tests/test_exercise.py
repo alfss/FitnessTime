@@ -22,18 +22,3 @@ class ExerciseTestCase(AuthenticatedTestCase):
 
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_create_exercise_anower_owner(self):
-        url = reverse('api-v1:workout:exercise-list')
-        training = TrainingFactory(title='TEST')
-        data = {
-            'title':'test exercise',
-            'priority': 1,
-            'repeat': 3,
-            'weight': 12.4,
-            'rest_time': 31,
-            'training': training.uuid
-        }
-
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
