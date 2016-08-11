@@ -1,0 +1,27 @@
+.modal {
+
+  &__overlay {
+    display: flex;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(62, 62, 62, .9);
+  }
+
+  &__content {
+    border: 1px solid rgb(204, 204, 204);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    margin: auto;
+    padding: 10px;
+    background: rgb(255, 255, 255);
+  }
+
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

@@ -1,0 +1,12 @@
+.workout-session {
+  text-align: center;
+
+  &__item {
+    display: block;
+    color: $text-color;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+    padding: $gutter-big;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

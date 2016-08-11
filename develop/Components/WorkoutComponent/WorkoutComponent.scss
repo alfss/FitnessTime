@@ -1,0 +1,64 @@
+.workout {
+  text-align: center;
+
+  &__name {
+    color: $text-color;
+    padding: $gutter-big;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+    cursor: pointer;
+  }
+
+  &__full-data {
+    display: none;
+    text-align: left;
+    padding: $gutter-big;
+    background-color: $background;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+  }
+
+  &__info{
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  &__description{
+    flex-grow: 1;
+    padding-top: 15px;
+  }
+
+  &__description-name {
+    display: inline-block;
+    width: 100px;
+  }
+
+  &__repeats, &__weight {
+    margin-bottom: 5px;
+  }
+
+  &__image {
+    cursor: pointer;
+  }
+
+  &__control-button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    border: 1px solid black;
+    @include border-radius;
+    background-color: #fff;
+    cursor: pointer;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &_edit {
+      background-image: url(pencil-icon.svg);
+    }
+
+    &_delete {
+      background-image: url(trash-icon.svg);
+      background-size: 20px
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.stopwatch {
+  margin-bottom: 10px;
+
+  &__rest-timer, &__repeat-count {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  &__repeat-count {
+    float: left;
+  }
+
+  &__rest-timer {
+    float: right;
+  }
+
+  &__button {
+
+    &_stop {
+      background-color: $material-red;
+      margin-left: $gutter;
+    }
+
+    &_pause {
+      display: none;
+      background-color: $material-orange;
+    }
+  }
+
+  &__finish {
+    display: inline-block;
+    margin-bottom: $gutter;
+    width: 100%;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}

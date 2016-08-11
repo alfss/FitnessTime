@@ -1,0 +1,27 @@
+.button {
+  width: calc(50% - #{ $gutter / 2 });
+  padding: 10px 0;
+  background-color: #fff;
+  border: none;
+  @include border-radius;
+  color: $white;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: $material-blue;
+
+  &:disabled {
+    background-color: lighten($material-blue, 25%);
+  }
+
+  &_cancel {
+    background-color: $material-red;
+    margin-left: 10px;
+  }
+
+  &_add {
+    display: inline-block;
+    margin-top: $gutter-big;
+    text-decoration: none;
+    padding: 10px 20px;
+  }
+}

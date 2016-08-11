@@ -1,0 +1,38 @@
+.form {
+  background-color: $background;
+  display: flex;
+  flex-direction: column;
+  padding: $gutter-big;
+
+  &__label {
+    font-size: 12px;
+    color: $text-color;
+    margin-bottom: 17px;
+  }
+
+  &__input {
+    font-size: 1rem;
+    color: $text-color;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 6px;
+    border: 2px solid $material-blue-rgba-light;
+    @include border-radius();
+
+    &:focus {
+      border-color: $material-blue-rgba-medium;
+      outline: none;
+    }
+
+    &_file {
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__controls {
+    margin-top: $gutter-big;
+  }
+}
