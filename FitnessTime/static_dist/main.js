@@ -6,11 +6,9 @@ import { Router, hashHistory } from "react-router";
 import "normalize.css/normalize.css";
 import "./Styles/main.scss";
 
-document.addEventListener("DOMContentLoaded", startReact);
-
-function startReact() {
+document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
     <Router history={hashHistory}>{routes}</Router>,
     document.getElementById("app")
   );
-}
+});

@@ -4,7 +4,8 @@
   "description": "App for training",
   "main": "index.js",
   "scripts": {
-    "server": "webpack-dev-server --inline --watch --content-base static"
+    "server": "webpack-dev-server --inline --watch --content-base static",
+    "develop": "webpack --progress --colors --watch"
   },
   "repository": {
     "type": "git",
