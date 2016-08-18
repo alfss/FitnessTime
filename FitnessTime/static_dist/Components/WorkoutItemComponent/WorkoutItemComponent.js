@@ -13,6 +13,7 @@ const propTypes = {
 };
 
 function WorkoutItem (props) {
+  Modal.setAppElement("body");
   return (
     <div className="workout__item" key={props.id}>
       <div className="workout__name" onClick={props.toggleOpenFullData}>
