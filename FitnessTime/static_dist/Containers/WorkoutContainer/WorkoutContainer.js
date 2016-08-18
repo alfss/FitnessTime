@@ -7,13 +7,13 @@ class WorkoutContainer extends React.Component {
   }
 
   loadWorkoutData() {
-    const url = "https://api.mongolab.com/api/1/databases/zizik/collections/workout?apiKey=NRheaIcHQvxwCNRa3FmeLIAVZwtEjeyp";
+    const url = `/api/v1/workout/training/${this.props.params.id}`;
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          workoutData: data
+          workoutData: data.exercises
         });
       }
     );
