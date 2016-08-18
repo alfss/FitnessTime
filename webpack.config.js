@@ -1,11 +1,13 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
+
 
 module.exports = {
-  entry: "./develop/main",
+  entry: __dirname + "/FitnessTime/static_dist/main.js",
   output: {
-    path: __dirname + "/static/",
-    filename: "bundle.js"
+    path: __dirname + "/FitnessTime/static/js/",
+    filename: "main.js"
   },
 
   module: {
@@ -21,12 +23,12 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: ["/node_modules/", "/static/"],
-        loader: ExtractTextPlugin.extract("css?sourceMap!autoprefixer?browsers=last 2 versions")
+        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions")
       },
       {
         test: /\.scss$/,
         exclude: ["/node_modules/", "/static/"],
-        loader: ExtractTextPlugin.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass?sourceMap")
+        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass")
       },
       {
         test: /\.svg$/,
@@ -42,6 +44,6 @@ module.exports = {
       React: "react",
       classNames: "classnames"
     }),
-    new ExtractTextPlugin("styles.css", { allChunks : true })
+    extractCSS
   ]
 };
