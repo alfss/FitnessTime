@@ -9,13 +9,16 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   loadWorkoutSessionData() {
-    const url = "https://api.mongolab.com/api/1/databases/zizik/collections/workoutSession?apiKey=NRheaIcHQvxwCNRa3FmeLIAVZwtEjeyp";
+    const url = "/api/v1/workout/training/";
 
-    fetch(url)
+    fetch(url, {
+      credentials: "include"
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.results);
         this.setState({
-          workoutSessionData: data
+          workoutSessionData: data.results
         });
       }
     );

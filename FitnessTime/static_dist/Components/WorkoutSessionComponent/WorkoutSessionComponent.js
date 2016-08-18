@@ -11,7 +11,7 @@ function WorkoutSession (props) {
     <div className="workout-session">
       {
         props.workoutSessionData.map( data => {
-          return <Link to={"workout/" + data.id} key={data.id} className="workout-session__item">
+          return <Link to={"workout/" + data.uuid} key={data.uuid} className="workout-session__item">
             {data.title}
           </Link>;
         })
