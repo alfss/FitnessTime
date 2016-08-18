@@ -4,11 +4,11 @@ import Modal from "react-modal";
 
 const propTypes = {
   id: React.PropTypes.string.isRequired,
-  image: React.PropTypes.string.isRequired,
+  image: React.PropTypes.string,
   title: React.PropTypes.string.isRequired,
   repeats: React.PropTypes.string.isRequired,
   rest: React.PropTypes.string.isRequired,
-  weight: React.PropTypes.string.isRequired,
+  weight: React.PropTypes.number.isRequired,
   toggleOpenFullData: React.PropTypes.func.isRequired
 };
 

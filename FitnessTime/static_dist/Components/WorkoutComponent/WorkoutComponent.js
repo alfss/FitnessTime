@@ -8,12 +8,13 @@ const propTypes = {
 };
 
 function Workout (props) {
+  console.log(props.workoutData);
   return (
     <div className="workout">
       {
         props.workoutData.map( data => {
           return <WorkoutItem
-            key={data.id}
+            key={data.uuid}
             workoutItemData={data}
           />;
         })
