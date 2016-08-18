@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
-
+const LiveReloadPlugin = require("webpack-livereload-plugin");
 
 module.exports = {
   entry: __dirname + "/FitnessTime/static_dist/main.js",
@@ -44,6 +44,7 @@ module.exports = {
       React: "react",
       classNames: "classnames"
     }),
-    extractCSS
+    extractCSS,
+    new LiveReloadPlugin({appendScriptTag : true})
   ]
 };
