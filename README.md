@@ -7,6 +7,11 @@ docker-compose build
 
 docker-compose up -d
 
+## Webpack build and watch
+
+npm run develop
+
+
 ## only first time
 docker exec -it fitnesstime_postgres_1 psql -U postgres -c "create database fitness_time"
 
@@ -53,7 +58,7 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
       └── registration    # это шаблоны для регистрации и входа (изначально не надо трогать)
            ├── login.html
            └── register.html
-  
+
 ```
 
 
