@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: "url?name=../images/[name].[ext]&limit=5000"
+        loader: "url?name=../images/[name]-[hash:6].[ext]&limit=5000"
       }
     ]
   },
