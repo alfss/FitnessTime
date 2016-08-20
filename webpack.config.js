@@ -27,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass")
+        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass?sourceMap")
       },
       {
         test: /\.svg$/,
-        loader: "url?name=[name].[ext]&limit=5000"
+        loader: "url?name=../images/[name].[ext]&limit=5000"
       }
     ]
   },
