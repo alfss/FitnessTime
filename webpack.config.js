@@ -23,17 +23,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: ["/node_modules/", "/static/"],
         loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions")
       },
       {
         test: /\.scss$/,
-        exclude: ["/node_modules/", "/static/"],
         loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass")
       },
       {
         test: /\.svg$/,
-        exclude: ["/node_modules/", "/static/"],
         loader: "url?name=[name].[ext]&limit=5000"
       }
     ]
