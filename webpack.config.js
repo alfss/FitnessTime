@@ -1,12 +1,13 @@
 const webpack = require("webpack");
+const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
 const LiveReloadPlugin = require("webpack-livereload-plugin");
 
 module.exports = {
-  entry: __dirname + "/FitnessTime/static_dist/main.js",
+  entry: "./FitnessTime/static_dist/main.js",
   output: {
-    path: __dirname + "/FitnessTime/static/js/",
+    path: path.join(__dirname, "/FitnessTime/static/js/"),
     filename: "main.js"
   },
 
@@ -14,7 +15,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: ["/node_modules/", "/static/"],
+        include: path.join(__dirname, "/FitnessTime/static_dist"),
         loader: "babel",
         query: {
           presets: ["es2015", "react"]
