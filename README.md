@@ -9,7 +9,7 @@ docker-compose up -d
 
 ## Webpack build and watch
 
-npm run develop
+npm start
 
 
 ## only first time
