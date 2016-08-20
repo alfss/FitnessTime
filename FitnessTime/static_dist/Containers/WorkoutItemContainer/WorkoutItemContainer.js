@@ -46,11 +46,11 @@ class WorkoutItemContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.workoutItemData);
+    console.log(this.props);
     return (
       <WorkoutItem
         id={this.props.workoutItemData.uuid}
-        image={this.props.workoutItemData.image}
+        image={this.props.workoutItemData.example_photo}
         title={this.props.workoutItemData.title}
         repeats={this.props.workoutItemData.repeat}
         rest={this.formatRestTimer(this.props.workoutItemData.rest)}

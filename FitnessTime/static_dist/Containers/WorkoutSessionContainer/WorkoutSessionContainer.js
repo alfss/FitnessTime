@@ -16,7 +16,6 @@ class WorkoutSessionsContainer extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.results);
         this.setState({
           workoutSessionData: data.results
         });
