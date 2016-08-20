@@ -24,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions")
+        loader: extractCSS.extract("css?sourceMap!postcss")
       },
       {
         test: /\.scss$/,
