@@ -3,6 +3,7 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
 const LiveReloadPlugin = require("webpack-livereload-plugin");
+const autoprefixer = require("autoprefixer");
 
 module.exports = {
   entry: "./FitnessTime/static_dist/main.js",
@@ -27,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: extractCSS.extract("css?sourceMap!autoprefixer?browsers=last 2 versions!resolve-url!sass?sourceMap")
+        loader: extractCSS.extract("css?sourceMap!postcss!resolve-url!sass?sourceMap")
       },
       {
         test: /\.svg$/,
@@ -36,12 +37,16 @@ module.exports = {
     ]
   },
 
+  postcss() {
+    return [autoprefixer({ browsers: ["last 2 versions"] })];
+  },
+
   plugins: [
+    new LiveReloadPlugin({appendScriptTag : true}),
     new webpack.ProvidePlugin({
       $: "jquery/dist/jquery.min",
       React: "react"
     }),
-    extractCSS,
-    new LiveReloadPlugin({appendScriptTag : true})
+    extractCSS
   ]
 };
