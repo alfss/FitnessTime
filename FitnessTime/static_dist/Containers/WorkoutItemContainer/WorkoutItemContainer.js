@@ -10,11 +10,11 @@ class WorkoutItemContainer extends React.Component {
     this.state = { isModalOpen: false };
   }
   openModal () {
-    this.setState({isModalOpen: true});
+    this.setState({ isModalOpen: true });
   }
 
   closeModal () {
-    this.setState({isModalOpen: false});
+    this.setState({ isModalOpen: false });
   }
 
   toggleOpenFullData(e) {
@@ -38,22 +38,21 @@ class WorkoutItemContainer extends React.Component {
   }
 
   formatRestTimer(time) {
-    let minutes = parseInt(time / 60000);
+    let minutes = parseInt(time / 60);
     if (minutes < 10) minutes = `0${minutes}`;
-    let seconds = (time  - minutes*60000) / 1000;
+    let seconds = (time  - minutes * 60);
     if (seconds < 10) seconds = `0${seconds}`;
-    return minutes + ":" + seconds;
+    return `${minutes}:${seconds}`;
   }
 
   render() {
-    console.log(this.props);
     return (
       <WorkoutItem
         id={this.props.workoutItemData.uuid}
         image={this.props.workoutItemData.example_photo}
         title={this.props.workoutItemData.title}
         repeats={this.props.workoutItemData.repeat}
-        rest={this.formatRestTimer(this.props.workoutItemData.rest)}
+        rest={this.formatRestTimer(this.props.workoutItemData.rest_time)}
         weight={this.props.workoutItemData.weight}
         toggleOpenFullData={this.toggleOpenFullData}
 
