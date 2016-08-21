@@ -26,7 +26,7 @@ function Form (props) {
         formTypes[formType].map( (data, i) => {
           return <label key={i} className="form__label">
             {data.label}:
-            <input type={data.type} className={`form__input ${data.classes}`} value="" />
+            <input type={data.type} onChange={props.handleInputChange} className={`form__input ${data.classes}`} value={props.inputValue} />
           </label>;
         })
       }

@@ -7,14 +7,19 @@ class Form extends React.Component {
     super();
     this.createSession = this.createSession.bind(this);
     this.getCookie = this.getCookie.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = {title: ""};
   }
 
   componentWillMount() {
-    console.log(this.props.routeParams.form);
     //TODO Делать запрос для редактирования формы
     if (this.props.params.id) {
       console.log("Делаю запрос");
     }
+  }
+
+  handleInputChange(event) {
+    this.setState({ title: event.target.value });
   }
 
   getCookie(name) {
@@ -47,6 +52,8 @@ class Form extends React.Component {
       <FormComponent
         formType={this.props.routeParams.form}
         saveForm={this.createSession}
+        handleInputChange={this.handleInputChange}
+        inputValue={this.state.title}
       />
     );
   }
