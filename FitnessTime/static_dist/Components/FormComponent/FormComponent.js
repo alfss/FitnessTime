@@ -14,7 +14,7 @@ const formTypes = {
     { label: "Фото", type: "file", classes: "form__input_file" }
   ],
   session: [
-    { label: "Название трениров", type: "text", classes: "" }
+    { label: "Название трениров", type: "text", classes: "form__session-title" }
   ]
 };
 
@@ -31,7 +31,7 @@ function Form (props) {
         })
       }
       <div className="form__controls">
-        <Button name="Save" type="submit"/>
+        <Button name="Save" action={props.saveForm}/>
         <Button name="Cancel" classes="button_cancel"/>
       </div>
     </form>
