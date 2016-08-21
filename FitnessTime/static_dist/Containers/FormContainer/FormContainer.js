@@ -8,7 +8,8 @@ class Form extends React.Component {
     this.createSession = this.createSession.bind(this);
     this.getCookie = this.getCookie.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = {title: ""};
+    this.cancelCreate = this.cancelCreate.bind(this);
+    this.state = {};
   }
 
   componentWillMount() {
@@ -18,8 +19,8 @@ class Form extends React.Component {
     }
   }
 
-  handleInputChange(event) {
-    this.setState({ title: event.target.value });
+  handleInputChange(e) {
+    this.setState({ [e.target.name] : e.target.value });
   }
 
   getCookie(name) {
@@ -31,10 +32,11 @@ class Form extends React.Component {
 
   createSession(e) {
     e.preventDefault();
+    const sessionUrl = "/api/v1/workout/training/";
     const csrfToken = this.getCookie("csrftoken");
-    const sessionTitle = document.querySelector(".form__session-title").value;
+    const sessionTitle = this.state.sessionTitle;
 
-    fetch("/api/v1/workout/training/", {
+    fetch(sessionUrl, {
       credentials: "include",
       method: "POST",
       headers: {
@@ -47,6 +49,11 @@ class Form extends React.Component {
     .then(data => console.log(data));
   }
 
+  cancelCreate(e) {
+    e.preventDefault();
+    console.log(this.state);
+  }
+
   render() {
     return (
       <FormComponent
@@ -54,6 +61,7 @@ class Form extends React.Component {
         saveForm={this.createSession}
         handleInputChange={this.handleInputChange}
         inputValue={this.state.title}
+        cancelCreate={this.cancelCreate}
       />
     );
   }

@@ -8,13 +8,14 @@ const propTypes = {
 
 const formTypes = {
   workout: [
-    { label: "Повторы", type: "text", classes: "" },
-    { label: "Вес", type: "text", classes: "" },
-    { label: "Отдых", type: "text", classes: "" },
-    { label: "Фото", type: "file", classes: "form__input_file" }
+    { label: "Название", name: "workoutTitle", type: "text", classes: ""},
+    { label: "Повторы", name: "workoutRepeats", type: "text", classes: "" },
+    { label: "Вес", name: "workoutWeight", type: "text", classes: "" },
+    { label: "Отдых", name: "workoutRest", type: "text", classes: "" },
+    { label: "Фото", name: "workoutPhoto", type: "file", classes: "form__input_file" }
   ],
   session: [
-    { label: "Название трениров", type: "text", classes: "form__session-title" }
+    { label: "Название трениров", name:"sessionTitle", type: "text", classes: "form__session-title" }
   ]
 };
 
@@ -26,13 +27,19 @@ function Form (props) {
         formTypes[formType].map( (data, i) => {
           return <label key={i} className="form__label">
             {data.label}:
-            <input type={data.type} onChange={props.handleInputChange} className={`form__input ${data.classes}`} value={props.inputValue} />
+            <input
+              type={data.type}
+              name={data.name}
+              onChange={props.handleInputChange}
+              className={`form__input ${data.classes}`}
+              value={props.inputValue}
+            />
           </label>;
         })
       }
       <div className="form__controls">
         <Button name="Save" action={props.saveForm}/>
-        <Button name="Cancel" classes="button_cancel"/>
+        <Button name="Cancel" action={props.cancelCreate} classes="button_cancel"/>
       </div>
     </form>
   );
