@@ -37,6 +37,8 @@ module.exports = {
     ]
   },
 
+  devtool: "inline-source-map",
+
   postcss() {
     return [autoprefixer({ browsers: ["last 2 versions"] })];
   },
