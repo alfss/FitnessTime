@@ -9,7 +9,7 @@ const propTypes = {
 };
 
 function Button (props) {
-  const classes = `button ${props.classes}`;
+  const classes = props.classes ? `button ${props.classes}` : "button";
   return (
     <button type={props.type} className={classes} onClick={props.action} disabled={props.isDisabled}>{props.name}</button>
   );
