@@ -55,7 +55,6 @@ class WorkoutItemContainer extends React.Component {
         rest={this.formatRestTimer(this.props.workoutItemData.rest_time)}
         weight={this.props.workoutItemData.weight}
         toggleOpenFullData={this.toggleOpenFullData}
-
         isModalOpen={this.state.isModalOpen}
         openModal={this.openModal}
         closeModal={this.closeModal}

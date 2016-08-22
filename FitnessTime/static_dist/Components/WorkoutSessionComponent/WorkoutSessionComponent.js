@@ -11,9 +11,14 @@ function WorkoutSession (props) {
     <div className="workout-session">
       {
         props.workoutSessionData.map( data => {
-          return <Link to={"workout/" + data.uuid} key={data.uuid} className="workout-session__item">
-            {data.title}
-          </Link>;
+          return (
+            <div className="workout-session__item" key={data.uuid}>
+              <Link to={"workout/" + data.uuid} className="workout-session__item-link">
+              {data.title}
+              </Link>
+              <button className="workout-session__close-btn" onClick={props.deleteSession(data.uuid)}></button>
+            </div>
+          );
         })
       }
       <Link to="/form/session" className="button button_add">

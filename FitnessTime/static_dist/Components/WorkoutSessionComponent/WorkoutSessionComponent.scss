@@ -2,11 +2,27 @@
   text-align: center;
 
   &__item {
+    position: relative;
+  }
+
+  &__item-link {
     display: block;
     color: $text-color;
     border-bottom: 2px solid $material-blue-rgba-medium;
     padding: $gutter-big;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  &__close-btn {
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $white;
+    border: none;
+    background: url(cross.svg) no-repeat center;
+    background-size: 25px;
   }
 }
