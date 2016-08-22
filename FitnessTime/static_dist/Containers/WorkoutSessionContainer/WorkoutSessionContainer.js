@@ -31,7 +31,6 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleDeletingSession(sessionId) {
     return () => {
-
       fetch(`/api/v1/workout/training/${sessionId}`, {
         credentials: "include",
         method: "DELETE",
@@ -40,7 +39,12 @@ class WorkoutSessionsContainer extends React.Component {
           "X-CSRFToken": Token
         }
       })
-      .then(data => console.log(data));
+      .then(data => {
+        const newState = this.state.workoutSessionData.filter(session => !(session.url === data.url));
+        this.setState({
+          workoutSessionData: newState
+        });
+      });
     };
   }
 
