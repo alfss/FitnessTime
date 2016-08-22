@@ -33,10 +33,13 @@ class WorkoutContainer extends React.Component {
         }
       })
       .then(data => {
-        const newState = this.state.workoutData.filter(session => !(session.url === data.url));
-        this.setState({
-          workoutData: newState
-        });
+        if (data.status === 204) {
+          console.log(data);
+          const newState = this.state.workoutData.filter(session => !(session.url === data.url));
+          this.setState({
+            workoutData: newState
+          });
+        }
       });
     };
   }
