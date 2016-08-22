@@ -8,11 +8,11 @@ const propTypes = {
 
 const formTypes = {
   workout: [
-    { label: "Название", name: "workoutTitle", type: "text", classes: ""},
-    { label: "Повторы", name: "workoutRepeats", type: "text", classes: "" },
-    { label: "Вес", name: "workoutWeight", type: "text", classes: "" },
-    { label: "Отдых", name: "workoutRest", type: "text", classes: "" },
-    { label: "Фото", name: "workoutPhoto", type: "file", classes: "form__input_file" }
+    { label: "Название", name: "title", type: "text", classes: ""},
+    { label: "Повторы", name: "repeat", type: "text", classes: "" },
+    { label: "Вес", name: "weight", type: "text", classes: "" },
+    { label: "Отдых", name: "rest_time", type: "text", classes: "" },
+    { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file" }
   ],
   session: [
     { label: "Название трениров", name:"sessionTitle", type: "text", classes: "form__session-title" }
@@ -37,7 +37,7 @@ function Form (props) {
               name={data.name}
               onChange={props.handleInputChange}
               className={`form__input ${data.classes}`}
-              value={props.inputValue}
+              value={props.inputValue[data.name] || ""}
             />
           </label>;
         })

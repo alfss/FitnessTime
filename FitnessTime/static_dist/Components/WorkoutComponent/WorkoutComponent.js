@@ -8,7 +8,6 @@ const propTypes = {
 };
 
 function Workout (props) {
-  console.log(props);
   return (
     <div className="workout">
       {

@@ -15,7 +15,6 @@ class Form extends React.Component {
 
   componentWillMount() {
     //TODO Делать запрос для редактирования формы
-    console.log(this.props.params.id);
     if (this.props.params.id) {
       console.log("Делаю запрос");
     }
@@ -55,22 +54,17 @@ class Form extends React.Component {
     e.preventDefault();
     const sessionUrl = "/api/v1/workout/exercise/";
     const csrfToken = this.getCookie("csrftoken");
-    console.log(this.state);
+    const formData = new FormData(document.querySelector(".form"));
+    formData.append("training", this.props.params.id);
+
     fetch(sessionUrl, {
       credentials: "include",
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Accept": "application/json, application/xml, text/plain, text/html",
         "X-CSRFToken": csrfToken
       },
-      body: JSON.stringify({
-        title: this.state.workoutTitle,
-        repeat: this.state.workoutRepeats,
-        weight: +this.state.workoutWeight,
-        rest_time: +this.state.workoutRest,
-        example_photo: document.querySelector(".form__input_file").files[0],
-        training: this.props.params.id
-      })
+      body: formData
     })
     .then(data => data.json())
     .then(data => console.log(data));
@@ -88,7 +82,7 @@ class Form extends React.Component {
         createSession={this.createSession}
         createWorkout={this.createWorkout}
         handleInputChange={this.handleInputChange}
-        inputValue={this.state.title}
+        inputValue={this.state}
         cancelCreate={this.cancelCreate}
       />
     );
