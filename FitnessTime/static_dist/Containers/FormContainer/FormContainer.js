@@ -1,11 +1,11 @@
 "use strict";
 
 import FormComponent from "../../Components/FormComponent/FormComponent";
+import Token from "../../getCSRFToken";
 
 class Form extends React.Component {
   constructor() {
     super();
-    this.getCookie = this.getCookie.bind(this);
     this.createSession = this.createSession.bind(this);
     this.createWorkout = this.createWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,24 +25,16 @@ class Form extends React.Component {
     console.log(this.state);
   }
 
-  getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-
   createSession(e) {
     e.preventDefault();
     const sessionUrl = "/api/v1/workout/training/";
-    const csrfToken = this.getCookie("csrftoken");
 
     fetch(sessionUrl, {
       credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken
+        "X-CSRFToken": Token
       },
       body: JSON.stringify({ "title" : this.state.title })
     })
@@ -53,7 +45,6 @@ class Form extends React.Component {
   createWorkout(e) {
     e.preventDefault();
     const sessionUrl = "/api/v1/workout/exercise/";
-    const csrfToken = this.getCookie("csrftoken");
     const formData = new FormData(document.querySelector(".form"));
     formData.append("training", this.props.params.id);
 
@@ -62,7 +53,7 @@ class Form extends React.Component {
       method: "POST",
       headers: {
         "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": csrfToken
+        "X-CSRFToken": Token
       },
       body: formData
     })
