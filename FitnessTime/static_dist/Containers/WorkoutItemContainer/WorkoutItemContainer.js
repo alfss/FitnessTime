@@ -1,10 +1,12 @@
 import WorkoutItem from "../../Components/WorkoutItemComponent/WorkoutItemComponent";
+import Token from "../../getCSRFToken";
 
 class WorkoutItemContainer extends React.Component {
   constructor() {
     super();
     this.toggleOpenFullData = this.toggleOpenFullData.bind(this);
     this.formatRestTimer = this.formatRestTimer.bind(this);
+    this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = { isModalOpen: false };
@@ -15,6 +17,20 @@ class WorkoutItemContainer extends React.Component {
 
   closeModal () {
     this.setState({ isModalOpen: false });
+  }
+
+  handleDeletingWorkoutItem(itemId) {
+    return () => {
+      fetch(`/api/v1/workout/exercise/${itemId}`, {
+        credentials: "include",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Token
+        }
+      })
+      .then(data => console.log(data));
+    };
   }
 
   toggleOpenFullData(e) {
@@ -58,6 +74,7 @@ class WorkoutItemContainer extends React.Component {
         isModalOpen={this.state.isModalOpen}
         openModal={this.openModal}
         closeModal={this.closeModal}
+        deletItem={this.handleDeletingWorkoutItem}
       />
     );
   }

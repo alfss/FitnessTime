@@ -35,7 +35,7 @@ function WorkoutItem (props) {
           <Link to={`/form/workout/${props.id}`}>
             <button className="workout__control-button workout__control-button_edit"></button>
           </Link>
-          <button className="workout__control-button workout__control-button_delete" onClick={props.log}></button>
+          <button className="workout__control-button workout__control-button_delete" onClick={props.deletItem(props.id)}></button>
         </div>
       </div>
       <Modal isOpen={props.isModalOpen} onRequestClose={props.closeModal} overlayClassName="modal__overlay" className="modal__content">
