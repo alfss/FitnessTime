@@ -22,6 +22,7 @@ class Form extends React.Component {
 
   handleInputChange(e) {
     this.setState({ [e.target.name] : e.target.value });
+    console.log(this.state);
   }
 
   getCookie(name) {
@@ -35,7 +36,6 @@ class Form extends React.Component {
     e.preventDefault();
     const sessionUrl = "/api/v1/workout/training/";
     const csrfToken = this.getCookie("csrftoken");
-    const sessionTitle = this.state.sessionTitle;
 
     fetch(sessionUrl, {
       credentials: "include",
@@ -44,7 +44,7 @@ class Form extends React.Component {
         "Content-Type": "application/json",
         "X-CSRFToken": csrfToken
       },
-      body: JSON.stringify({ title: sessionTitle })
+      body: JSON.stringify({ "title" : this.state.title })
     })
     .then(data => data.json())
     .then(data => console.log(data));

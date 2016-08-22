@@ -15,7 +15,7 @@ const formTypes = {
     { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file" }
   ],
   session: [
-    { label: "Название трениров", name:"sessionTitle", type: "text", classes: "form__session-title" }
+    { label: "Название трениров", name:"title", type: "text", classes: "form__session-title" }
   ]
 };
 
