@@ -2,6 +2,7 @@
 
 import FormComponent from "../../Components/FormComponent/FormComponent";
 import Token from "../../getCSRFToken";
+import { withRouter } from "react-router";
 
 class Form extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props);
     //TODO Делать запрос для редактирования формы
     if (this.props.params.id) {
       console.log("Делаю запрос");
@@ -22,7 +24,6 @@ class Form extends React.Component {
 
   handleInputChange(e) {
     this.setState({ [e.target.name] : e.target.value });
-    console.log(this.state);
   }
 
   createSession(e) {
@@ -38,8 +39,11 @@ class Form extends React.Component {
       },
       body: JSON.stringify({ "title" : this.state.title })
     })
-    .then(data => data.json())
-    .then(data => console.log(data));
+    .then(data => {
+      if (data.status === 201) {
+        this.props.router.push("/");
+      }
+    });
   }
 
   createWorkout(e) {
@@ -80,4 +84,4 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+export default withRouter(Form);
