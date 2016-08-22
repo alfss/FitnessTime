@@ -61,8 +61,11 @@ class Form extends React.Component {
       },
       body: formData
     })
-    .then(data => data.json())
-    .then(data => console.log(data));
+    .then(data => {
+      if (data.status === 201) {
+        data.json().then(value => this.props.router.push(`/workout/${value.training}`));
+      }
+    });
   }
 
   cancelCreate(e) {
