@@ -15,6 +15,7 @@ function Workout (props) {
           return <WorkoutItem
             key={data.uuid}
             workoutItemData={data}
+            deleteItem={props.deleteItem}
           />;
         })
       }

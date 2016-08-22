@@ -1,8 +1,10 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
+import Token from "../../getCSRFToken";
 
 class WorkoutContainer extends React.Component {
   constructor() {
     super();
+    this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
     this.state = { workoutData: [] };
   }
 
@@ -19,6 +21,26 @@ class WorkoutContainer extends React.Component {
     );
   }
 
+
+  handleDeletingWorkoutItem(itemId) {
+    return () => {
+      fetch(`/api/v1/workout/exercise/${itemId}`, {
+        credentials: "include",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Token
+        }
+      })
+      .then(data => {
+        const newState = this.state.workoutData.filter(session => !(session.url === data.url));
+        this.setState({
+          workoutData: newState
+        });
+      });
+    };
+  }
+
   componentDidMount() {
     this.loadWorkoutData();
   }
@@ -28,6 +50,7 @@ class WorkoutContainer extends React.Component {
       <Workout
         workoutData={this.state.workoutData}
         sessionId={this.props.params.id}
+        deleteItem={this.handleDeletingWorkoutItem}
       />
     );
   }
