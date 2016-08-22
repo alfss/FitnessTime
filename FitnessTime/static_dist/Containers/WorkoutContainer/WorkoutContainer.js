@@ -27,6 +27,7 @@ class WorkoutContainer extends React.Component {
     return (
       <Workout
         workoutData={this.state.workoutData}
+        sessionId={this.props.params.id}
       />
     );
   }

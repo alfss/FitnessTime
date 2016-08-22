@@ -5,8 +5,9 @@ import FormComponent from "../../Components/FormComponent/FormComponent";
 class Form extends React.Component {
   constructor() {
     super();
-    this.createSession = this.createSession.bind(this);
     this.getCookie = this.getCookie.bind(this);
+    this.createSession = this.createSession.bind(this);
+    this.createWorkout = this.createWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.cancelCreate = this.cancelCreate.bind(this);
     this.state = {};
@@ -14,6 +15,7 @@ class Form extends React.Component {
 
   componentWillMount() {
     //TODO Делать запрос для редактирования формы
+    console.log(this.props.params.id);
     if (this.props.params.id) {
       console.log("Делаю запрос");
     }
@@ -49,6 +51,31 @@ class Form extends React.Component {
     .then(data => console.log(data));
   }
 
+  createWorkout(e) {
+    e.preventDefault();
+    const sessionUrl = "/api/v1/workout/exercise/";
+    const csrfToken = this.getCookie("csrftoken");
+    console.log(this.state);
+    fetch(sessionUrl, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken
+      },
+      body: JSON.stringify({
+        title: this.state.workoutTitle,
+        repeat: this.state.workoutRepeats,
+        weight: +this.state.workoutWeight,
+        rest_time: +this.state.workoutRest,
+        example_photo: document.querySelector(".form__input_file").files[0],
+        training: this.props.params.id
+      })
+    })
+    .then(data => data.json())
+    .then(data => console.log(data));
+  }
+
   cancelCreate(e) {
     e.preventDefault();
     console.log(this.state);
@@ -58,7 +85,8 @@ class Form extends React.Component {
     return (
       <FormComponent
         formType={this.props.routeParams.form}
-        saveForm={this.createSession}
+        createSession={this.createSession}
+        createWorkout={this.createWorkout}
         handleInputChange={this.handleInputChange}
         inputValue={this.state.title}
         cancelCreate={this.cancelCreate}

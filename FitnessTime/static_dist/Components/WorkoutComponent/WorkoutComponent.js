@@ -8,6 +8,7 @@ const propTypes = {
 };
 
 function Workout (props) {
+  console.log(props);
   return (
     <div className="workout">
       {
@@ -18,7 +19,7 @@ function Workout (props) {
           />;
         })
       }
-      <Link to="/form/workout" className="button button_add">
+      <Link to={`/form/workout/${props.sessionId}`} className="button button_add">
         Новое упражнение
       </Link>
     </div>
