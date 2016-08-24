@@ -20,7 +20,15 @@ class Form extends React.Component {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
       .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId ))
-      .then(data => this.setState(data[0]));
+      .then(data => {
+        this.setState({
+          title: data[0].title,
+          repeat: data[0].repeat,
+          rest_time: data[0].rest_time,
+          weight: data[0].weight,
+          uuid: data[0].uuid
+        });
+      });
     }
   }
 
