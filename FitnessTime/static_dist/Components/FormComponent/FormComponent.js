@@ -22,9 +22,13 @@ const formTypes = {
 function Form (props) {
   const formType = props.formType;
   let action;
-  switch (formType) {
-    case ("workout"): action = props.createWorkout; break;
-    case ("session"): action = props.createSession; break;
+  if (props.editForm) {
+    action = props.editWorkout;
+  } else {
+    switch (formType) {
+      case ("session"): action = props.createSession; break;
+      case ("workout"): action = props.createWorkout; break;
+    }
   }
   return (
     <form className="form">
@@ -43,7 +47,7 @@ function Form (props) {
         })
       }
       <div className="form__controls">
-        <Button name="Save" action={props.editWorkout}/>
+        <Button name="Save" action={action}/>
         <Button name="Cancel" action={props.cancelCreate} classes="button_cancel"/>
       </div>
     </form>

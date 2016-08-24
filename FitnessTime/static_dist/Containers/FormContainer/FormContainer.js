@@ -85,7 +85,6 @@ class Form extends React.Component {
       },
       body: formData
     })
-    // .then(data => data.json())
     .then(data => {
       console.log(data);
     });
@@ -97,10 +96,11 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    const isFormEditing = this.props.params.exerciseId ? true : false;
     return (
       <FormComponent
-        formType={this.props.routeParams.form}
+        formType={this.props.params.form}
+        editForm={isFormEditing}
         createSession={this.createSession}
         createWorkout={this.createWorkout}
         editWorkout={this.editWorkout}
