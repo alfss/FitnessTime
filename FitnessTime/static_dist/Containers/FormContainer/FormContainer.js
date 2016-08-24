@@ -9,13 +9,13 @@ class Form extends React.Component {
     super();
     this.createSession = this.createSession.bind(this);
     this.createWorkout = this.createWorkout.bind(this);
+    this.editWorkout = this.editWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.cancelCreate = this.cancelCreate.bind(this);
     this.state = {};
   }
 
   componentWillMount() {
-    console.log(this.props);
     if (this.props.params.exerciseId) {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
@@ -70,6 +70,27 @@ class Form extends React.Component {
     });
   }
 
+  editWorkout(e) {
+    e.preventDefault();
+    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.uuid}/`;
+    const formData = new FormData(document.querySelector(".form"));
+    formData.append("training", this.props.params.id);
+
+    fetch(workoutItemUrl, {
+      credentials: "include",
+      method: "PUT",
+      headers: {
+        "Accept": "application/json, application/xml, text/plain, text/html",
+        "X-CSRFToken": Token
+      },
+      body: formData
+    })
+    // .then(data => data.json())
+    .then(data => {
+      console.log(data);
+    });
+  }
+
   cancelCreate(e) {
     e.preventDefault();
     console.log(this.state);
@@ -82,6 +103,7 @@ class Form extends React.Component {
         formType={this.props.routeParams.form}
         createSession={this.createSession}
         createWorkout={this.createWorkout}
+        editWorkout={this.editWorkout}
         handleInputChange={this.handleInputChange}
         inputValue={this.state}
         cancelCreate={this.cancelCreate}
