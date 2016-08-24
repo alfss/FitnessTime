@@ -7,11 +7,6 @@ docker-compose build
 
 docker-compose up -d
 
-## Webpack build and watch
-
-npm start
-
-
 ## only first time
 docker exec -it fitnesstime_postgres_1 psql -U postgres -c "create database fitness_time"
 
@@ -26,6 +21,10 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
 >
 >Superuser created successfully.
 
+## Build static
+- `npm install` - only first time, to pull all dependencies.
+- `webpack` - to build project.
+- `npm start` - to enter in develop mode (build static and start watchers)
 
 ## directory structure
 
