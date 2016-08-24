@@ -32,7 +32,7 @@ function WorkoutItem (props) {
         </div>
         <Stopwatch rest={props.rest} repeats={props.repeats}/>
         <div className="workout__controls">
-          <Link to={`/form/workout/${props.id}`}>
+          <Link to={`/form/workout/${props.training}/${props.id}`}>
             <button className="workout__control-button workout__control-button_edit"></button>
           </Link>
           <button className="workout__control-button workout__control-button_delete" onClick={props.deleteItem(props.id)}></button>

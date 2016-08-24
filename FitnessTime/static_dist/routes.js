@@ -13,7 +13,9 @@ const routes = (
     <Route path="/" component={App}>
       <IndexRoute component={WorkoutSession}/>
       <Route path="/workout/:id" component={Workout}/>
-      <Route path="/form/:form(/:id)" component={Form} />
+      <Route path="/form/:form(/:id)" component={Form}>
+        <Route path="/form/:form/:id/:exerciseId" component={Form} />
+      </Route>
       <Route path="*" component={NotFound404}/>
     </Route>
   </Router>

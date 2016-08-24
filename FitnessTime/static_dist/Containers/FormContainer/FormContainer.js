@@ -16,9 +16,11 @@ class Form extends React.Component {
 
   componentWillMount() {
     console.log(this.props);
-    //TODO Делать запрос для редактирования формы
-    if (this.props.params.id) {
-      console.log("Делаю запрос");
+    if (this.props.params.exerciseId) {
+      fetch(`/api/v1/workout/training/${this.props.params.id}`)
+      .then(data => data.json())
+      .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId ))
+      .then(data => this.setState(data[0]));
     }
   }
 
@@ -74,6 +76,7 @@ class Form extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <FormComponent
         formType={this.props.routeParams.form}
