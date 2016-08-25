@@ -10,6 +10,7 @@ class WorkoutSessionsContainer extends React.Component {
     this.handleDeletingSession = this.handleDeletingSession.bind(this);
     this.handleSwitchPage = this.handleSwitchPage.bind(this);
     this.goToNextPage = this.goToNextPage.bind(this);
+    this.goToPreviousPage = this.goToPreviousPage.bind(this);
     this.state = {
       pages: 1,
       previous: null,
@@ -91,6 +92,28 @@ class WorkoutSessionsContainer extends React.Component {
       }
     );
   }
+  goToPreviousPage() {
+    if (this.state.previous === null) return;
+    const previousPage = this.state.previous.match(/page=(\d*)/i);
+    const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
+    this.props.router.push(pageUrl);
+
+    fetch(this.state.previous, {
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(data => {
+        let pages = parseInt(data.count / 10);
+        if (data.count % 10) ++pages;
+        this.setState({
+          pages: pages,
+          previous: data.previous,
+          next: data.next,
+          workoutSessionData: data.results
+        });
+      }
+    );
+  }
 
   handleDeletingSession(sessionId) {
     return () => {
@@ -123,6 +146,7 @@ class WorkoutSessionsContainer extends React.Component {
         pages={this.state.pages}
         switchPage={this.handleSwitchPage}
         nextPage={this.goToNextPage}
+        previousPage={this.goToPreviousPage}
         deleteSession={this.handleDeletingSession}
       />
     );
