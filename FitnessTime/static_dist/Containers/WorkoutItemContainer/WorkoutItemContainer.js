@@ -5,18 +5,13 @@ class WorkoutItemContainer extends React.Component {
     super();
     this.toggleOpenFullData = this.toggleOpenFullData.bind(this);
     this.formatRestTimer = this.formatRestTimer.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     this.state = { isModalOpen: false };
   }
-  openModal () {
-    this.setState({ isModalOpen: true });
-  }
 
-  closeModal () {
-    this.setState({ isModalOpen: false });
+  toggleModal () {
+    this.setState({ isModalOpen: !this.state.isModalOpen});
   }
-
 
   toggleOpenFullData(e) {
     const fullDataNodes = document.querySelectorAll(".workout__full-data");
@@ -59,8 +54,7 @@ class WorkoutItemContainer extends React.Component {
         training={this.props.workoutItemData.training}
         toggleOpenFullData={this.toggleOpenFullData}
         isModalOpen={this.state.isModalOpen}
-        openModal={this.openModal}
-        closeModal={this.closeModal}
+        toggleModal={this.toggleModal}
         deleteItem={this.props.deleteItem}
       />
     );

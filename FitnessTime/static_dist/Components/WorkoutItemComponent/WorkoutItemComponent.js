@@ -27,7 +27,7 @@ function WorkoutItem (props) {
             <div className="workout__rest"><span className="workout__description-name">Отдых:</span>{props.rest}</div>
           </div>
           <div className="workout__image">
-            <img width="100" height="100" src={props.image} onClick={props.openModal} />
+            <img width="100" height="100" src={props.image} onClick={props.toggleModal} />
           </div>
         </div>
         <Stopwatch rest={props.rest} repeats={props.repeats}/>
@@ -38,7 +38,7 @@ function WorkoutItem (props) {
           <button className="workout__control-button workout__control-button_delete" onClick={props.deleteItem(props.id)}></button>
         </div>
       </div>
-      <Modal isOpen={props.isModalOpen} onRequestClose={props.closeModal} overlayClassName="modal__overlay" className="modal__content">
+      <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
         <img src={props.image} className="modal__image" />
       </Modal>
     </div>
