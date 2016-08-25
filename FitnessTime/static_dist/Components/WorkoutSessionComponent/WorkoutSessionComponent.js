@@ -9,7 +9,6 @@ const propTypes = {
 };
 
 function WorkoutSession (props) {
-  console.log(props);
   const pagination = props.pages <= 1
     ? null
     : <Pagination
