@@ -13,6 +13,7 @@ const propTypes = {
 
 function WorkoutItem (props) {
   Modal.setAppElement("body");
+  console.log(props.data.example_photo);
   return (
     <div className="workout__item" key={props.data.uuid}>
       <div className="workout__name" onClick={props.toggleOpenFullData}>
@@ -25,8 +26,8 @@ function WorkoutItem (props) {
             <div className="workout__weight"><span className="workout__description-name">Вес:</span>{props.data.weight}</div>
             <div className="workout__rest"><span className="workout__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
           </div>
-          <div className="workout__image">
-            <img width="100" height="100" src={props.data.example_photo} onClick={props.toggleModal} />
+          <div className={props.data.example_photo ? "workout__image" : "workout__no-image"}>
+            <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
           </div>
         </div>
         <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
