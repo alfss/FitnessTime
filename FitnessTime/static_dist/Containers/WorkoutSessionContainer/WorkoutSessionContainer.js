@@ -42,13 +42,16 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleSwitchPage(page) {
     return () => {
-      const pageUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
-      this.props.router.push((page === 1) ? "/" :`/page${page}`);
-      fetch(pageUrl, {
+      if (+this.props.params.page === page) return;
+      const fetchUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
+      const pageUrl = (page === 1) ? "/" :`/page${page}`;
+
+      this.props.router.push(pageUrl);
+      fetch(fetchUrl, {
         credentials: "include"
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           let pages = parseInt(data.count / 10);
           if (data.count % 10) ++pages;
           console.log(pages);
