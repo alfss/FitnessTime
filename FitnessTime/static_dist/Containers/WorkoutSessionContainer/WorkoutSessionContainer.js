@@ -42,8 +42,9 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleSwitchPage(page) {
     return () => {
-      this.props.router.push(`/page${page}`);
-      fetch(`/api/v1/workout/training/?page=${page}`, {
+      const pageUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
+      this.props.router.push((page === 1) ? "/" :`/page${page}`);
+      fetch(pageUrl, {
         credentials: "include"
       })
         .then((response) => response.json())
@@ -60,11 +61,6 @@ class WorkoutSessionsContainer extends React.Component {
         }
       );
     };
-  }
-
-  componentWillReceiveProps(){
-    console.log("recieved");
-    //this.loadWorkoutSessionData();
   }
 
   componentDidMount() {
