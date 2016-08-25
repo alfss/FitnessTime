@@ -4,7 +4,9 @@ import { Link } from "react-router";
 import WorkoutItem from "../../Containers/WorkoutItemContainer/WorkoutItemContainer";
 
 const propTypes = {
-  workoutData: React.PropTypes.array.isRequired
+  workoutData: React.PropTypes.array.isRequired,
+  sessionId: React.PropTypes.string.isRequired,
+  deleteItem: React.PropTypes.func.isRequired
 };
 
 function Workout (props) {
