@@ -1,6 +1,7 @@
 "use strict";
 
 import { Link } from "react-router";
+import Pagination from "../../Components/PaginationComponent/PaginationComponent";
 
 const propTypes = {
   workoutSessionData: React.PropTypes.array.isRequired,
@@ -10,17 +11,7 @@ const propTypes = {
 function WorkoutSession (props) {
   return (
     <div className="workout-session">
-        <ul className="workout-session__pagination">
-          <li><a className="workout-session__page-nav" href="#">«</a></li>
-          <li><a className="workout-session__page workout-session__page_active" href="#">1</a></li>
-          <li><a className="workout-session__page" href="#">2</a></li>
-          <li><a className="workout-session__page" href="#">3</a></li>
-          <li><a className="workout-session__page" href="#">4</a></li>
-          <li><a className="workout-session__page" href="#">5</a></li>
-          <li><a className="workout-session__page" href="#">6</a></li>
-          <li><a className="workout-session__page" href="#">7</a></li>
-          <li><a className="workout-session__page-nav" href="#">»</a></li>
-        </ul>
+      <Pagination />
       {
         props.workoutSessionData.map( data => {
           return (
