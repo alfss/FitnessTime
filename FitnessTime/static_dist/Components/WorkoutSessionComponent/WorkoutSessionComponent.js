@@ -11,7 +11,7 @@ const propTypes = {
 function WorkoutSession (props) {
   return (
     <div className="workout-session">
-      <Pagination />
+      <Pagination pages="3"/>
       {
         props.workoutSessionData.map( data => {
           return (

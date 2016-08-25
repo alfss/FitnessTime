@@ -1,14 +1,9 @@
 function Pagination (props) {
+  const pages = [...Array(+props.pages)].map((x, i) => <li><a key={i} className="pagination__page" href="#">{i + 1}</a></li>);
   return (
     <ul className="pagination">
       <li><a className="pagination__page-nav" href="#">«</a></li>
-      <li><a className="pagination__page pagination__page_active" href="#">1</a></li>
-      <li><a className="pagination__page" href="#">2</a></li>
-      <li><a className="pagination__page" href="#">3</a></li>
-      <li><a className="pagination__page" href="#">4</a></li>
-      <li><a className="pagination__page" href="#">5</a></li>
-      <li><a className="pagination__page" href="#">6</a></li>
-      <li><a className="pagination__page" href="#">7</a></li>
+      {pages}
       <li><a className="pagination__page-nav" href="#">»</a></li>
     </ul>
   );
