@@ -19,26 +19,15 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.loadWorkoutSessionData();
+  }
+
   loadWorkoutSessionData() {
     const sessionUrl = this.props.params.page
       ? `/api/v1/workout/training/?page=${this.props.params.page}`
       : "/api/v1/workout/training/";
-    console.log(sessionUrl);
-    fetch(sessionUrl, {
-      credentials: "include"
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let pages = parseInt(data.count / 10);
-        if (data.count % 10) ++pages;
-        this.setState({
-          pages: pages,
-          previous: data.previous,
-          next: data.next,
-          workoutSessionData: data.results
-        });
-      }
-    );
+    this.fetchPageUrl(sessionUrl);
   }
 
   handleSwitchPage(page) {
@@ -47,58 +36,28 @@ class WorkoutSessionsContainer extends React.Component {
       if (!this.props.params.page && page === 1) return;
       const fetchUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
       const pageUrl = (page === 1) ? "/" :`/page${page}`;
-
       this.props.router.push(pageUrl);
-      fetch(fetchUrl, {
-        credentials: "include"
-      })
-        .then(response => response.json())
-        .then(data => {
-          let pages = parseInt(data.count / 10);
-          if (data.count % 10) ++pages;
-          this.setState({
-            pages: pages,
-            previous: data.previous,
-            next: data.next,
-            workoutSessionData: data.results
-          });
-        }
-      );
+      this.fetchPageUrl(fetchUrl);
     };
-  }
-
-  componentDidMount() {
-    this.loadWorkoutSessionData();
   }
 
   goToNextPage() {
     if (this.state.next === null) return;
     const nextPage = this.state.next.match(/page=(\d*)/i)[1];
     this.props.router.push(`/page${nextPage}`);
-
-    fetch(this.state.next, {
-      credentials: "include"
-    })
-      .then(response => response.json())
-      .then(data => {
-        let pages = parseInt(data.count / 10);
-        if (data.count % 10) ++pages;
-        this.setState({
-          pages: pages,
-          previous: data.previous,
-          next: data.next,
-          workoutSessionData: data.results
-        });
-      }
-    );
+    this.fetchPageUrl(this.state.next);
   }
+
   goToPreviousPage() {
     if (this.state.previous === null) return;
     const previousPage = this.state.previous.match(/page=(\d*)/i);
     const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
     this.props.router.push(pageUrl);
+    this.fetchPageUrl(this.state.previous);
+  }
 
-    fetch(this.state.previous, {
+  fetchPageUrl(url) {
+    fetch(url, {
       credentials: "include"
     })
       .then(response => response.json())
