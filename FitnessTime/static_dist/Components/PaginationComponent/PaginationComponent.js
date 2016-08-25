@@ -3,8 +3,8 @@ function Pagination (props) {
   return (
     <ul className="pagination">
       <li><a className="pagination__page-nav" href="#">«</a></li>
-      {pages}
-      <li><a className="pagination__page-nav" href="#">»</a></li>
+      { pages }
+      <li><a className="pagination__page-nav" onClick={props.nextPage} href="#">»</a></li>
     </ul>
   );
 }

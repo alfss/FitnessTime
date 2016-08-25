@@ -7,7 +7,13 @@ class WorkoutSessionsContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingSession = this.handleDeletingSession.bind(this);
-    this.state = { workoutSessionData: [] };
+    this.goToNextPage = this.goToNextPage.bind(this);
+    this.state = {
+      pages: 1,
+      previous: null,
+      next: null,
+      workoutSessionData: []
+    };
   }
 
   loadWorkoutSessionData() {
@@ -17,6 +23,9 @@ class WorkoutSessionsContainer extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
+          pages: parseInt(data.count / 10) + 1,
+          previous: data.previous,
+          next: data.next,
           workoutSessionData: data.results
         });
       }
@@ -25,6 +34,14 @@ class WorkoutSessionsContainer extends React.Component {
 
   componentDidMount() {
     this.loadWorkoutSessionData();
+  }
+
+  goToNextPage() {
+    fetch(this.state.next, {
+      credentials: "include"
+    })
+    .then(data => data.json())
+    .then(data => console.log(data));
   }
 
   handleDeletingSession(sessionId) {
@@ -52,9 +69,12 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <WorkoutSession
         workoutSessionData={this.state.workoutSessionData}
+        pages={this.state.pages}
+        nextPage={this.goToNextPage}
         deleteSession={this.handleDeletingSession}
       />
     );
