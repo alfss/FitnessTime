@@ -2,11 +2,13 @@
 
 import WorkoutSession from "../../Components/WorkoutSessionComponent/WorkoutSessionComponent";
 import Token from "../../getCSRFToken";
+import { withRouter } from "react-router";
 
 class WorkoutSessionsContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingSession = this.handleDeletingSession.bind(this);
+    this.handleSwitchPage = this.handleSwitchPage.bind(this);
     this.goToNextPage = this.goToNextPage.bind(this);
     this.state = {
       pages: 1,
@@ -17,19 +19,52 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   loadWorkoutSessionData() {
-    fetch("/api/v1/workout/training/", {
+    const sessionUrl = this.props.params.page
+      ? `/api/v1/workout/training/?page=${this.props.params.page}`
+      : "/api/v1/workout/training/";
+    console.log(sessionUrl);
+    fetch(sessionUrl, {
       credentials: "include"
     })
       .then((response) => response.json())
       .then((data) => {
+        let pages = parseInt(data.count / 10);
+        if (data.count % 10) ++pages;
         this.setState({
-          pages: parseInt(data.count / 10) + 1,
+          pages: pages,
           previous: data.previous,
           next: data.next,
           workoutSessionData: data.results
         });
       }
     );
+  }
+
+  handleSwitchPage(page) {
+    return () => {
+      this.props.router.push(`/page${page}`);
+      fetch(`/api/v1/workout/training/?page=${page}`, {
+        credentials: "include"
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          let pages = parseInt(data.count / 10);
+          if (data.count % 10) ++pages;
+          console.log(pages);
+          this.setState({
+            pages: pages,
+            previous: data.previous,
+            next: data.next,
+            workoutSessionData: data.results
+          });
+        }
+      );
+    };
+  }
+
+  componentWillReceiveProps(){
+    console.log("recieved");
+    //this.loadWorkoutSessionData();
   }
 
   componentDidMount() {
@@ -69,11 +104,11 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <WorkoutSession
         workoutSessionData={this.state.workoutSessionData}
         pages={this.state.pages}
+        switchPage={this.handleSwitchPage}
         nextPage={this.goToNextPage}
         deleteSession={this.handleDeletingSession}
       />
@@ -81,4 +116,4 @@ class WorkoutSessionsContainer extends React.Component {
   }
 }
 
-export default WorkoutSessionsContainer;
+export default withRouter(WorkoutSessionsContainer);

@@ -11,7 +11,7 @@ const propTypes = {
 function WorkoutSession (props) {
   return (
     <div className="workout-session">
-      <Pagination pages={props.pages} nextPage={props.nextPage}/>
+      <Pagination pages={props.pages} switchPage={props.switchPage} nextPage={props.nextPage}/>
       {
         props.workoutSessionData.map( data => {
           return (
