@@ -11,9 +11,7 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   loadWorkoutSessionData() {
-    const url = "/api/v1/workout/training/";
-
-    fetch(url, {
+    fetch("/api/v1/workout/training/", {
       credentials: "include"
     })
       .then((response) => response.json())
