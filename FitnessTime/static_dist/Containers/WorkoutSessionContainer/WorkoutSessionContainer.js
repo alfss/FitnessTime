@@ -71,11 +71,25 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   goToNextPage() {
+    if (this.state.next === null) return;
+    const nextPage = this.state.next.match(/page=(\d*)/i)[1];
+    this.props.router.push(`/page${nextPage}`);
+
     fetch(this.state.next, {
       credentials: "include"
     })
-    .then(data => data.json())
-    .then(data => console.log(data));
+      .then(response => response.json())
+      .then(data => {
+        let pages = parseInt(data.count / 10);
+        if (data.count % 10) ++pages;
+        this.setState({
+          pages: pages,
+          previous: data.previous,
+          next: data.next,
+          workoutSessionData: data.results
+        });
+      }
+    );
   }
 
   handleDeletingSession(sessionId) {
