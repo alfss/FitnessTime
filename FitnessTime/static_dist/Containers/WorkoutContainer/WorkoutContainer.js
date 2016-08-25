@@ -24,23 +24,26 @@ class WorkoutContainer extends React.Component {
 
   handleDeletingWorkoutItem(itemId) {
     return () => {
-      fetch(`/api/v1/workout/exercise/${itemId}`, {
-        credentials: "include",
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": Token
-        }
-      })
-      .then(data => {
-        if (data.status === 204) {
-          console.log(data);
-          const newState = this.state.workoutData.filter(session => !(session.url === data.url));
-          this.setState({
-            workoutData: newState
-          });
-        }
-      });
+      const confirmDeleting = confirm("Вы действительно хотите удалить уражнение?");
+      if (confirmDeleting) {
+        fetch(`/api/v1/workout/exercise/${itemId}`, {
+          credentials: "include",
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": Token
+          }
+        })
+        .then(data => {
+          if (data.status === 204) {
+            console.log(data);
+            const newState = this.state.workoutData.filter(session => !(session.url === data.url));
+            this.setState({
+              workoutData: newState
+            });
+          }
+        });
+      }
     };
   }
 

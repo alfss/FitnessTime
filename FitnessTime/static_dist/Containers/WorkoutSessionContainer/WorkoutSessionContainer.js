@@ -31,22 +31,25 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleDeletingSession(sessionId) {
     return () => {
-      fetch(`/api/v1/workout/training/${sessionId}`, {
-        credentials: "include",
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": Token
-        }
-      })
-      .then(data => {
-        if (data.status === 204) {
-          const newState = this.state.workoutSessionData.filter(session => !(session.url === data.url));
-          this.setState({
-            workoutSessionData: newState
-          });
-        }
-      });
+      const confirmDeleting = confirm("Вы действительно хотите удалить сессию?");
+      if (confirmDeleting) {
+        fetch(`/api/v1/workout/training/${sessionId}`, {
+          credentials: "include",
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": Token
+          }
+        })
+        .then(data => {
+          if (data.status === 204) {
+            const newState = this.state.workoutSessionData.filter(session => !(session.url === data.url));
+            this.setState({
+              workoutSessionData: newState
+            });
+          }
+        });
+      }
     };
   }
 
