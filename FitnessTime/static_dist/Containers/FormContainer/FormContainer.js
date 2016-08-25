@@ -36,19 +36,26 @@ class Form extends React.Component {
     this.setState({ [e.target.name] : e.target.value });
   }
 
-  createSession(e) {
-    e.preventDefault();
-    const sessionUrl = "/api/v1/workout/training/";
-
-    fetch(sessionUrl, {
+  createOptions(method, body, contentType) {
+    let options = {
       credentials: "include",
-      method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Accept": "application/json, application/xml, text/plain, text/html",
         "X-CSRFToken": Token
       },
-      body: JSON.stringify({ "title" : this.state.title })
-    })
+      method,
+      body
+    };
+    if (contentType) options.headers["Content-Type"] = contentType;
+    return options;
+  }
+
+  createSession(e) {
+    e.preventDefault();
+    const body = JSON.stringify({ "title" : this.state.title });
+    const options = this.createOptions("POST", body, "application/json");
+
+    fetch("/api/v1/workout/training/", options)
     .then(data => {
       if (data.status === 201) {
         this.props.router.push("/");
@@ -61,16 +68,9 @@ class Form extends React.Component {
     const sessionUrl = "/api/v1/workout/exercise/";
     const formData = new FormData(document.querySelector(".form"));
     formData.append("training", this.props.params.id);
+    const options = this.createOptions("POST", formData);
 
-    fetch(sessionUrl, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": Token
-      },
-      body: formData
-    })
+    fetch(sessionUrl, options)
     .then(data => {
       if (data.status === 201) {
         data.json().then(value => this.props.router.push(`/workout/${value.training}`));
@@ -83,18 +83,13 @@ class Form extends React.Component {
     const workoutItemUrl = `/api/v1/workout/exercise/${this.state.uuid}/`;
     const formData = new FormData(document.querySelector(".form"));
     formData.append("training", this.props.params.id);
+    const options = this.createOptions("PUT", formData);
 
-    fetch(workoutItemUrl, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": Token
-      },
-      body: formData
-    })
+    fetch(workoutItemUrl, options)
     .then(data => {
-      console.log(data);
+      if (data.status === 200) {
+        this.props.router.push(`/workout/${this.props.params.id}`);
+      }
     });
   }
 
