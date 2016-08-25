@@ -3,7 +3,8 @@
 import { Link } from "react-router";
 
 const propTypes = {
-  workoutSessionData: React.PropTypes.array.isRequired
+  workoutSessionData: React.PropTypes.array.isRequired,
+  deleteSession: React.PropTypes.func.isRequired
 };
 
 function WorkoutSession (props) {
