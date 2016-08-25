@@ -31,7 +31,7 @@ module.exports = {
         loader: extractCSS.extract("css?sourceMap!postcss!resolve-url!sass?sourceMap")
       },
       {
-        test: /\.svg$/,
+        test: /\.(jpg|png|gif|svg)$/,
         loader: "url?name=../images/[name]-[hash:6].[ext]&limit=5000"
       }
     ]
