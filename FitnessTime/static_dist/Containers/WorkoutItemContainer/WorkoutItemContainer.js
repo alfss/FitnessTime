@@ -45,13 +45,8 @@ class WorkoutItemContainer extends React.Component {
     console.log(this.props);
     return (
       <WorkoutItem
-        id={this.props.workoutItemData.uuid}
-        image={this.props.workoutItemData.example_photo}
-        title={this.props.workoutItemData.title}
-        repeats={this.props.workoutItemData.repeat}
-        rest={this.formatRestTimer(this.props.workoutItemData.rest_time)}
-        weight={this.props.workoutItemData.weight}
-        training={this.props.workoutItemData.training}
+        data={this.props.workoutItemData}
+        formatRestTimer={this.formatRestTimer}
         toggleOpenFullData={this.toggleOpenFullData}
         isModalOpen={this.state.isModalOpen}
         toggleModal={this.toggleModal}
