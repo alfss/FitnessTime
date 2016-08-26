@@ -48,7 +48,6 @@ function Form (props) {
       }
       <div className="form__controls">
         <Button name="Save" action={action}/>
-        <Button name="Cancel" action={props.cancelCreate} classes="button_cancel"/>
       </div>
     </form>
   );

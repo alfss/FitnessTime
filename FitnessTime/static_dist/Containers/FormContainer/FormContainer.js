@@ -11,7 +11,6 @@ class Form extends React.Component {
     this.createWorkout = this.createWorkout.bind(this);
     this.editWorkout = this.editWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.cancelCreate = this.cancelCreate.bind(this);
     this.state = {};
   }
 
@@ -93,11 +92,6 @@ class Form extends React.Component {
     });
   }
 
-  cancelCreate(e) {
-    e.preventDefault();
-    console.log(this.state);
-  }
-
   render() {
     const isFormEditing = this.props.params.exerciseId ? true : false;
     return (
@@ -109,7 +103,6 @@ class Form extends React.Component {
         editWorkout={this.editWorkout}
         handleInputChange={this.handleInputChange}
         inputValue={this.state}
-        cancelCreate={this.cancelCreate}
       />
     );
   }
