@@ -96,10 +96,9 @@ class WorkoutSessionsContainer extends React.Component {
         })
         .then(data => {
           if (data.status === 204) {
-            const newState = this.state.workoutSessionData.filter(session => !(session.url === data.url));
-            this.setState({
-              workoutSessionData: newState
-            });
+            const page = this.props.params.page || 1;
+            const newState = this.state[`page-${page}`].workoutSessionData.filter(session => !(session.url === data.url));
+            this.setState(this.state[`page-${page}`].workoutSessionData = newState);
           }
         });
       }
