@@ -28,14 +28,9 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.loadWorkoutSessionData();
-  }
-
-  loadWorkoutSessionData() {
     const page = this.props.params.page || 1;
     this.fetchPageUrl(page);
   }
-
 
   handleSwitchPage(page) {
     return () => {
@@ -101,12 +96,12 @@ class WorkoutSessionsContainer extends React.Component {
         })
         .then(data => {
           if (data.status === 204) {
-            const page = this.props.params.page || 1;
+            let page = this.props.params.page || 1;
             const newState = this.state[`page-${page}`].workoutSessionData.filter(session => !(session.url === data.url));
             this.setState(this.state[`page-${page}`].workoutSessionData = newState);
             if (!newState.length) {
-              const pageUrl = (page === 1) ? page  : page - 1;
-              this.handleSwitchPage(pageUrl)();
+              page = (page === 1) ? page  : page - 1;
+              this.handleSwitchPage(page)();
             }
           }
         });
