@@ -11,28 +11,46 @@ class Form extends React.Component {
     this.createWorkout = this.createWorkout.bind(this);
     this.editWorkout = this.editWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = {};
+    this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
+    this.state = {
+      newData: {},
+      oldData: {}
+    };
   }
 
   componentDidMount() {
+    this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
+
     if (this.props.params.exerciseId) {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
       .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId ))
       .then(data => {
         this.setState({
-          title: data[0].title,
-          repeat: data[0].repeat,
-          rest_time: data[0].rest_time,
-          weight: data[0].weight,
-          uuid: data[0].uuid
+          newData: data[0],
+          oldData: data[0]
         });
       });
     }
   }
 
+  checkForUnsavedData() {
+    const message = "You have unsaved information, are you sure you want to leave this page?";
+    for (let key in this.state.newData) {
+      if (!this.state.oldData) {
+        if (this.state.newData[key]) return message;
+      } else {
+        if (this.state.newData[key] !== this.state.oldData[key]) return message;
+      }
+    }
+  }
+
   handleInputChange(e) {
-    this.setState({ [e.target.name] : e.target.value });
+    var newValue = Object.assign({}, this.state.newData);
+    newValue[e.target.name] = e.target.value;
+    this.setState({
+      newData : newValue
+    });
   }
 
   createOptions(method, body, contentType) {
@@ -102,7 +120,7 @@ class Form extends React.Component {
         createWorkout={this.createWorkout}
         editWorkout={this.editWorkout}
         handleInputChange={this.handleInputChange}
-        inputValue={this.state}
+        inputValue={this.state.newData}
       />
     );
   }
