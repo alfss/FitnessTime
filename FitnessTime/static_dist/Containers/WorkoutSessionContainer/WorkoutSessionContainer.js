@@ -27,7 +27,6 @@ class WorkoutSessionsContainer extends React.Component {
 
   loadWorkoutSessionData() {
     const page = this.props.params.page || 1;
-    console.log(page);
     const sessionUrl = page
       ? `/api/v1/workout/training/?page=${page}`
       : "/api/v1/workout/training/";
@@ -65,7 +64,7 @@ class WorkoutSessionsContainer extends React.Component {
       credentials: "include"
     })
       .then(data => {
-        if (!data.ok) throw Error("asd");
+        if (!data.ok) throw Error();
         return data.json();
       })
       .then(data => {
@@ -99,6 +98,10 @@ class WorkoutSessionsContainer extends React.Component {
             const page = this.props.params.page || 1;
             const newState = this.state[`page-${page}`].workoutSessionData.filter(session => !(session.url === data.url));
             this.setState(this.state[`page-${page}`].workoutSessionData = newState);
+            if (!newState.length) {
+              const pageUrl = (page === 1) ? page  : page - 1;
+              this.handleSwitchPage(pageUrl)();
+            }
           }
         });
       }
