@@ -15,7 +15,7 @@ class Form extends React.Component {
     this.state = {};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.params.exerciseId) {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
