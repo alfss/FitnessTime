@@ -1,3 +1,10 @@
+const propTypes = {
+  pages: React.PropTypes.number.isRequired,
+  switchPage: React.PropTypes.func.isRequired,
+  nextPage: React.PropTypes.func,
+  previousPage: React.PropTypes.func
+};
+
 function Pagination (props) {
   const pages = [...Array(+props.pages)].map((x, i) => <li key={i}><a onClick={props.switchPage(i + 1)} className="pagination__page">{i + 1}</a></li>);
   return (
@@ -8,5 +15,7 @@ function Pagination (props) {
     </ul>
   );
 }
+
+Pagination.propTypes = propTypes;
 
 export default Pagination;
