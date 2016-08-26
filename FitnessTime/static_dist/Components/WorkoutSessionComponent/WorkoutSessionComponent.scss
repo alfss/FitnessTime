@@ -12,6 +12,10 @@
     padding: $gutter-big;
     text-decoration: none;
     cursor: pointer;
+
+    &:hover {
+      background-color: rgba(211, 224, 232, 0.4);
+    }
   }
 
   &__close-btn {
@@ -23,6 +27,11 @@
     background-color: $white;
     border: none;
     background: url(cross.svg) no-repeat center;
-    background-size: 25px;
+    background-size: 20px;
+    transition: all .3s ease;
+
+    &:hover {
+      background-size: 28px;
+    }
   }
 }
