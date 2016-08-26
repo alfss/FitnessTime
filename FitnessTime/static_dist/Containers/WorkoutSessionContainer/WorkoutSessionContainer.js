@@ -21,26 +21,29 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const nextPage = +nextProps.params.page || 1;
+    const current = +this.props.params.page || 1;
+    if (nextPage === current) this.fetchPageUrl(nextPage);
+  }
+
   componentDidMount() {
     this.loadWorkoutSessionData();
   }
 
   loadWorkoutSessionData() {
     const page = this.props.params.page || 1;
-    const sessionUrl = page
-      ? `/api/v1/workout/training/?page=${page}`
-      : "/api/v1/workout/training/";
-    this.fetchPageUrl(sessionUrl, page);
+    this.fetchPageUrl(page);
   }
+
 
   handleSwitchPage(page) {
     return () => {
       if (+this.props.params.page === page) return;
       if (!this.props.params.page && page === 1) return;
-      const fetchUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
       const pageUrl = (page === 1) ? "/" :`/page${page}`;
       this.props.router.push(pageUrl);
-      this.fetchPageUrl(fetchUrl, page);
+      this.fetchPageUrl(page);
     };
   }
 
@@ -48,7 +51,7 @@ class WorkoutSessionsContainer extends React.Component {
     if (this.state.next === null) return;
     const nextPage = this.state.next.match(/page=(\d*)/i)[1];
     this.props.router.push(`/page${nextPage}`);
-    this.fetchPageUrl(this.state.next, nextPage);
+    this.fetchPageUrl(nextPage);
   }
 
   goToPreviousPage() {
@@ -56,10 +59,12 @@ class WorkoutSessionsContainer extends React.Component {
     const previousPage = this.state.previous.match(/page=(\d*)/i);
     const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
     this.props.router.push(pageUrl);
-    this.fetchPageUrl(this.state.previous, previousPage);
+    this.fetchPageUrl(previousPage || 1);
   }
 
-  fetchPageUrl(url, page) {
+  fetchPageUrl(page) {
+    const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
+
     fetch(url, {
       credentials: "include"
     })
@@ -77,7 +82,8 @@ class WorkoutSessionsContainer extends React.Component {
           workoutSessionData: data.results
         });
       }, () => {
-        this.props.router.push("/404");
+        console.log("No page");
+        //this.props.router.push("/404");
       });
   }
 
