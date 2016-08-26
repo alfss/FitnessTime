@@ -12,10 +12,12 @@ class WorkoutSessionsContainer extends React.Component {
     this.goToNextPage = this.goToNextPage.bind(this);
     this.goToPreviousPage = this.goToPreviousPage.bind(this);
     this.state = {
-      pages: 1,
-      previous: null,
-      next: null,
-      workoutSessionData: []
+      "page-1": {
+        pages: 1,
+        previous: null,
+        next: null,
+        workoutSessionData: []
+      }
     };
   }
 
@@ -24,10 +26,12 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   loadWorkoutSessionData() {
-    const sessionUrl = this.props.params.page
-      ? `/api/v1/workout/training/?page=${this.props.params.page}`
+    const page = this.props.params.page || 1;
+    console.log(page);
+    const sessionUrl = page
+      ? `/api/v1/workout/training/?page=${page}`
       : "/api/v1/workout/training/";
-    this.fetchPageUrl(sessionUrl);
+    this.fetchPageUrl(sessionUrl, page);
   }
 
   handleSwitchPage(page) {
@@ -37,7 +41,7 @@ class WorkoutSessionsContainer extends React.Component {
       const fetchUrl = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
       const pageUrl = (page === 1) ? "/" :`/page${page}`;
       this.props.router.push(pageUrl);
-      this.fetchPageUrl(fetchUrl);
+      this.fetchPageUrl(fetchUrl, page);
     };
   }
 
@@ -45,7 +49,7 @@ class WorkoutSessionsContainer extends React.Component {
     if (this.state.next === null) return;
     const nextPage = this.state.next.match(/page=(\d*)/i)[1];
     this.props.router.push(`/page${nextPage}`);
-    this.fetchPageUrl(this.state.next);
+    this.fetchPageUrl(this.state.next, nextPage);
   }
 
   goToPreviousPage() {
@@ -53,10 +57,10 @@ class WorkoutSessionsContainer extends React.Component {
     const previousPage = this.state.previous.match(/page=(\d*)/i);
     const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
     this.props.router.push(pageUrl);
-    this.fetchPageUrl(this.state.previous);
+    this.fetchPageUrl(this.state.previous, previousPage);
   }
 
-  fetchPageUrl(url) {
+  fetchPageUrl(url, page) {
     fetch(url, {
       credentials: "include"
     })
@@ -67,7 +71,7 @@ class WorkoutSessionsContainer extends React.Component {
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
-        this.setState({
+        this.setState( this.state[`page-${page || 1}`] = {
           pages: pages,
           previous: data.previous,
           next: data.next,
@@ -103,10 +107,12 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   render() {
+    const pageNumber = this.props.params.page || 1;
+    const data = this.state[`page-${pageNumber}`] || this.state["page-1"];
     return (
       <WorkoutSession
-        workoutSessionData={this.state.workoutSessionData}
-        pages={this.state.pages}
+        workoutSessionData={data.workoutSessionData}
+        pages={data.pages}
         switchPage={this.handleSwitchPage}
         nextPage={this.goToNextPage}
         previousPage={this.goToPreviousPage}
