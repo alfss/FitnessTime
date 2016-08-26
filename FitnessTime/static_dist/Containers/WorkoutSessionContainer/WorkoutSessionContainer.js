@@ -60,7 +60,10 @@ class WorkoutSessionsContainer extends React.Component {
     fetch(url, {
       credentials: "include"
     })
-      .then(response => response.json())
+      .then(data => {
+        if (!data.ok) throw Error("asd");
+        return data.json();
+      })
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
@@ -70,8 +73,9 @@ class WorkoutSessionsContainer extends React.Component {
           next: data.next,
           workoutSessionData: data.results
         });
-      }
-    );
+      }, () => {
+        this.props.router.push("/404");
+      });
   }
 
   handleDeletingSession(sessionId) {
