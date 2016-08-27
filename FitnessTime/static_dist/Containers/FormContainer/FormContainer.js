@@ -118,7 +118,7 @@ class Form extends React.Component {
 
   editWorkout(e) {
     e.preventDefault();
-    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.uuid}/`;
+    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
     const formData = new FormData(document.querySelector(".form"));
     formData.append("training", this.props.params.id);
     const options = this.createOptions("PUT", formData);
