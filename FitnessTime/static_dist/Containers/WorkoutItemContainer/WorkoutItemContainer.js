@@ -42,7 +42,6 @@ class WorkoutItemContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <WorkoutItem
         data={this.props.workoutItemData}

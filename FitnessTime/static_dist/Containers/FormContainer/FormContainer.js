@@ -21,7 +21,6 @@ class Form extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state);
     if (this.state.isDataSaved) this.props.router.push(`/workout/${this.state.newData.training}`);
   }
 
@@ -104,9 +103,7 @@ class Form extends React.Component {
     fetch(sessionUrl, options)
     .then(data => {
       if (data.status === 201) {
-        console.log(data);
         this.setState({isDataSaved: true});
-        //data.json().then(value => this.props.router.push(`/workout/${value.training}`));
       }
     });
   }
@@ -123,7 +120,6 @@ class Form extends React.Component {
     .then(data => {
       if (data.status === 200) {
         this.setState({isDataSaved: true});
-        //this.props.router.push(`/workout/${this.props.params.id}`);
       }
     });
   }
