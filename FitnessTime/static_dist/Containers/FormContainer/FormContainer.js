@@ -98,6 +98,22 @@ class Form extends React.Component {
     });
   }
 
+  editWorkout(e) {
+    e.preventDefault();
+    if (!this.isFormValid()) return;
+    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
+    const formData = new FormData(document.querySelector(".form"));
+    formData.append("training", this.props.params.id);
+    const options = this.createOptions("PUT", formData);
+
+    fetch(workoutItemUrl, options)
+    .then(data => {
+      if (data.status === 200) {
+        this.props.router.push(`/workout/${this.props.params.id}`);
+      }
+    });
+  }
+
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
@@ -114,21 +130,6 @@ class Form extends React.Component {
       }
     }
     return isFormValid;
-  }
-
-  editWorkout(e) {
-    e.preventDefault();
-    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
-    const formData = new FormData(document.querySelector(".form"));
-    formData.append("training", this.props.params.id);
-    const options = this.createOptions("PUT", formData);
-
-    fetch(workoutItemUrl, options)
-    .then(data => {
-      if (data.status === 200) {
-        this.props.router.push(`/workout/${this.props.params.id}`);
-      }
-    });
   }
 
   render() {
