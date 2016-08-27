@@ -14,9 +14,19 @@ class Form extends React.Component {
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
     this.state = {
+      isDataSaved: false,
       newData: {},
       oldData: {}
     };
+  }
+
+  componentDidUpdate() {
+    console.log(this.state);
+    if (this.state.isDataSaved) this.props.router.push(`/workout/${this.state.newData.training}`);
+  }
+
+  componentWillMount() {
+    this.setState({newData: {training: this.props.params.id}});
   }
 
   componentDidMount() {
@@ -36,6 +46,7 @@ class Form extends React.Component {
   }
 
   checkForUnsavedData() {
+    if (this.state.isDataSaved) return;
     const message = "You have unsaved information, are you sure you want to leave this page?";
     for (let key in this.state.newData) {
       if (!this.state.oldData) {
@@ -93,7 +104,9 @@ class Form extends React.Component {
     fetch(sessionUrl, options)
     .then(data => {
       if (data.status === 201) {
-        data.json().then(value => this.props.router.push(`/workout/${value.training}`));
+        console.log(data);
+        this.setState({isDataSaved: true});
+        //data.json().then(value => this.props.router.push(`/workout/${value.training}`));
       }
     });
   }
@@ -109,7 +122,8 @@ class Form extends React.Component {
     fetch(workoutItemUrl, options)
     .then(data => {
       if (data.status === 200) {
-        this.props.router.push(`/workout/${this.props.params.id}`);
+        this.setState({isDataSaved: true});
+        //this.props.router.push(`/workout/${this.props.params.id}`);
       }
     });
   }
