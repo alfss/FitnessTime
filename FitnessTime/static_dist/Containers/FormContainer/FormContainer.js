@@ -47,6 +47,7 @@ class Form extends React.Component {
   }
 
   handleInputChange(e) {
+    if (!e.target.previousSibling.classList.contains("hidden")) e.target.previousSibling.classList.add("hidden");
     var newValue = Object.assign({}, this.state.newData);
     newValue[e.target.name] = e.target.value;
     this.setState({
