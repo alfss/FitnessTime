@@ -36,6 +36,7 @@ function Form (props) {
         formTypes[formType].map( (data, i) => {
           return <label key={i} className="form__label">
             {data.label}:
+            <span className="form__error hidden">(Введите корректную информацию)</span>
             <input
               type={data.type}
               name={data.name}

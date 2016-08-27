@@ -36,4 +36,10 @@
     margin-top: $gutter-big;
     text-align: center;
   }
+
+  &__error {
+    margin-left: 10px;
+    color: red;
+    font-size: 10px;
+  }
 }

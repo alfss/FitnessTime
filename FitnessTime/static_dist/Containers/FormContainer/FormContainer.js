@@ -12,6 +12,7 @@ class Form extends React.Component {
     this.editWorkout = this.editWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
     this.state = {
       newData: {},
       oldData: {}
@@ -82,6 +83,7 @@ class Form extends React.Component {
 
   createWorkout(e) {
     e.preventDefault();
+    if (!this.isFormValid()) return;
     const sessionUrl = "/api/v1/workout/exercise/";
     const formData = new FormData(document.querySelector(".form"));
     formData.append("training", this.props.params.id);
@@ -93,6 +95,24 @@ class Form extends React.Component {
         data.json().then(value => this.props.router.push(`/workout/${value.training}`));
       }
     });
+  }
+
+  isFormValid() {
+    let isFormValid = true;
+    const form = document.forms[0];
+    const fieldsForChecking = ["title", "repeat", "weight", "rest_time"];
+    for (var i =0; i < fieldsForChecking.length; i++) {
+      const formField = form[fieldsForChecking[i]];
+      if (!formField.value) {
+        isFormValid = false;
+        formField.previousSibling.classList.remove("hidden");
+      }
+      if ((fieldsForChecking[i] === "weight" || fieldsForChecking[i] === "rest_time") && isNaN(+formField.value)) {
+        isFormValid = false;
+        formField.previousSibling.classList.remove("hidden");
+      }
+    }
+    return isFormValid;
   }
 
   editWorkout(e) {

@@ -18,3 +18,8 @@ $gutter-big: 20px;
 @mixin border-radius($radius: 3px) {
   border-radius: $radius;
 }
+
+//Classes
+.hidden {
+  display: none;
+}
