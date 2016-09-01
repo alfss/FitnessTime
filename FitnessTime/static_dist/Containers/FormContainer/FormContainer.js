@@ -21,11 +21,7 @@ class Form extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.isDataSaved) this.props.router.push(`/workout/${this.state.newData.training}`);
-  }
-
-  componentWillMount() {
-    this.setState({newData: {training: this.props.params.id}});
+    if (this.state.isDataSaved) this.props.router.push(`/workout/${this.props.params.id}`);
   }
 
   componentDidMount() {
@@ -34,11 +30,11 @@ class Form extends React.Component {
     if (this.props.params.exerciseId) {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
-      .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId ))
+      .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0] )
       .then(data => {
         this.setState({
-          newData: data[0],
-          oldData: data[0]
+          newData: data,
+          oldData: data
         });
       });
     }
@@ -48,7 +44,7 @@ class Form extends React.Component {
     if (this.state.isDataSaved) return;
     const message = "You have unsaved information, are you sure you want to leave this page?";
     for (let key in this.state.newData) {
-      if (!this.state.oldData) {
+      if (!this.state.oldData.title) {
         if (this.state.newData[key]) return message;
       } else {
         if (this.state.newData[key] !== this.state.oldData[key]) return message;
