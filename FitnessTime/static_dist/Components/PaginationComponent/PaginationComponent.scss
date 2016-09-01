@@ -16,6 +16,7 @@
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    cursor: pointer;
 
     &:hover:not(.workout-session__page_active) {
       background-color: #ddd;
