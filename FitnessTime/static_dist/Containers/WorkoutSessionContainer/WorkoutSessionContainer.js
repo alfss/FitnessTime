@@ -120,6 +120,7 @@ class WorkoutSessionsContainer extends React.Component {
         nextPage={this.goToNextPage}
         previousPage={this.goToPreviousPage}
         deleteSession={this.handleDeletingSession}
+        currentPage = {+this.props.params.page || 1}
       />
     );
   }

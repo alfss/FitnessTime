@@ -16,6 +16,7 @@ function WorkoutSession (props) {
         switchPage={props.switchPage}
         nextPage={props.nextPage}
         previousPage={props.previousPage}
+        currentPage={props.currentPage}
       />;
   return (
     <div className="workout-session">
@@ -33,7 +34,7 @@ function WorkoutSession (props) {
         })
       }
       <Link to="/form/session" className="button button_add">
-        Новая тренировка
+        Новаѝ тренировка
       </Link>
     </div>
   );
