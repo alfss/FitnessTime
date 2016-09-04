@@ -21,7 +21,7 @@ class Form extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.isDataSaved) this.props.router.push(`/workout/${this.props.params.id}`);
+    if (this.state.isDataSaved && this.props.params.form !== "session") this.props.router.push(`/workout/${this.props.params.id}`);
   }
 
   componentDidMount() {
@@ -77,12 +77,13 @@ class Form extends React.Component {
 
   createSession(e) {
     e.preventDefault();
-    const body = JSON.stringify({ "title" : this.state.title });
+    const body = JSON.stringify({ "title" : this.state.newData.title });
     const options = this.createOptions("POST", body, "application/json");
 
     fetch("/api/v1/workout/training/", options)
     .then(data => {
       if (data.status === 201) {
+        this.setState({isDataSaved: true});
         this.props.router.push("/");
       }
     });
