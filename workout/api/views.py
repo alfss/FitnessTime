@@ -70,7 +70,6 @@ class LabelViewSet(viewsets.ModelViewSet):
     ordering_fields = ('title', 'uuid', )
     ordering = ('title', )
 
-
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 

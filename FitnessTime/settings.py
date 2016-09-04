@@ -18,6 +18,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+def get_setting(x, y=None):
+    return os.getenv(x, y)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu'
 
@@ -95,7 +98,7 @@ DATABASES = {
         'NAME': 'fitness_time',
         'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': 'postgres',
+        'HOST': get_setting('db_host', 'postgres'),
         'PORT': '5432',
     }
 }

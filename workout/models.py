@@ -19,7 +19,8 @@ class Training(models.Model):
                                 null=True
                               )
 
-    unique_together = (("title", "owner"),)
+    class Meta:
+        unique_together = (("title", "owner"),)
 
     def __str__(self):
         return  "%s owner:%s" % (self.title, self.owner)
@@ -30,7 +31,7 @@ class Training(models.Model):
 class Exercise(models.Model):
     uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     priority = models.IntegerField( default=1 ) # for sorting
-    title = models.CharField( max_length=255, unique=True)
+    title = models.CharField( max_length=255 )
     repeat = models.CharField( max_length=255, default=3)
     weight = models.FloatField() #in kg
     rest_time = models.IntegerField() #in seconds
@@ -43,6 +44,8 @@ class Exercise(models.Model):
     training = models.ForeignKey('Training',
                                  related_name='exercises',
                                  on_delete = models.CASCADE,)
+    class Meta:
+        unique_together = (("title", "training"),)
 
     def is_owner(self, user):
         return self.training.owner == user
@@ -58,6 +61,9 @@ class Label(models.Model):
     uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     title = models.CharField( max_length=255 )
     owner = models.ForeignKey( settings.AUTH_USER_MODEL )
+
+    class Meta:
+        unique_together = (("title", "owner"),)
 
     def __str__(self):
         return  "%s owner:%s" % (self.title, self.owner)
