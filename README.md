@@ -22,7 +22,7 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
 >Superuser created successfully.
 
 ## Build static
-- `npm install` - only first time, to pull all dependencies.
+- `npm install webpack -g` and `npm install` - only first time, to install webpack and pull all dependencies.
 - `webpack` - to build project.
 - `npm start` - to enter in develop mode (build static and start watchers)
 
