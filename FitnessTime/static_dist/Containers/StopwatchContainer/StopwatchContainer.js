@@ -8,7 +8,9 @@ const propTypes = {
 class StopwatchContainer extends React.Component {
   constructor() {
     super();
+    this.interval;
     this.startTimer = this.startTimer.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
     this.setRestTime = this.setRestTime.bind(this);
     this.state = {
       repeats: "",
@@ -28,6 +30,10 @@ class StopwatchContainer extends React.Component {
     this.setRestTime();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   setRestTime() {
     var timer = this.props.rest.split(":");
     this.setState({
@@ -37,20 +43,21 @@ class StopwatchContainer extends React.Component {
   }
 
   startTimer() {
-    let secondsRemaining = this.state.restSeconds;
-    let minutesRemaining = this.state.restMinutes;
+    this.interval = setInterval(() => {
+      if (this.state.repeats === this.state.repeatsDone) {
+        this.setState({
+          isComplete: true
+        });
+        return;
+      }
 
-    if (this.state.repeats === this.state.repeatsDone) {
-      this.setState({
-        isComplete: true
-      });
-      return;
-    }
-    if (minutesRemaining !== 0 || secondsRemaining !== 0){
-      this.setState({
-        isTimerWorking: true
-      });
-      setTimeout(() => {
+      let secondsRemaining = this.state.restSeconds;
+      let minutesRemaining = this.state.restMinutes;
+
+      if (minutesRemaining !== 0 || secondsRemaining !== 0){
+        this.setState({
+          isTimerWorking: true
+        });
         if (secondsRemaining === 0) {
           --minutesRemaining;
           secondsRemaining = 60;
@@ -59,17 +66,52 @@ class StopwatchContainer extends React.Component {
           restMinutes: minutesRemaining,
           restSeconds: --secondsRemaining
         });
-        this.startTimer();
-      }, 1000);
-    } else {
-      this.setRestTime();
-      this.setState({
-        repeatsDone: ++this.state.repeatsDone,
-        isTimerWorking: false
-      });
-      document.getElementById("stop-timer").play();
-    }
+      } else {
+        this.setRestTime();
+        this.setState({
+          repeatsDone: ++this.state.repeatsDone,
+          isTimerWorking: false
+        });
+        clearInterval(this.interval);
+        document.getElementById("stop-timer").play();
+      }
+    }, 1000);
+
   }
+  // startTimer() {
+  //   let secondsRemaining = this.state.restSeconds;
+  //   let minutesRemaining = this.state.restMinutes;
+  //
+  //   if (this.state.repeats === this.state.repeatsDone) {
+  //     this.setState({
+  //       isComplete: true
+  //     });
+  //     return;
+  //   }
+  //   if (minutesRemaining !== 0 || secondsRemaining !== 0){
+  //     this.setState({
+  //       isTimerWorking: true
+  //     });
+  //     setTimeout(() => {
+  //       if (secondsRemaining === 0) {
+  //         --minutesRemaining;
+  //         secondsRemaining = 60;
+  //       }
+  //       this.setState({
+  //         restMinutes: minutesRemaining,
+  //         restSeconds: --secondsRemaining
+  //       });
+  //       this.startTimer();
+  //     }, 1000);
+  //   } else {
+  //     this.setRestTime();
+  //     this.setState({
+  //       repeatsDone: ++this.state.repeatsDone,
+  //       isTimerWorking: false
+  //     });
+  //     document.getElementById("stop-timer").play();
+  //   }
+  // }
 
   showTimer() {
     let minutesRemaining = this.state.restMinutes;
@@ -86,6 +128,7 @@ class StopwatchContainer extends React.Component {
         rest={this.showTimer()}
         repeatsDone={this.state.repeatsDone}
         startTimer={this.startTimer}
+        stopTimer={this.stopTimer}
         isComplete={this.state.isComplete}
         isTimerWorking={this.state.isTimerWorking}
       />

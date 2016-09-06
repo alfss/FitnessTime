@@ -25,12 +25,9 @@ function Stopwatch (props) {
           isDisabled={props.isTimerWorking}
         />
         <Button
-          classes="stopwatch__button stopwatch__button_pause"
-          name="Pause"
-        />
-        <Button
           classes="stopwatch__button stopwatch__button_stop"
           name="Stop"
+          action={props.stopTimer}
         />
       </div>
     </div>
