@@ -26,8 +26,8 @@ function Stopwatch (props) {
         />
         <Button
           classes="stopwatch__button stopwatch__button_stop"
-          name="Stop"
-          action={props.stopTimer}
+          name="Reset"
+          action={props.resetTimer}
         />
       </div>
     </div>
