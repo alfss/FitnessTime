@@ -34,9 +34,9 @@ function Form (props) {
     <form className="form">
       {
         formTypes[formType].map( (data, i) => {
-          const value = (data.name !== "example_photo")
-            ? props.inputValue[data.name] || ""
-            : "";
+          const fileInput = document.querySelector(".form__input_file");
+          let value = props.inputValue[data.name] || "";
+          if (fileInput && fileInput.files.length === 0 && data.name === "example_photo") value = "";
           return <label key={i} className="form__label">
             {data.label}:
             <span className="form__error hidden">(Введите корректную информацию)</span>
