@@ -47,7 +47,7 @@ class Form extends React.Component {
       if (!this.state.oldData.title) {
         if (this.state.newData[key]) return message;
       } else {
-        if (this.state.newData[key] !== this.state.oldData[key]) return message;
+        if (this.state.oldData[key] !== this.state.newData[key] && this.state.newData.example_photo !== "") return message;
       }
     }
   }
