@@ -34,6 +34,9 @@ function Form (props) {
     <form className="form">
       {
         formTypes[formType].map( (data, i) => {
+          const value = (data.name !== "example_photo")
+            ? props.inputValue[data.name] || ""
+            : "";
           return <label key={i} className="form__label">
             {data.label}:
             <span className="form__error hidden">(Введите корректную информацию)</span>
@@ -42,7 +45,7 @@ function Form (props) {
               name={data.name}
               onChange={props.handleInputChange}
               className={`form__input ${data.classes}`}
-              value={props.inputValue[data.name] || ""}
+              value={value}
             />
           </label>;
         })
