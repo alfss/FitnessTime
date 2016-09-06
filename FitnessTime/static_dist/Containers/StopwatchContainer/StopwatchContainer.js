@@ -8,7 +8,7 @@ const propTypes = {
 class StopwatchContainer extends React.Component {
   constructor() {
     super();
-    this.interval;
+    this.timerInterval;
     this.startTimer = this.startTimer.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
     this.setRestTime = this.setRestTime.bind(this);
@@ -31,11 +31,11 @@ class StopwatchContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.timerInterval);
   }
 
   setRestTime() {
-    var timer = this.props.rest.split(":");
+    const timer = this.props.rest.split(":");
     this.setState({
       restMinutes: +timer[0],
       restSeconds: +timer[1]
@@ -44,15 +44,11 @@ class StopwatchContainer extends React.Component {
 
   startTimer() {
     if (this.state.repeats === this.state.repeatsDone) {
-      this.setState({
-        isComplete: true
-      });
+      this.setState({ isComplete: true });
       return;
     }
-    this.setState({
-      isTimerWorking: true
-    });
-    this.interval = setInterval(() => {
+    this.setState({ isTimerWorking: true });
+    this.timerInterval = setInterval(() => {
       let secondsRemaining = this.state.restSeconds;
       let minutesRemaining = this.state.restMinutes;
 
@@ -78,7 +74,7 @@ class StopwatchContainer extends React.Component {
       repeatsDone: ++this.state.repeatsDone,
       isTimerWorking: false
     });
-    clearInterval(this.interval);
+    clearInterval(this.timerInterval);
     document.getElementById("stop-timer").play();
   }
 
