@@ -67,6 +67,7 @@ class StopwatchContainer extends React.Component {
         repeatsDone: ++this.state.repeatsDone,
         isTimerWorking: false
       });
+      document.getElementById("stop-timer").play();
     }
   }
 

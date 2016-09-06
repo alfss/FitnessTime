@@ -24,6 +24,10 @@ function Workout (props) {
       <Link to={`/form/workout/${props.sessionId}`} className="button button_add">
         Новое упражнение
       </Link>
+      <audio id="stop-timer">
+        <source src="/static/images/soft-bells.ogg" type="audio/ogg" />
+        <source src="/static/images/soft-bells.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   );
 }
