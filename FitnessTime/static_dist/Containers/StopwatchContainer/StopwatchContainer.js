@@ -65,16 +65,21 @@ class StopwatchContainer extends React.Component {
           restMinutes: minutesRemaining,
           restSeconds: --secondsRemaining
         });
-      } else {
-        this.setRestTime();
-        this.setState({
-          repeatsDone: ++this.state.repeatsDone,
-          isTimerWorking: false
-        });
-        clearInterval(this.interval);
-        document.getElementById("stop-timer").play();
+        if (minutesRemaining === 0 && secondsRemaining === 0) {
+          this.handleTimerCompletion();
+        }
       }
     }, 1000);
+  }
+
+  handleTimerCompletion() {
+    this.setRestTime();
+    this.setState({
+      repeatsDone: ++this.state.repeatsDone,
+      isTimerWorking: false
+    });
+    clearInterval(this.interval);
+    document.getElementById("stop-timer").play();
   }
 
   stopTimer() {
