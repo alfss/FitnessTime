@@ -47,7 +47,8 @@ class Form extends React.Component {
       if (!this.state.oldData.title) {
         if (this.state.newData[key]) return message;
       } else {
-        if (this.state.oldData[key] !== this.state.newData[key] && this.state.newData.example_photo !== "") return message;
+        if (key === "example_photo" && this.state.newData[key] === "") continue;
+        if (this.state.oldData[key] !== this.state.newData[key]) return message;
       }
     }
   }
@@ -140,6 +141,7 @@ class Form extends React.Component {
   }
 
   render() {
+    console.log(this.state.newData);
     const isFormEditing = this.props.params.exerciseId ? true : false;
     return (
       <FormComponent
