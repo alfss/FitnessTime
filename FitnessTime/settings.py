@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+#for aws frankurt
+os.environ['S3_USE_SIGV4'] = 'True'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'social.apps.django_app.default',
+    'storages',
     'rest_framework',
     'imagekit',
     'common',
@@ -197,3 +200,17 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 #dev settgins
 SOCIAL_AUTH_VK_OAUTH2_SECRET="7PWAPV6LJwURRm2VLYm7"
 SOCIAL_AUTH_VK_OAUTH2_KEY="5494236"
+
+#media
+#for develop aws
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
+#AWS_STORAGE_BUCKET_NAME = 'develop-fitnesstime'
+#AWS_SECRET_ACCESS_KEY = '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'
+
+#media
+#for production aws
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
+#AWS_STORAGE_BUCKET_NAME = 'fitnesstime'
+#AWS_SECRET_ACCESS_KEY = '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'
