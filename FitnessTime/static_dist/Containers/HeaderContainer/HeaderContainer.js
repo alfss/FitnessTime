@@ -23,7 +23,10 @@ class HeaderContainer extends React.Component {
 
   render() {
     return (
-      <Header showNav={this.showNav}/>
+      <Header
+        showNav={this.showNav}
+        routePathName={this.props.routePathName}
+      />
     );
   }
 }

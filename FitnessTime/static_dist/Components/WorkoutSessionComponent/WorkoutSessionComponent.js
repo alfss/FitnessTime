@@ -26,7 +26,7 @@ function WorkoutSession (props) {
           return (
             <div className="workout-session__item" key={data.uuid}>
               <Link to={"workout/" + data.uuid} className="workout-session__item-link">
-              {data.title}
+                {data.title}
               </Link>
               <button className="workout-session__close-btn" onClick={props.deleteSession(data.uuid)}></button>
             </div>

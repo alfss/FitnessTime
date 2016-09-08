@@ -15,7 +15,7 @@ function Header (props) {
           <li className="header__list-item">Item 3</li>
         </ul>
       </div>
-      <div className="header__page-name">App Name</div>
+      <div className="header__page-name">{props.routePathName}</div>
       <div className="header__account"></div>
     </div>
   );

@@ -5,7 +5,10 @@ class WorkoutContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
-    this.state = { workoutData: [] };
+    this.state = {
+      workoutName: "",
+      workoutData: []
+    };
   }
 
   loadWorkoutData() {
@@ -15,6 +18,7 @@ class WorkoutContainer extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
+          workoutName: data.title,
           workoutData: data.exercises
         });
       }
@@ -48,6 +52,12 @@ class WorkoutContainer extends React.Component {
 
   componentDidMount() {
     this.loadWorkoutData();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.workoutName !== nextState.workoutName) {
+      this.props.getRoutePathName(nextState.workoutName);
+    }
   }
 
   render() {
