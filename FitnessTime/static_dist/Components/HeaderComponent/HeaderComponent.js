@@ -13,10 +13,11 @@ function Header (props) {
       <div className="header__nav hidden">
         <ul className="header__list">
           <li className="header__list-item">
-            <Link to="/form/session"> Item 1 </Link>
+            <Link to="/" className="header__nav-link"> Главная страница </Link>
           </li>
-          <li className="header__list-item">Item 2</li>
-          <li className="header__list-item">Item 3</li>
+          <li className="header__list-item">
+            <Link to="/form/session" className="header__nav-link"> Создать сессию </Link>
+          </li>
         </ul>
       </div>
       <div className="header__page-name">{props.routePathName}</div>
