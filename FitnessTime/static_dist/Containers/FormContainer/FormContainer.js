@@ -28,6 +28,7 @@ class Form extends React.Component {
         case "workout": formHeaderName = "Создать тренировку"; break;
         case "session": formHeaderName = "Создать сессию"; break;
       }
+      if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
       this.props.getRoutePathName(formHeaderName);
     }
   }
@@ -45,12 +46,12 @@ class Form extends React.Component {
       .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0] )
       .then(data => {
         this.setState({
+          formType: this.props.params.form,
           newData: data,
           oldData: data
         });
       });
     }
-    this.setState({ formType: this.props.params.form });
   }
 
   checkForUnsavedData() {
