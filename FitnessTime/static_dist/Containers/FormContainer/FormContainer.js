@@ -14,10 +14,22 @@ class Form extends React.Component {
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
     this.state = {
+      formType: "",
       isDataSaved: false,
       newData: {},
       oldData: {}
     };
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.formType !== nextState.formType) {
+      let formHeaderName;
+      switch (nextState.formType) {
+        case "workout": formHeaderName = "Создать тренировку"; break;
+        case "session": formHeaderName = "Создать сессию"; break;
+      }
+      this.props.getRoutePathName(formHeaderName);
+    }
   }
 
   componentDidUpdate() {
@@ -38,6 +50,7 @@ class Form extends React.Component {
         });
       });
     }
+    this.setState({ formType: this.props.params.form });
   }
 
   checkForUnsavedData() {
@@ -141,7 +154,6 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state.newData);
     const isFormEditing = this.props.params.exerciseId ? true : false;
     return (
       <FormComponent
