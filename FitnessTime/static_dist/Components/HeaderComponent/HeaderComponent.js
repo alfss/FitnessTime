@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const propTypes = {
   showNav: React.PropTypes.func.isRequired
 };
@@ -8,9 +10,11 @@ function Header (props) {
       <button className="header__button" onClick={props.showNav}>
         <span className="header__button-line"></span>
       </button>
-      <div className="header__nav">
+      <div className="header__nav hidden">
         <ul className="header__list">
-          <li className="header__list-item">Item 1</li>
+          <li className="header__list-item">
+            <Link to="/form/session"> Item 1 </Link>
+          </li>
           <li className="header__list-item">Item 2</li>
           <li className="header__list-item">Item 3</li>
         </ul>

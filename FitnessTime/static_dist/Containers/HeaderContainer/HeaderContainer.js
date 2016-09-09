@@ -5,20 +5,17 @@ class HeaderContainer extends React.Component {
   constructor() {
     super();
     this.showNav = this.showNav.bind(this);
-    this.state = {
-      isNavShown : false
-    };
+    this.hideNav = this.hideNav.bind(this);
   }
 
   showNav() {
-    const headerNav = document.querySelector(".header__nav");
+    document.querySelector(".header__nav").classList.remove("hidden");
+    document.addEventListener("click", this.hideNav);
+  }
 
-    if (this.state.isNavShown) headerNav.style.display = "";
-    else headerNav.style.display = "block";
-
-    this.setState({
-      isNavShown: !this.state.isNavShown
-    });
+  hideNav() {
+    document.querySelector(".header__nav").classList.add("hidden");
+    document.removeEventListener("click", this.hideNav);
   }
 
   render() {
