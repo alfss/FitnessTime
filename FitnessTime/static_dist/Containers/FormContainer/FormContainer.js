@@ -51,6 +51,8 @@ class Form extends React.Component {
           oldData: data
         });
       });
+    } else {
+      this.setState({ formType: this.props.params.form });
     }
   }
 
