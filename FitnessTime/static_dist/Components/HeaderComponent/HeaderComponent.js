@@ -7,9 +7,7 @@ const propTypes = {
 function Header (props) {
   return (
     <div className="header">
-      <button className="header__button" onClick={props.showNav}>
-        <span className="header__button-line"></span>
-      </button>
+      <div className="header__previous-page"></div>
       <div className="header__nav hidden">
         <ul className="header__list">
           <li className="header__list-item">
@@ -21,7 +19,7 @@ function Header (props) {
         </ul>
       </div>
       <div className="header__page-name">{props.routePathName}</div>
-      <div className="header__account"></div>
+      <div className="header__account" onClick={props.showNav}></div>
     </div>
   );
 }
