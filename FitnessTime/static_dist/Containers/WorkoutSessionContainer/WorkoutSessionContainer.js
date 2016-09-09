@@ -12,6 +12,7 @@ class WorkoutSessionsContainer extends React.Component {
     this.goToNextPage = this.goToNextPage.bind(this);
     this.goToPreviousPage = this.goToPreviousPage.bind(this);
     this.state = {
+      "userName": "",
       "page-1": {
         pages: 1,
         previous: null,
@@ -25,6 +26,12 @@ class WorkoutSessionsContainer extends React.Component {
     const nextPage = +nextProps.params.page || 1;
     const current = +this.props.params.page || 1;
     if (nextPage === current) this.fetchPageUrl(nextPage);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.userName !== nextState.userName) {
+      this.props.getRoutePathName(`Тренировки ${nextState.userName}`);
+    }
   }
 
   componentDidMount() {
@@ -74,7 +81,8 @@ class WorkoutSessionsContainer extends React.Component {
           pages: pages,
           previous: data.previous,
           next: data.next,
-          workoutSessionData: data.results
+          workoutSessionData: data.results,
+          userName: data.results[0].owner.username
         });
       }, () => {
         console.log("No page");
