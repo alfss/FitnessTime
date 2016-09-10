@@ -17,6 +17,9 @@ function Header (props) {
           <li className="header__list-item">
             <Link to="/form/session" className="header__nav-link"> Создать сессию </Link>
           </li>
+          <li>
+            <a href="/logout/" className="header__nav-link">Logout</a>
+          </li>
         </ul>
       </div>
       <div className="header__page-name">{props.routePathName}</div>
