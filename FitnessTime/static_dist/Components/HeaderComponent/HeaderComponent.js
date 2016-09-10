@@ -1,13 +1,14 @@
 import { Link } from "react-router";
 
 const propTypes = {
-  showNav: React.PropTypes.func.isRequired
+  showNav: React.PropTypes.func.isRequired,
+  goBack: React.PropTypes.func.isRequired
 };
 
 function Header (props) {
   return (
     <div className="header">
-      <div className="header__previous-page"></div>
+      <div className="header__previous-page" onClick={props.goBack}></div>
       <div className="header__nav hidden">
         <ul className="header__list">
           <li className="header__list-item">

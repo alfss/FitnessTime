@@ -1,11 +1,14 @@
 "use strict";
+
 import Header from "../../Components/HeaderComponent/HeaderComponent";
+import { withRouter } from "react-router";
 
 class HeaderContainer extends React.Component {
   constructor() {
     super();
     this.showNav = this.showNav.bind(this);
     this.hideNav = this.hideNav.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   showNav() {
@@ -18,14 +21,19 @@ class HeaderContainer extends React.Component {
     document.removeEventListener("click", this.hideNav);
   }
 
+  goBack() {
+    this.props.router.goBack();
+  }
+
   render() {
     return (
       <Header
         showNav={this.showNav}
+        goBack={this.goBack}
         routePathName={this.props.routePathName}
       />
     );
   }
 }
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);
