@@ -34,7 +34,7 @@ function WorkoutSession (props) {
         })
       }
       <Link to="/form/session" className="button button_add">
-        Новаѝ тренировка
+        Новая тренировка
       </Link>
     </div>
   );
