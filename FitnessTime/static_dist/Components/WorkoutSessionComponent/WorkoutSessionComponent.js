@@ -28,6 +28,7 @@ function WorkoutSession (props) {
               <Link to={"workout/" + data.uuid} className="workout-session__item-link">
                 {data.title}
               </Link>
+              <Link to={`/form/session/${data.uuid}`} className="workout-session__edit-btn"></Link>
               <button className="workout-session__close-btn" onClick={props.deleteSession(data.uuid)}></button>
             </div>
           );

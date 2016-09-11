@@ -9,6 +9,7 @@ class Form extends React.Component {
     super();
     this.createSession = this.createSession.bind(this);
     this.createWorkout = this.createWorkout.bind(this);
+    this.editSession = this.editSession.bind(this);
     this.editWorkout = this.editWorkout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
@@ -34,21 +35,27 @@ class Form extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.isDataSaved && this.props.params.form !== "session") this.props.router.push(`/workout/${this.props.params.id}`);
+    if (this.state.isDataSaved) {
+      this.props.params.form !== "session"
+        ? this.props.router.push(`/workout/${this.props.params.id}`)
+        : this.props.router.push("/");
+    }
   }
 
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
 
-    if (this.props.params.exerciseId) {
+    if (this.props.params.exerciseId || this.props.params.form === "session" &&  this.props.params.id) {
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
-      .then(data => data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0] )
       .then(data => {
+        let formData = this.props.params.form === "session"
+          ? {title: data.title}
+          : data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0];
         this.setState({
           formType: this.props.params.form,
-          newData: data,
-          oldData: data
+          newData: formData,
+          oldData: formData
         });
       });
     } else {
@@ -138,6 +145,21 @@ class Form extends React.Component {
     });
   }
 
+  editSession(e) {
+    e.preventDefault();
+    const workoutSessionUrl = `/api/v1/workout/training/${this.props.params.id}/`;
+    const body = new FormData(document.querySelector(".form"));
+    const options = this.createOptions("PUT", body);
+    console.log(options);
+
+    fetch(workoutSessionUrl, options)
+    .then(data => {
+      if (data.status === 200) {
+        this.setState({isDataSaved: true});
+      }
+    });
+  }
+
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
@@ -157,13 +179,14 @@ class Form extends React.Component {
   }
 
   render() {
-    const isFormEditing = this.props.params.exerciseId ? true : false;
+    const isFormEditing = this.props.params.exerciseId || this.props.params.form === "session" &&  this.props.params.id ? true : false;
     return (
       <FormComponent
         formType={this.props.params.form}
         editForm={isFormEditing}
         createSession={this.createSession}
         createWorkout={this.createWorkout}
+        editSession={this.editSession}
         editWorkout={this.editWorkout}
         handleInputChange={this.handleInputChange}
         inputValue={this.state.newData}

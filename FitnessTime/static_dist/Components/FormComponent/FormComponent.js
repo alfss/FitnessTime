@@ -23,7 +23,10 @@ function Form (props) {
   const formType = props.formType;
   let action;
   if (props.editForm) {
-    action = props.editWorkout;
+    switch (formType) {
+      case ("session"): action = props.editSession; break;
+      case ("workout"): action = props.editWorkout; break;
+    }
   } else {
     switch (formType) {
       case ("session"): action = props.createSession; break;
