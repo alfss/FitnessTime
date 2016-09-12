@@ -20,20 +20,12 @@ const formTypes = {
 };
 
 function Form (props) {
-  const formType = props.formType;
-  let action;
-  if (props.isFormEditing) {
-    action = props.handleEditingForm;
-  } else {
-    switch (formType) {
-      case ("session"): action = props.createSession; break;
-      case ("workout"): action = props.createWorkout; break;
-    }
-  }
+  let action = (props.isFormEditing) ? props.handleEditingForm : props.handleCreatingForm;
+
   return (
     <form className="form">
       {
-        formTypes[formType].map( (data, i) => {
+        formTypes[props.formType].map( (data, i) => {
           const fileInput = document.querySelector(".form__input_file");
           let value = props.inputValue[data.name] || "";
           if (fileInput && fileInput.files.length === 0 && data.name === "example_photo") value = "";

@@ -7,8 +7,7 @@ import { withRouter } from "react-router";
 class Form extends React.Component {
   constructor() {
     super();
-    this.createSession = this.createSession.bind(this);
-    this.createWorkout = this.createWorkout.bind(this);
+    this.handleCreatingForm = this.handleCreatingForm.bind(this);
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
@@ -98,33 +97,23 @@ class Form extends React.Component {
     return options;
   }
 
-  createSession(e) {
+  handleCreatingForm(e) {
     e.preventDefault();
-    const body = JSON.stringify({ "title" : this.state.newData.title });
-    const options = this.createOptions("POST", body, "application/json");
+    let fetchUrl;
+    let body = new FormData(document.querySelector(".form"));
+    switch (this.state.formType) {
+      case ("session"):
+        fetchUrl = "/api/v1/workout/training/"; break;
+      case ("workout"):
+        fetchUrl = "/api/v1/workout/exercise/";
+        body.append("training", this.props.params.id);
+        break;
+    }
+    const options = this.createOptions("POST", body);
 
-    fetch("/api/v1/workout/training/", options)
+    fetch(fetchUrl, options)
     .then(data => {
-      if (data.status === 201) {
-        this.setState({isDataSaved: true});
-        this.props.router.push("/");
-      }
-    });
-  }
-
-  createWorkout(e) {
-    e.preventDefault();
-    if (!this.isFormValid()) return;
-    const sessionUrl = "/api/v1/workout/exercise/";
-    const formData = new FormData(document.querySelector(".form"));
-    formData.append("training", this.props.params.id);
-    const options = this.createOptions("POST", formData);
-
-    fetch(sessionUrl, options)
-    .then(data => {
-      if (data.status === 201) {
-        this.setState({isDataSaved: true});
-      }
+      if (data.status === 201) this.setState({ isDataSaved: true });
     });
   }
 
@@ -172,8 +161,7 @@ class Form extends React.Component {
       <FormComponent
         formType={this.props.params.form}
         isFormEditing={isFormEditing}
-        createSession={this.createSession}
-        createWorkout={this.createWorkout}
+        handleCreatingForm={this.handleCreatingForm}
         handleEditingForm={this.handleEditingForm}
         handleInputChange={this.handleInputChange}
         inputValue={this.state.newData}
