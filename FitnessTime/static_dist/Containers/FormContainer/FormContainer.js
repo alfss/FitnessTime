@@ -105,6 +105,7 @@ class Form extends React.Component {
       case ("session"):
         fetchUrl = "/api/v1/workout/training/"; break;
       case ("workout"):
+        if (!this.isFormValid()) return;
         fetchUrl = "/api/v1/workout/exercise/";
         body.append("training", this.props.params.id);
         break;
