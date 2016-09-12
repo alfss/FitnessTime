@@ -131,9 +131,8 @@ class Form extends React.Component {
 
   isFormValid() {
     let isFormValid = true;
-    if (this.state.formType === "session") return isFormValid;
     const form = document.forms[0];
-    const fieldsForChecking = ["title", "repeat", "weight", "rest_time"];
+    const fieldsForChecking = (this.state.formType === "session") ? ["title"] : ["title", "repeat", "weight", "rest_time"];
     for (var i =0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
       const isFieldEmpty = !formField.value;
