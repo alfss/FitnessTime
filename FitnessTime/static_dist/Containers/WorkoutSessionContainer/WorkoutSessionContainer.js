@@ -22,12 +22,6 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const nextPage = +nextProps.params.page || 1;
-    const current = +this.props.params.page || 1;
-    if (nextPage === current) this.fetchPageUrl(nextPage);
-  }
-
   componentWillUpdate(nextProps, nextState) {
     if (this.state.userName !== nextState.userName) {
       this.props.getRoutePathName(`Тренировки ${nextState.userName}`);
@@ -65,6 +59,7 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   fetchPageUrl(page) {
+    this.props.setFethingData(true);
     const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
 
     fetch(url, {
@@ -75,6 +70,7 @@ class WorkoutSessionsContainer extends React.Component {
         return data.json();
       })
       .then(data => {
+        this.props.setFethingData(false);
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
         this.setState( this.state[`page-${page || 1}`] = {
@@ -85,8 +81,8 @@ class WorkoutSessionsContainer extends React.Component {
           userName: data.results[0].owner.username
         });
       }, () => {
-        console.log("No page");
-        //this.props.router.push("/404");
+        this.props.setFethingData(false);
+        this.props.router.push("/404");
       });
   }
 

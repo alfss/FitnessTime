@@ -11,12 +11,24 @@ class WorkoutContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.loadWorkoutData();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.workoutName !== nextState.workoutName) {
+      this.props.getRoutePathName(nextState.workoutName);
+    }
+  }
+
   loadWorkoutData() {
+    //this.props.setFethingData(true);
     const url = `/api/v1/workout/training/${this.props.params.id}`;
 
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(data => data.json())
+      .then(data => {
+        //this.props.setFethingData(false);
         this.setState({
           workoutName: data.title,
           workoutData: data.exercises
@@ -24,7 +36,6 @@ class WorkoutContainer extends React.Component {
       }
     );
   }
-
 
   handleDeletingWorkoutItem(itemId) {
     return () => {
@@ -50,15 +61,6 @@ class WorkoutContainer extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.loadWorkoutData();
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.workoutName !== nextState.workoutName) {
-      this.props.getRoutePathName(nextState.workoutName);
-    }
-  }
 
   render() {
     return (

@@ -43,9 +43,11 @@ class Form extends React.Component {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
 
     if (this.props.params.exerciseId || this.props.params.form === "session" &&  this.props.params.id) {
+      this.props.setFethingData(true);
       fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => data.json())
       .then(data => {
+        this.props.setFethingData(false);
         let formData = this.props.params.form === "session"
           ? {title: data.title}
           : data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0];
