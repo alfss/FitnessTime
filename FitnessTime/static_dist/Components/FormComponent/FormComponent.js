@@ -3,7 +3,12 @@
 import Button from "../ButtonComponent/ButtonComponent";
 
 const propTypes = {
-  formType: React.PropTypes.string.isRequired
+  formType: React.PropTypes.string.isRequired,
+  isFormEditing: React.PropTypes.bool.isRequired,
+  handleCreatingForm: React.PropTypes.func.isRequired,
+  handleEditingForm: React.PropTypes.func.isRequired,
+  handleInputChange: React.PropTypes.func.isRequired,
+  inputValue: React.PropTypes.object.isRequired
 };
 
 const formTypes = {

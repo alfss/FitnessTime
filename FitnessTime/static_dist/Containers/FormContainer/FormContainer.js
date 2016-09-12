@@ -55,9 +55,7 @@ class Form extends React.Component {
           oldData: formData
         });
       });
-    } else {
-      this.setState({ formType: this.props.params.form });
-    }
+    } else this.setState({ formType: this.props.params.form });
   }
 
   checkForUnsavedData() {
@@ -80,20 +78,6 @@ class Form extends React.Component {
     this.setState({
       newData : newValue
     });
-  }
-
-  createOptions(method, body, contentType) {
-    let options = {
-      credentials: "include",
-      headers: {
-        "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": Token
-      },
-      method,
-      body
-    };
-    if (contentType) options.headers["Content-Type"] = contentType;
-    return options;
   }
 
   handleCreatingForm(e) {
@@ -143,6 +127,20 @@ class Form extends React.Component {
       }
     }
     return isFormValid;
+  }
+
+  createOptions(method, body, contentType) {
+    let options = {
+      credentials: "include",
+      headers: {
+        "Accept": "application/json, application/xml, text/plain, text/html",
+        "X-CSRFToken": Token
+      },
+      method,
+      body
+    };
+    if (contentType) options.headers["Content-Type"] = contentType;
+    return options;
   }
 
   render() {
