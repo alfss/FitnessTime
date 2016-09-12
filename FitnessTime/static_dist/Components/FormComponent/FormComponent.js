@@ -22,11 +22,8 @@ const formTypes = {
 function Form (props) {
   const formType = props.formType;
   let action;
-  if (props.editForm) {
-    switch (formType) {
-      case ("session"): action = props.editSession; break;
-      case ("workout"): action = props.editWorkout; break;
-    }
+  if (props.isFormEditing) {
+    action = props.handleEditingForm;
   } else {
     switch (formType) {
       case ("session"): action = props.createSession; break;

@@ -9,8 +9,7 @@ class Form extends React.Component {
     super();
     this.createSession = this.createSession.bind(this);
     this.createWorkout = this.createWorkout.bind(this);
-    this.editSession = this.editSession.bind(this);
-    this.editWorkout = this.editWorkout.bind(this);
+    this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
@@ -129,34 +128,23 @@ class Form extends React.Component {
     });
   }
 
-  editWorkout(e) {
+  handleEditingForm(e) {
     e.preventDefault();
-    if (!this.isFormValid()) return;
-    const workoutItemUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
-    const formData = new FormData(document.querySelector(".form"));
-    formData.append("training", this.props.params.id);
-    const options = this.createOptions("PUT", formData);
-
-    fetch(workoutItemUrl, options)
-    .then(data => {
-      if (data.status === 200) {
-        this.setState({isDataSaved: true});
-      }
-    });
-  }
-
-  editSession(e) {
-    e.preventDefault();
-    const workoutSessionUrl = `/api/v1/workout/training/${this.props.params.id}/`;
-    const body = new FormData(document.querySelector(".form"));
+    let fetchUrl;
+    let body = body = new FormData(document.querySelector(".form"));
+    switch (this.state.formType) {
+      case ("session"):
+        fetchUrl = `/api/v1/workout/training/${this.props.params.id}/`; break;
+      case ("workout"):
+        fetchUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
+        body.append("training", this.props.params.id);
+        break;
+    }
     const options = this.createOptions("PUT", body);
-    console.log(options);
 
-    fetch(workoutSessionUrl, options)
+    fetch(fetchUrl, options)
     .then(data => {
-      if (data.status === 200) {
-        this.setState({isDataSaved: true});
-      }
+      if (data.status === 200) { this.setState({isDataSaved: true}); }
     });
   }
 
@@ -183,11 +171,10 @@ class Form extends React.Component {
     return (
       <FormComponent
         formType={this.props.params.form}
-        editForm={isFormEditing}
+        isFormEditing={isFormEditing}
         createSession={this.createSession}
         createWorkout={this.createWorkout}
-        editSession={this.editSession}
-        editWorkout={this.editWorkout}
+        handleEditingForm={this.handleEditingForm}
         handleInputChange={this.handleInputChange}
         inputValue={this.state.newData}
       />
