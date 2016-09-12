@@ -2,7 +2,7 @@
 
 import { Router, Route, IndexRoute } from "react-router";
 
-import App from "./Containers/App/App";
+import App from "./Containers/AppContainer/AppContainer";
 import Workout from "./Containers/WorkoutContainer/WorkoutContainer";
 import WorkoutSession from "./Containers/WorkoutSessionContainer/WorkoutSessionContainer";
 import Form from "./Containers/FormContainer/FormContainer";
