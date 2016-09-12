@@ -14,10 +14,11 @@ class App extends React.Component {
   }
 
   render() {
+    const ChildNode = React.cloneElement(this.props.children, { getRoutePathName: this.getRoutePathName });
+
     return (
       <AppComponent
-        children={this.props.children}
-        getRoutePathName={this.getRoutePathName}
+        ChildNode={ChildNode}
         routePathName={this.state.routePathName}
       />
     );

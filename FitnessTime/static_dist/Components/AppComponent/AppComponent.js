@@ -1,17 +1,15 @@
 import Header from "../../Containers/HeaderContainer/HeaderContainer";
 
 const propTypes = {
-  children: React.PropTypes.object.isRequired,
-  getRoutePathName: React.PropTypes.func.isRequired,
+  ChildNode: React.PropTypes.object.isRequired,
   routePathName: React.PropTypes.string.isRequired
 };
 
 function App (props) {
-  const ChildNode = React.cloneElement(props.children, { getRoutePathName: props.getRoutePathName });
   return (
     <div>
       <Header routePathName = {props.routePathName}/>
-      { ChildNode }
+      { props.ChildNode }
     </div>
   );
 }
