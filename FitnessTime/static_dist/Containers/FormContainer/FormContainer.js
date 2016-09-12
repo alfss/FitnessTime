@@ -11,7 +11,6 @@ class Form extends React.Component {
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
-    this.isFormValid = this.isFormValid.bind(this);
     this.state = {
       formType: "",
       isDataSaved: false,
@@ -99,47 +98,40 @@ class Form extends React.Component {
 
   handleCreatingForm(e) {
     e.preventDefault();
-    let fetchUrl;
-    let body = new FormData(document.querySelector(".form"));
-    switch (this.state.formType) {
-      case ("session"):
-        fetchUrl = "/api/v1/workout/training/"; break;
-      case ("workout"):
-        if (!this.isFormValid()) return;
-        fetchUrl = "/api/v1/workout/exercise/";
-        body.append("training", this.props.params.id);
-        break;
-    }
-    const options = this.createOptions("POST", body);
-
-    fetch(fetchUrl, options)
-    .then(data => {
-      if (data.status === 201) this.setState({ isDataSaved: true });
-    });
+    const fetchUrl = this.createFetchUrl(false);
+    this.sendDataToServer(fetchUrl, "POST", 201);
   }
 
   handleEditingForm(e) {
     e.preventDefault();
-    let fetchUrl;
-    let body = body = new FormData(document.querySelector(".form"));
+    const fetchUrl = this.createFetchUrl(true);
+    this.sendDataToServer(fetchUrl, "PUT", 200);
+  }
+
+  createFetchUrl(isEditing) {
     switch (this.state.formType) {
       case ("session"):
-        fetchUrl = `/api/v1/workout/training/${this.props.params.id}/`; break;
+        return isEditing ? `/api/v1/workout/training/${this.props.params.id}/` : "/api/v1/workout/training/";
       case ("workout"):
-        fetchUrl = `/api/v1/workout/exercise/${this.state.newData.uuid}/`;
-        body.append("training", this.props.params.id);
-        break;
+        return isEditing ? `/api/v1/workout/exercise/${this.state.newData.uuid}/` : "/api/v1/workout/exercise/";
     }
-    const options = this.createOptions("PUT", body);
+  }
 
-    fetch(fetchUrl, options)
+  sendDataToServer(url, method, code) {
+    if (!this.isFormValid()) return;
+    let body = new FormData(document.querySelector(".form"));
+    if (this.state.formType === "workout") body.append("training", this.props.params.id);
+    const options = this.createOptions(method, body);
+
+    fetch(url, options)
     .then(data => {
-      if (data.status === 200) { this.setState({isDataSaved: true}); }
+      if (data.status === code) { this.setState({isDataSaved: true}); }
     });
   }
 
   isFormValid() {
     let isFormValid = true;
+    if (this.state.formType === "session") return isFormValid;
     const form = document.forms[0];
     const fieldsForChecking = ["title", "repeat", "weight", "rest_time"];
     for (var i =0; i < fieldsForChecking.length; i++) {
