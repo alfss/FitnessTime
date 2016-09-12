@@ -136,11 +136,9 @@ class Form extends React.Component {
     const fieldsForChecking = ["title", "repeat", "weight", "rest_time"];
     for (var i =0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
-      if (!formField.value) {
-        isFormValid = false;
-        formField.previousSibling.classList.remove("hidden");
-      }
-      if ((fieldsForChecking[i] === "weight" || fieldsForChecking[i] === "rest_time") && isNaN(+formField.value)) {
+      const isFieldEmpty = !formField.value;
+      const isFieldNaN = (fieldsForChecking[i] === "weight" || fieldsForChecking[i] === "rest_time") && isNaN(+formField.value);
+      if (isFieldNaN || isFieldEmpty) {
         isFormValid = false;
         formField.previousSibling.classList.remove("hidden");
       }
