@@ -22,13 +22,15 @@ class WorkoutContainer extends React.Component {
   }
 
   loadWorkoutData() {
-    //this.props.setFethingData(true);
+    this.props.setFethingData(true);
     const url = `/api/v1/workout/training/${this.props.params.id}`;
 
     fetch(url)
-      .then(data => data.json())
       .then(data => {
-        //this.props.setFethingData(false);
+        this.props.setFethingData(false);
+        return data.json();
+      })
+      .then(data => {
         this.setState({
           workoutName: data.title,
           workoutData: data.exercises
