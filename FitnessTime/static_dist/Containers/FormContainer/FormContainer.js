@@ -20,7 +20,6 @@ class Form extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log(this.props.params, nextProps.params);
     if (this.props.params.exerciseId !== nextProps.params.exerciseId) this.fetchData();
     if (this.state.formType !== nextState.formType) {
       let formHeaderName;
@@ -65,9 +64,10 @@ class Form extends React.Component {
         return data.json();
       })
       .then(data => {
-        let formData = this.props.params.form === "session"
-          ? { title: data.title }
-          : data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0];
+        let formData = this.props.params.exerciseId
+          ? data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0]
+          : { title: data.title };
+        if (!formData) throw Error(404);
         this.setState({
           formType: this.props.params.form,
           newData: formData,
