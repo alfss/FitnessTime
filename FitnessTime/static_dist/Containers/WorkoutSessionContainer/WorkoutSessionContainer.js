@@ -86,7 +86,8 @@ class WorkoutSessionsContainer extends React.Component {
           workoutSessionData: data.results,
           userName: data.results[0].owner.username
         });
-      }, (error) => {
+      })
+      .catch (error => {
         if (error.message === "404") this.props.checkIsPageExist(false);
       });
   }
