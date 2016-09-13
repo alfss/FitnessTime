@@ -21,13 +21,20 @@ class WorkoutContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.id !== nextProps.params.id) this.fetchData(nextProps.params.id);
+  }
+
   loadWorkoutData() {
     this.props.setFethingData(true);
-    const url = `/api/v1/workout/training/${this.props.params.id}`;
+    this.fetchData(this.props.params.id);
+  }
 
-    fetch(url)
+  fetchData(id) {
+    fetch(`/api/v1/workout/training/${id}`)
       .then(data => {
         this.props.setFethingData(false);
+        if (data.status === 404) throw Error(404);
         return data.json();
       })
       .then(data => {
@@ -35,8 +42,10 @@ class WorkoutContainer extends React.Component {
           workoutName: data.title,
           workoutData: data.exercises
         });
-      }
-    );
+      })
+      .catch (error => {
+        if (error.message === "404") this.props.checkIsPageExist(false);
+      });
   }
 
   handleDeletingWorkoutItem(itemId) {
