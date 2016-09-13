@@ -1,5 +1,6 @@
 import Header from "../../Containers/HeaderContainer/HeaderContainer";
 import Modal from "react-modal";
+import NotFoundPage from "../NotFound404Component/NotFound404Container";
 
 const propTypes = {
   ChildNode: React.PropTypes.object.isRequired,
@@ -8,11 +9,13 @@ const propTypes = {
 
 function App (props) {
   Modal.setAppElement("body");
-  
+
+  const page = (props.isPageExist) ?  props.ChildNode : <NotFoundPage/>;
+
   return (
     <div>
       <Header routePathName = {props.routePathName}/>
-      { props.ChildNode }
+      { page }
       <Modal isOpen={props.isDataFetching} overlayClassName="modal__overlay" className="modal__app" />
     </div>
   );

@@ -6,9 +6,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.getRoutePathName = this.getRoutePathName.bind(this);
+    this.checkIsPageExist = this.checkIsPageExist.bind(this);
     this.setFethingData = this.setFethingData.bind(this);
     this.state = {
       routePathName: "",
+      isPageExist: true,
       isDataFetching: false
     };
   }
@@ -17,12 +19,17 @@ class App extends React.Component {
     this.setState({ routePathName: name });
   }
 
+  checkIsPageExist(bool) {
+    this.setState({ isPageExist: bool });
+  }
+
   setFethingData(fetching){
     this.setState({ isDataFetching: fetching });
   }
 
   render() {
     const ChildNode = React.cloneElement(this.props.children, {
+      checkIsPageExist: this.checkIsPageExist,
       getRoutePathName: this.getRoutePathName,
       setFethingData: this.setFethingData
     });
@@ -30,6 +37,7 @@ class App extends React.Component {
     return (
       <AppComponent
         ChildNode={ChildNode}
+        isPageExist={this.state.isPageExist}
         routePathName={this.state.routePathName}
         isDataFetching={this.state.isDataFetching}
       />

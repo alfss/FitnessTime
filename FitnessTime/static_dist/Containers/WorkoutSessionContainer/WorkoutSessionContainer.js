@@ -66,6 +66,9 @@ class WorkoutSessionsContainer extends React.Component {
       credentials: "include"
     })
       .then(data => {
+        if (data.status === 404) {
+          throw Error(404);
+        }
         if (!data.ok) throw Error();
         return data.json();
       })
@@ -80,9 +83,9 @@ class WorkoutSessionsContainer extends React.Component {
           workoutSessionData: data.results,
           userName: data.results[0].owner.username
         });
-      }, () => {
+      }, (error) => {
+        if (error.message === "404") this.props.checkIsPageExist(false);
         this.props.setFethingData(false);
-        this.props.router.push("/404");
       });
   }
 
