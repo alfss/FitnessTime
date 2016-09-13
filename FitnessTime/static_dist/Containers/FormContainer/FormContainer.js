@@ -20,6 +20,8 @@ class Form extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
+    console.log(this.props.params, nextProps.params);
+    if (this.props.params.id !== nextProps.params.id || this.props.params.exerciseId !== nextProps.params.exerciseId) this.fetchData();
     if (this.state.formType !== nextState.formType) {
       let formHeaderName;
       switch (nextState.formType) {
@@ -39,25 +41,42 @@ class Form extends React.Component {
     }
   }
 
+  componentWillMount() {
+    if (this.props.params.form === "workout" && !this.props.params.id) this.props.checkIsPageExist(false);
+  }
+
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
+    this.setupForm();
+  }
 
+  setupForm() {
     if (this.props.params.exerciseId || this.props.params.form === "session" &&  this.props.params.id) {
       this.props.setFethingData(true);
-      fetch(`/api/v1/workout/training/${this.props.params.id}`)
-      .then(data => data.json())
+      this.fetchData();
+    } else this.setState({ formType: this.props.params.form });
+  }
+
+  fetchData() {
+    fetch(`/api/v1/workout/training/${this.props.params.id}`)
       .then(data => {
         this.props.setFethingData(false);
+        if (data.status === 404) throw Error(404);
+        return data.json();
+      })
+      .then(data => {
         let formData = this.props.params.form === "session"
-          ? {title: data.title}
+          ? { title: data.title }
           : data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0];
         this.setState({
           formType: this.props.params.form,
           newData: formData,
           oldData: formData
         });
+      })
+      .catch( error => {
+        if (error.message === "404") this.props.checkIsPageExist(false);
       });
-    } else this.setState({ formType: this.props.params.form });
   }
 
   checkForUnsavedData() {

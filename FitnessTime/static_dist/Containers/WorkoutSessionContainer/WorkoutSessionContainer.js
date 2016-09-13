@@ -73,10 +73,7 @@ class WorkoutSessionsContainer extends React.Component {
     })
       .then(data => {
         this.props.setFethingData(false);
-        if (data.status === 404) {
-          throw Error(404);
-        }
-        if (!data.ok) throw Error();
+        if (data.status === 404) throw Error(404);
         return data.json();
       })
       .then(data => {
