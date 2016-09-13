@@ -21,7 +21,7 @@ class Form extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     console.log(this.props.params, nextProps.params);
-    if (this.props.params.id !== nextProps.params.id || this.props.params.exerciseId !== nextProps.params.exerciseId) this.fetchData();
+    if (this.props.params.exerciseId !== nextProps.params.exerciseId) this.fetchData();
     if (this.state.formType !== nextState.formType) {
       let formHeaderName;
       switch (nextState.formType) {
