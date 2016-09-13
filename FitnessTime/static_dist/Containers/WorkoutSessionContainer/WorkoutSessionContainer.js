@@ -22,6 +22,13 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const nextPage = +nextProps.params.page || 1;
+    const currentPage = +this.props.params.page || 1;
+    console.log(nextPage, currentPage);
+    if (nextPage !== currentPage) this.fetchPageUrl(nextPage);
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (this.state.userName !== nextState.userName) {
       this.props.getRoutePathName(`Тренировки ${nextState.userName}`);

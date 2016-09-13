@@ -1,6 +1,6 @@
 import Header from "../../Containers/HeaderContainer/HeaderContainer";
 import Modal from "react-modal";
-import NotFoundPage from "../NotFound404Component/NotFound404Container";
+import NotFoundPage from "../../Containers/NotFound404Container/NotFound404Container";
 
 const propTypes = {
   ChildNode: React.PropTypes.object.isRequired,
@@ -10,7 +10,7 @@ const propTypes = {
 function App (props) {
   Modal.setAppElement("body");
 
-  const page = (props.isPageExist) ?  props.ChildNode : <NotFoundPage/>;
+  const page = (props.isPageExist) ?  props.ChildNode : <NotFoundPage checkIsPageExist={props.checkIsPageExist} routeParams={props.routeParams}/>;
 
   return (
     <div>

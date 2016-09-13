@@ -37,6 +37,8 @@ class App extends React.Component {
     return (
       <AppComponent
         ChildNode={ChildNode}
+        routeParams={this.props.params}
+        checkIsPageExist={this.checkIsPageExist}
         isPageExist={this.state.isPageExist}
         routePathName={this.state.routePathName}
         isDataFetching={this.state.isDataFetching}
