@@ -25,7 +25,6 @@ class WorkoutSessionsContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const nextPage = +nextProps.params.page || 1;
     const currentPage = +this.props.params.page || 1;
-    console.log(nextPage, currentPage);
     if (nextPage !== currentPage) this.fetchPageUrl(nextPage);
   }
 
@@ -73,6 +72,7 @@ class WorkoutSessionsContainer extends React.Component {
       credentials: "include"
     })
       .then(data => {
+        this.props.setFethingData(false);
         if (data.status === 404) {
           throw Error(404);
         }
@@ -80,7 +80,6 @@ class WorkoutSessionsContainer extends React.Component {
         return data.json();
       })
       .then(data => {
-        this.props.setFethingData(false);
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
         this.setState( this.state[`page-${page || 1}`] = {
@@ -92,7 +91,6 @@ class WorkoutSessionsContainer extends React.Component {
         });
       }, (error) => {
         if (error.message === "404") this.props.checkIsPageExist(false);
-        this.props.setFethingData(false);
       });
   }
 
