@@ -3,7 +3,9 @@ import NotFoundPageComponent from "../../Components/NotFound404Component/NotFoun
 class NotFoundPage extends React.Component {
 
   componentWillUpdate(nextProps) {
-    if (this.props.routeParams.page !== nextProps.routeParams.page) this.props.checkIsPageExist(true);
+    for (let key in this.props.routeParams) {
+      if (this.props.routeParams[key] !== nextProps.routeParams[key]) this.props.checkIsPageExist(true);
+    }
   }
 
   render() {
