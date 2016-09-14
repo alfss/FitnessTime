@@ -12,15 +12,15 @@ function Pagination (props) {
     const classes = (page === props.currentPage) ? "pagination__page pagination__page_active" : "pagination__page";
     return (
       <li key={i}>
-        <a onClick={props.switchPage(page)} className={classes}>{page}</a>
+        <span onClick={props.switchPage(page)} className={classes}>{page}</span>
       </li>
     );
   });
   return (
     <ul className="pagination">
-      <li><a className="pagination__page-nav" onClick={props.previousPage}>«</a></li>
+      <li><span className="pagination__page-nav" onClick={props.previousPage}>«</span></li>
       { pages }
-      <li><a className="pagination__page-nav" onClick={props.nextPage}>»</a></li>
+      <li><span className="pagination__page-nav" onClick={props.nextPage}>»</span></li>
     </ul>
   );
 }
