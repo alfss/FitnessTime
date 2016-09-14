@@ -82,23 +82,26 @@ class Form extends React.Component {
   checkForUnsavedData() {
     if (this.state.isDataSaved) return;
     const message = "You have unsaved information, are you sure you want to leave this page?";
+    if (this.isDataChanged()) return message;
+  }
+
+  isDataChanged() {
     for (let key in this.state.newData) {
       if (!this.state.oldData.title) {
-        if (this.state.newData[key]) return message;
+        if (this.state.newData[key]) return true;
       } else {
         if (key === "example_photo" && this.state.newData[key] === "") continue;
-        if (this.state.oldData[key] !== this.state.newData[key]) return message;
+        if (this.state.oldData[key] !== this.state.newData[key]) return true;
       }
     }
+    return false;
   }
 
   handleInputChange(e) {
     if (!e.target.previousSibling.classList.contains("hidden")) e.target.previousSibling.classList.add("hidden");
     var newValue = Object.assign({}, this.state.newData);
     newValue[e.target.name] = e.target.value;
-    this.setState({
-      newData : newValue
-    });
+    this.setState({ newData : newValue });
   }
 
   handleCreatingForm(e) {
@@ -123,6 +126,10 @@ class Form extends React.Component {
   }
 
   sendDataToServer(url, method, code) {
+    if (!this.isDataChanged()) {
+      this.setState({ isDataSaved: true });
+      return;
+    }
     if (!this.isFormValid()) return;
     let body = new FormData(document.querySelector(".form"));
     if (this.state.formType === "workout") body.append("training", this.props.params.id);
@@ -130,7 +137,7 @@ class Form extends React.Component {
 
     fetch(url, options)
     .then(data => {
-      if (data.status === code) { this.setState({isDataSaved: true}); }
+      if (data.status === code) this.setState({ isDataSaved: true });
     });
   }
 
