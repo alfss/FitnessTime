@@ -1,18 +1,14 @@
 .stopwatch {
   margin-bottom: 10px;
 
+  &__info {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__rest-timer, &__repeat-count {
-    text-align: center;
     font-size: 1.5rem;
     margin-bottom: 10px;
-  }
-
-  &__repeat-count {
-    float: left;
-  }
-
-  &__rest-timer {
-    float: right;
   }
 
   &__button {

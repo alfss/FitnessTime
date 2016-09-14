@@ -14,8 +14,10 @@ function Stopwatch (props) {
   const showFinishBlock = props.isComplete ? {display: ""} : {display: "none"};
   return (
     <div className="stopwatch">
-      <div className="stopwatch__repeat-count">Повтор: {props.repeatsDone}</div>
-      <div className="stopwatch__rest-timer">Отдых: {props.rest}</div>
+      <div className="stopwatch__info">
+        <div className="stopwatch__repeat-count">Повтор: {props.repeatsDone}</div>
+        <div className="stopwatch__rest-timer">Отдых: {props.rest}</div>
+      </div>
       <div className="stopwatch__finish" style={showFinishBlock}>Вы уже сделали все повторы.</div>
       <div className="stopwatch__controls">
         <Button
