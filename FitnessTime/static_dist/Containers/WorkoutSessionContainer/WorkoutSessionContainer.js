@@ -23,6 +23,7 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.params.page === "1") this.props.router.replace("/");
     const nextPage = +nextProps.params.page || 1;
     const currentPage = +this.props.params.page || 1;
     if (nextPage !== currentPage) this.fetchPageUrl(nextPage);
