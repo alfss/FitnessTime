@@ -27,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: extractCSS.extract("css?sourceMap!postcss")
+        loader: extractCSS.extract("css!postcss")
       },
       {
         test: /\.scss$/,
-        loader: extractCSS.extract("css?sourceMap!postcss!resolve-url!sass?sourceMap")
+        loader: extractCSS.extract("css!postcss!resolve-url!sass?sourceMap")
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
@@ -39,8 +39,6 @@ module.exports = {
       }
     ]
   },
-
-  devtool: "inline-source-map",
 
   postcss() {
     return [autoprefixer({ browsers: ["last 2 versions"] })];
