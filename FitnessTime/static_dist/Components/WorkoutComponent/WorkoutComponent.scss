@@ -1,7 +1,8 @@
 .workout {
   text-align: center;
 
-  &__name {
+  &__trigger {
+    display: block;
     color: $text-color;
     padding: $gutter-big;
     border-bottom: 2px solid $material-blue-rgba-medium;
@@ -9,7 +10,6 @@
   }
 
   &__full-data {
-    display: none;
     text-align: left;
     padding: $gutter-big;
     background-color: $background;

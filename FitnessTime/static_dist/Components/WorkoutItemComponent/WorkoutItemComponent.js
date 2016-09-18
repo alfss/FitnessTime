@@ -1,24 +1,21 @@
 import Stopwatch from "../../Containers/StopwatchContainer/StopwatchContainer";
 import { Link } from "react-router";
 import Modal from "react-modal";
+import Collapsible from 'react-collapsible';
 
 const propTypes = {
   data: React.PropTypes.object.isRequired,
   formatRestTimer: React.PropTypes.func.isRequired,
   isModalOpen: React.PropTypes.bool.isRequired,
   toggleModal: React.PropTypes.func.isRequired,
-  deleteItem: React.PropTypes.func.isRequired,
-  toggleOpenFullData: React.PropTypes.func.isRequired
+  deleteItem: React.PropTypes.func.isRequired
 };
 
 function WorkoutItem (props) {
   Modal.setAppElement("body");
-  
+
   return (
-    <div className="workout__item" key={props.data.uuid}>
-      <div className="workout__name" onClick={props.toggleOpenFullData}>
-        {props.data.title}
-      </div>
+    <Collapsible classParentString="workout" trigger={props.data.title}>
       <div className="workout__full-data">
         <div className="workout__info">
         <div className="workout__description">
@@ -41,7 +38,7 @@ function WorkoutItem (props) {
       <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
         <img src={props.data.example_photo} className="modal__image" />
       </Modal>
-    </div>
+    </Collapsible>
   );
 }
 
