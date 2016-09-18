@@ -46,7 +46,6 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
     new webpack.ProvidePlugin({
-      $: "jquery/dist/jquery.min",
       React: "react"
     }),
     extractCSS

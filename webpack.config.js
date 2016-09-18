@@ -49,7 +49,6 @@ module.exports = {
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
     new LiveReloadPlugin({appendScriptTag : true}),
     new webpack.ProvidePlugin({
-      $: "jquery/dist/jquery.min",
       React: "react"
     }),
     extractCSS
