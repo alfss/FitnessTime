@@ -12,7 +12,7 @@ class WorkoutContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getParentRoute("/");
+    this.props.getParentRoute("/app");
   }
 
   componentDidMount() {

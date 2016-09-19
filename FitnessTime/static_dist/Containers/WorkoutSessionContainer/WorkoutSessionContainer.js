@@ -49,7 +49,7 @@ class WorkoutSessionsContainer extends React.Component {
     return () => {
       if (+this.props.params.page === page) return;
       if (!this.props.params.page && page === 1) return;
-      const pageUrl = (page === 1) ? "/" :`/page${page}`;
+      const pageUrl = (page === 1) ? "/app" :`/app/page${page}`;
       this.props.router.push(pageUrl);
     };
   }
@@ -57,13 +57,13 @@ class WorkoutSessionsContainer extends React.Component {
   goToNextPage() {
     if (this.state.next === null) return;
     const nextPage = this.state.next.match(/page=(\d*)/i)[1];
-    this.props.router.push(`/page${nextPage}`);
+    this.props.router.push(`/app/page${nextPage}`);
   }
 
   goToPreviousPage() {
     if (this.state.previous === null) return;
     const previousPage = this.state.previous.match(/page=(\d*)/i);
-    const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
+    const pageUrl = (previousPage === null) ? "/app" : `/app/page${previousPage}`;
     this.props.router.push(pageUrl);
   }
 

@@ -29,7 +29,7 @@ function WorkoutItem (props) {
         </div>
         <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
         <div className="workout__controls">
-          <Link to={`/form/workout/${props.data.training}/${props.data.uuid}`}>
+          <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`}>
             <button className="workout__control-button workout__control-button_edit"></button>
           </Link>
           <button className="workout__control-button workout__control-button_delete" onClick={props.deleteItem(props.data.uuid)}></button>

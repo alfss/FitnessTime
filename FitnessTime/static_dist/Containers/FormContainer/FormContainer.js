@@ -35,8 +35,8 @@ class Form extends React.Component {
   componentDidUpdate() {
     if (this.state.isDataSaved) {
       this.props.params.form !== "session"
-        ? this.props.router.push(`/workout/${this.props.params.id}`)
-        : this.props.router.push("/");
+        ? this.props.router.push(`/app/workout/${this.props.params.id}`)
+        : this.props.router.push("/app");
     }
   }
 
@@ -44,8 +44,8 @@ class Form extends React.Component {
     if (this.props.params.form === "workout" && !this.props.params.id) this.props.checkIsPageExist(false);
     let parentRoute;
     switch (this.props.params.form) {
-      case "workout": parentRoute = `/workout/${this.props.params.id}`; break;
-      case "session": parentRoute = "/"; break;
+      case "workout": parentRoute = `/app/workout/${this.props.params.id}`; break;
+      case "session": parentRoute = "/app"; break;
     }
     this.props.getParentRoute(parentRoute);
   }

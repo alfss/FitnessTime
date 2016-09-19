@@ -11,7 +11,6 @@ const propTypes = {
 };
 
 function Stopwatch (props) {
-  console.log(props.isComplete);
   const showFinishBlock = props.isComplete ? {display: ""} : {display: "none"};
   return (
     <div className="stopwatch">
