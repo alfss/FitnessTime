@@ -97,7 +97,7 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleDeletingSession(sessionId) {
     return () => {
-      const confirmDeleting = confirm("Вы действительно хотите удалить сессию?");
+      const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
         fetch(`/api/v1/workout/training/${sessionId}`, {
           credentials: "include",

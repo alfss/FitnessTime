@@ -25,7 +25,7 @@ class Form extends React.Component {
       let formHeaderName;
       switch (nextState.formType) {
         case "workout": formHeaderName = "Создать тренировку"; break;
-        case "session": formHeaderName = "Создать сессию"; break;
+        case "session": formHeaderName = "Создать тренировку"; break;
       }
       if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
       this.props.getRouteName(formHeaderName);
