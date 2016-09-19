@@ -22,17 +22,17 @@ class HeaderContainer extends React.Component {
   }
 
   goBack() {
-    this.props.router.goBack();
+    this.props.router.push(this.props.parentRoute);
   }
 
   render() {
-    console.log(this.props.router.isActive("/", true));
     return (
       <Header
         checkRoute={this.props.router.isActive}
         showNav={this.showNav}
         goBack={this.goBack}
-        routePathName={this.props.routePathName}
+        routeName={this.props.routeName}
+        parentRoute={this.props.parentRoute}
       />
     );
   }

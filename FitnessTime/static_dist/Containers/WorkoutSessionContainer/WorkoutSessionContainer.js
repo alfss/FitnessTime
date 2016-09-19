@@ -22,6 +22,15 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.props.getParentRoute("");
+  }
+
+  componentDidMount() {
+    const page = this.props.params.page || 1;
+    this.fetchPageUrl(page);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.page === "1") this.props.router.replace("/");
     const nextPage = +nextProps.params.page || 1;
@@ -35,10 +44,6 @@ class WorkoutSessionsContainer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const page = this.props.params.page || 1;
-    this.fetchPageUrl(page);
-  }
 
   handleSwitchPage(page) {
     return () => {

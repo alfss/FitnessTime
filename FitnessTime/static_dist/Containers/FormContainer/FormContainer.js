@@ -42,6 +42,12 @@ class Form extends React.Component {
 
   componentWillMount() {
     if (this.props.params.form === "workout" && !this.props.params.id) this.props.checkIsPageExist(false);
+    let parentRoute;
+    switch (this.props.params.form) {
+      case "workout": parentRoute = `/workout/${this.props.params.id}`; break;
+      case "session": parentRoute = "/"; break;
+    }
+    this.props.getParentRoute(parentRoute);
   }
 
   componentDidMount() {
