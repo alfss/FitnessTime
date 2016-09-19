@@ -27,6 +27,7 @@ class TrainingViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+        queryset = queryset.prefetch_related('exercises')
         label = self.request.query_params.get('label', None)
 
         try:

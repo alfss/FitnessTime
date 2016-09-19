@@ -46,6 +46,7 @@ class Exercise(models.Model):
                                  on_delete = models.CASCADE,)
     class Meta:
         unique_together = (("title", "training"),)
+        ordering = ['priority']
 
     def is_owner(self, user):
         return self.training.owner == user
