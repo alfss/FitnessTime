@@ -41,7 +41,7 @@
 
   &__no-image {
     height: 100px;
-    background-image: url(noimage.jpg);
+    background-image: url(../../images/noimage.jpg);
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -60,11 +60,11 @@
     background-position: center;
 
     &_edit {
-      background-image: url(pencil-icon.svg);
+      background-image: url(../../images/pencil-icon.svg);
     }
 
     &_delete {
-      background-image: url(trash-icon.svg);
+      background-image: url(../../images/trash-icon.svg);
       background-size: 20px
     }
   }
