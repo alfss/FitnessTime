@@ -26,6 +26,7 @@ class HeaderContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.router.isActive("/", true));
     return (
       <Header
         checkRoute={this.props.router.isActive}

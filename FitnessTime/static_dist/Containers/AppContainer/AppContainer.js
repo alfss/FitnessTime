@@ -5,7 +5,7 @@ import AppComponent from "../../Components/AppComponent/AppComponent";
 class App extends React.Component {
   constructor() {
     super();
-    this.getRoutePathName = this.getRoutePathName.bind(this);
+    this.getRouteName = this.getRouteName.bind(this);
     this.checkIsPageExist = this.checkIsPageExist.bind(this);
     this.setFethingData = this.setFethingData.bind(this);
     this.state = {
@@ -15,7 +15,7 @@ class App extends React.Component {
     };
   }
 
-  getRoutePathName(name) {
+  getRouteName(name) {
     this.setState({ routePathName: name });
   }
 
@@ -30,7 +30,7 @@ class App extends React.Component {
   render() {
     const ChildNode = React.cloneElement(this.props.children, {
       checkIsPageExist: this.checkIsPageExist,
-      getRoutePathName: this.getRoutePathName,
+      getRouteName: this.getRouteName,
       setFethingData: this.setFethingData
     });
 

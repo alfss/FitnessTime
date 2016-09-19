@@ -31,7 +31,7 @@ class WorkoutSessionsContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.userName !== nextState.userName) {
-      this.props.getRoutePathName(`Тренировки ${nextState.userName}`);
+      this.props.getRouteName(`Тренировки ${nextState.userName}`);
     }
   }
 

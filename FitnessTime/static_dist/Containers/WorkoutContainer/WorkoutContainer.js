@@ -17,7 +17,7 @@ class WorkoutContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.workoutName !== nextState.workoutName) {
-      this.props.getRoutePathName(nextState.workoutName);
+      this.props.getRouteName(nextState.workoutName);
     }
   }
 

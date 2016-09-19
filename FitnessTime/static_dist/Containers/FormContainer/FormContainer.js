@@ -28,7 +28,7 @@ class Form extends React.Component {
         case "session": formHeaderName = "Создать сессию"; break;
       }
       if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
-      this.props.getRoutePathName(formHeaderName);
+      this.props.getRouteName(formHeaderName);
     }
   }
 
