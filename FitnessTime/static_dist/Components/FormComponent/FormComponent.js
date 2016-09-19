@@ -15,8 +15,8 @@ const formTypes = {
   workout: [
     { label: "Название", name: "title", type: "text", classes: "", placeholder: "Название упражнения"},
     { label: "Повторы", name: "repeat", type: "text", classes: "", placeholder: "Колличество повторов" },
-    { label: "Вес", name: "weight", type: "text", classes: "", placeholder: "Необходимый вес (в килограммах)" },
-    { label: "Отдых", name: "rest_time", type: "text", classes: "", placeholder: "Время отдыха (в секундах)" },
+    { label: "Вес", name: "weight", type: "number", classes: "", placeholder: "Необходимый вес (в килограммах)" },
+    { label: "Отдых", name: "rest_time", type: "number", classes: "", placeholder: "Время отдыха (в секундах)" },
     { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file", placeholder: "" }
   ],
   session: [
