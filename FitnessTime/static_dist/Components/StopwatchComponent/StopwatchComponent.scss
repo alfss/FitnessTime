@@ -11,15 +11,22 @@
     margin-bottom: 10px;
   }
 
+  &__controls {
+    text-align: center;
+  }
+
   &__button {
 
-    &_stop {
+    &_start {
+      width: 80%;
+    }
+
+    &_reset {
       background-color: $material-red;
       margin-left: $gutter;
     }
 
     &_pause {
-      display: none;
       background-color: $material-orange;
     }
   }

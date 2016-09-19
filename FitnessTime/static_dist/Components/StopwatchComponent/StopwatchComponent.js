@@ -24,12 +24,19 @@ function Stopwatch (props) {
           classes="stopwatch__button stopwatch__button_start"
           name="Start"
           action={props.startTimer}
-          isDisabled={props.isTimerWorking}
+          isHidden={props.isTimerWorking}
         />
         <Button
-          classes="stopwatch__button stopwatch__button_stop"
+          classes="stopwatch__button stopwatch__button_pause"
+          name="Закончить"
+          action={props.finishTimer}
+          isHidden={!props.isTimerWorking}
+        />
+        <Button
+          classes="stopwatch__button stopwatch__button_reset"
           name="Reset"
           action={props.resetTimer}
+          isHidden={!props.isTimerWorking}
         />
       </div>
     </div>

@@ -5,11 +5,12 @@ const propTypes = {
   classes: React.PropTypes.string,
   type: React.PropTypes.string,
   action: React.PropTypes.func,
-  isDisabled: React.PropTypes.bool
+  isHidden: React.PropTypes.bool
 };
 
 function Button (props) {
-  const classes = props.classes ? `button ${props.classes}` : "button";
+  let classes = `button ${props.classes} ${(props.isHidden) ? "hidden" : ""}`
+
   return (
     <button type={props.type} className={classes} onClick={props.action} disabled={props.isDisabled}>{props.name}</button>
   );
