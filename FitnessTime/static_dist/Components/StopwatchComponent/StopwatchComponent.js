@@ -11,6 +11,7 @@ const propTypes = {
 };
 
 function Stopwatch (props) {
+  console.log(props.isComplete);
   const showFinishBlock = props.isComplete ? {display: ""} : {display: "none"};
   return (
     <div className="stopwatch">
@@ -22,21 +23,21 @@ function Stopwatch (props) {
       <div className="stopwatch__controls">
         <Button
           classes="stopwatch__button stopwatch__button_start"
-          name="Start"
+          name="Начать отдых"
           action={props.startTimer}
-          isHidden={props.isTimerWorking}
+          isHidden={props.isTimerWorking || props.isComplete}
         />
         <Button
           classes="stopwatch__button stopwatch__button_pause"
-          name="Закончить"
+          name="Закончить отдых"
           action={props.finishTimer}
           isHidden={!props.isTimerWorking}
         />
         <Button
           classes="stopwatch__button stopwatch__button_reset"
-          name="Reset"
+          name="Сбросить"
           action={props.resetTimer}
-          isHidden={!props.isTimerWorking}
+          isHidden={!props.isComplete}
         />
       </div>
     </div>

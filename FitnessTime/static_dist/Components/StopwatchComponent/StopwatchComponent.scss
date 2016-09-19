@@ -16,10 +16,8 @@
   }
 
   &__button {
-
-    &_start {
-      width: 80%;
-    }
+    width: 80%;
+    text-transform: none;
 
     &_reset {
       background-color: $material-red;
