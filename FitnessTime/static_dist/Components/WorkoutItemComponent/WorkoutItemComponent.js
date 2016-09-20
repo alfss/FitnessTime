@@ -20,12 +20,13 @@ function WorkoutItem (props) {
       <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
       <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
     </div>
-  )
+  );
   const modal = (!props.data.example_photo)
     ? null
     : <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
+        <span className="modal__close-btn" onClick={props.toggleModal} />
         <img src={props.data.example_photo} className="modal__image" />
-      </Modal>
+      </Modal>;
 
   return (
     <Collapsible classParentString="workout" trigger={trigger}>
