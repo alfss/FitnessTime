@@ -22,6 +22,15 @@ class WorkoutSessionsContainer extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.props.getParentRoute("");
+  }
+
+  componentDidMount() {
+    const page = this.props.params.page || 1;
+    this.fetchPageUrl(page);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.page === "1") this.props.router.replace("/");
     const nextPage = +nextProps.params.page || 1;
@@ -31,20 +40,16 @@ class WorkoutSessionsContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.userName !== nextState.userName) {
-      this.props.getRoutePathName(`Тренировки ${nextState.userName}`);
+      this.props.getRouteName(`Тренировки ${nextState.userName}`);
     }
   }
 
-  componentDidMount() {
-    const page = this.props.params.page || 1;
-    this.fetchPageUrl(page);
-  }
 
   handleSwitchPage(page) {
     return () => {
       if (+this.props.params.page === page) return;
       if (!this.props.params.page && page === 1) return;
-      const pageUrl = (page === 1) ? "/" :`/page${page}`;
+      const pageUrl = (page === 1) ? "/app" :`/app/page${page}`;
       this.props.router.push(pageUrl);
     };
   }
@@ -52,13 +57,13 @@ class WorkoutSessionsContainer extends React.Component {
   goToNextPage() {
     if (this.state.next === null) return;
     const nextPage = this.state.next.match(/page=(\d*)/i)[1];
-    this.props.router.push(`/page${nextPage}`);
+    this.props.router.push(`/app/page${nextPage}`);
   }
 
   goToPreviousPage() {
     if (this.state.previous === null) return;
     const previousPage = this.state.previous.match(/page=(\d*)/i);
-    const pageUrl = (previousPage === null) ? "/" : `/page${previousPage}`;
+    const pageUrl = (previousPage === null) ? "/app" : `/app/page${previousPage}`;
     this.props.router.push(pageUrl);
   }
 
@@ -92,7 +97,7 @@ class WorkoutSessionsContainer extends React.Component {
 
   handleDeletingSession(sessionId) {
     return () => {
-      const confirmDeleting = confirm("Вы действительно хотите удалить сессию?");
+      const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
         fetch(`/api/v1/workout/training/${sessionId}`, {
           credentials: "include",

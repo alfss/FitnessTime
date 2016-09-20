@@ -13,14 +13,14 @@ const propTypes = {
 
 const formTypes = {
   workout: [
-    { label: "Название", name: "title", type: "text", classes: ""},
-    { label: "Повторы", name: "repeat", type: "text", classes: "" },
-    { label: "Вес", name: "weight", type: "text", classes: "" },
-    { label: "Отдых", name: "rest_time", type: "text", classes: "" },
-    { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file" }
+    { label: "Название", name: "title", type: "text", classes: "", placeholder: "Название упражнения"},
+    { label: "Повторы", name: "repeat", type: "text", classes: "", placeholder: "Колличество повторов" },
+    { label: "Вес", name: "weight", type: "number", classes: "", placeholder: "Необходимый вес (в килограммах)" },
+    { label: "Отдых", name: "rest_time", type: "number", classes: "", placeholder: "Время отдыха (в секундах)" },
+    { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file", placeholder: "" }
   ],
   session: [
-    { label: "Название трениров", name:"title", type: "text", classes: "form__session-title" }
+    { label: "Название трениров", name:"title", type: "text", classes: "form__session-title", placeholder: "Название тренировки" }
   ]
 };
 
@@ -34,6 +34,7 @@ function Form (props) {
           const fileInput = document.querySelector(".form__input_file");
           let value = props.inputValue[data.name] || "";
           if (fileInput && fileInput.files.length === 0 && data.name === "example_photo") value = "";
+
           return <label key={i} className="form__label">
             {data.label}:
             <span className="form__error hidden">(Введите корректную информацию)</span>
@@ -43,6 +44,7 @@ function Form (props) {
               onChange={props.handleInputChange}
               className={`form__input ${data.classes}`}
               value={value}
+              placeholder={data.placeholder}
             />
           </label>;
         })

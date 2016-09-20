@@ -11,13 +11,17 @@ class WorkoutContainer extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.props.getParentRoute("/app");
+  }
+
   componentDidMount() {
     this.loadWorkoutData();
   }
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.workoutName !== nextState.workoutName) {
-      this.props.getRoutePathName(nextState.workoutName);
+      this.props.getRouteName(nextState.workoutName);
     }
   }
 

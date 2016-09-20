@@ -22,14 +22,21 @@ function Stopwatch (props) {
       <div className="stopwatch__controls">
         <Button
           classes="stopwatch__button stopwatch__button_start"
-          name="Start"
+          name="Начать отдых"
           action={props.startTimer}
-          isDisabled={props.isTimerWorking}
+          isHidden={props.isTimerWorking || props.isComplete}
         />
         <Button
-          classes="stopwatch__button stopwatch__button_stop"
-          name="Reset"
+          classes="stopwatch__button stopwatch__button_pause"
+          name="Закончить отдых"
+          action={props.finishTimer}
+          isHidden={!props.isTimerWorking}
+        />
+        <Button
+          classes="stopwatch__button stopwatch__button_reset"
+          name="Сбросить"
           action={props.resetTimer}
+          isHidden={!props.isComplete}
         />
       </div>
     </div>

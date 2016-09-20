@@ -10,7 +10,7 @@ import NotFound404 from "./Components/NotFound404Component/NotFound404Container"
 
 const routes = (
   <Router>
-    <Route path="/" component={App}>
+    <Route path="/app" component={App}>
       <IndexRoute component={WorkoutSession}/>
       <Route path="page:page" component={WorkoutSession}/>
       <Route path="workout/:id" component={Workout}/>

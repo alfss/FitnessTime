@@ -4,7 +4,8 @@ import NotFoundPage from "../../Containers/NotFound404Container/NotFound404Conta
 
 const propTypes = {
   ChildNode: React.PropTypes.object.isRequired,
-  routePathName: React.PropTypes.string.isRequired
+  routeName: React.PropTypes.string.isRequired,
+  parentRoute: React.PropTypes.string
 };
 
 function App (props) {
@@ -14,7 +15,7 @@ function App (props) {
 
   return (
     <div>
-      <Header routePathName = {props.routePathName}/>
+      <Header routeName={props.routeName} parentRoute={props.parentRoute}/>
       { page }
       <Modal isOpen={props.isDataFetching} overlayClassName="modal__overlay" className="modal__app" />
     </div>

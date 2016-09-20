@@ -11,7 +11,7 @@ const propTypes = {
 
 function Workout (props) {
   return (
-    <div className="workout">
+    <div className="workout-item">
       {
         props.workoutData.map( data => {
           return <WorkoutItem
@@ -21,7 +21,7 @@ function Workout (props) {
           />;
         })
       }
-      <Link to={`/form/workout/${props.sessionId}`} className="button button_add">
+      <Link to={`/app/form/workout/${props.sessionId}`} className="button button_add">
         Новое упражнение
       </Link>
       <audio id="stop-timer">

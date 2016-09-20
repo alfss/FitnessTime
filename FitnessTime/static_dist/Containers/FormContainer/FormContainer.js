@@ -25,23 +25,29 @@ class Form extends React.Component {
       let formHeaderName;
       switch (nextState.formType) {
         case "workout": formHeaderName = "Создать тренировку"; break;
-        case "session": formHeaderName = "Создать сессию"; break;
+        case "session": formHeaderName = "Создать тренировку"; break;
       }
       if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
-      this.props.getRoutePathName(formHeaderName);
+      this.props.getRouteName(formHeaderName);
     }
   }
 
   componentDidUpdate() {
     if (this.state.isDataSaved) {
       this.props.params.form !== "session"
-        ? this.props.router.push(`/workout/${this.props.params.id}`)
-        : this.props.router.push("/");
+        ? this.props.router.push(`/app/workout/${this.props.params.id}`)
+        : this.props.router.push("/app");
     }
   }
 
   componentWillMount() {
     if (this.props.params.form === "workout" && !this.props.params.id) this.props.checkIsPageExist(false);
+    let parentRoute;
+    switch (this.props.params.form) {
+      case "workout": parentRoute = `/app/workout/${this.props.params.id}`; break;
+      case "session": parentRoute = "/app"; break;
+    }
+    this.props.getParentRoute(parentRoute);
   }
 
   componentDidMount() {
@@ -100,7 +106,7 @@ class Form extends React.Component {
   handleInputChange(e) {
     if (!e.target.previousSibling.classList.contains("hidden")) e.target.previousSibling.classList.add("hidden");
     var newValue = Object.assign({}, this.state.newData);
-    newValue[e.target.name] = (e.target.name === "weight" || e.target.name === "rest_time") ? +e.target.value : e.target.value;
+    newValue[e.target.name] = (e.target.type === "number") ? +e.target.value : e.target.value;
     this.setState({ newData : newValue });
   }
 

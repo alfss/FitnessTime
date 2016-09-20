@@ -12,32 +12,38 @@ const propTypes = {
 };
 
 function WorkoutItem (props) {
+  console.log(props);
   Modal.setAppElement("body");
+  const trigger = (
+    <div className="workout-item__name">
+      {props.data.title}
+      <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
+      <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
+    </div>
+  );
+  const modal = (!props.data.example_photo)
+    ? null
+    : <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
+        <span className="modal__close-btn" onClick={props.toggleModal} />
+        <img src={props.data.example_photo} className="modal__image" />
+      </Modal>;
 
   return (
-    <Collapsible classParentString="workout" trigger={props.data.title}>
-      <div className="workout__full-data">
-        <div className="workout__info">
-        <div className="workout__description">
-            <div className="workout__repeats"><span className="workout__description-name">Повторы:</span>{props.data.repeat}</div>
-            <div className="workout__weight"><span className="workout__description-name">Вес:</span>{props.data.weight}</div>
-            <div className="workout__rest"><span className="workout__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
+    <Collapsible classParentString="workout" trigger={trigger}>
+      <div className="workout-item__full-data">
+        <div className="workout-item__info">
+        <div className="workout-item__description">
+            <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{props.data.repeat}</div>
+            <div className="workout-item__weight"><span className="workout-item__description-name">Вес:</span>{props.data.weight}</div>
+            <div className="workout-item__rest"><span className="workout-item__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
           </div>
-          <div className={props.data.example_photo ? "workout__image" : "workout__no-image"}>
+          <div className={props.data.example_photo ? "workout-item__image" : "workout-item__no-image"}>
             <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
           </div>
         </div>
         <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
-        <div className="workout__controls">
-          <Link to={`/form/workout/${props.data.training}/${props.data.uuid}`}>
-            <button className="workout__control-button workout__control-button_edit"></button>
-          </Link>
-          <button className="workout__control-button workout__control-button_delete" onClick={props.deleteItem(props.data.uuid)}></button>
-        </div>
       </div>
-      <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
-        <img src={props.data.example_photo} className="modal__image" />
-      </Modal>
+      { modal }
     </Collapsible>
   );
 }

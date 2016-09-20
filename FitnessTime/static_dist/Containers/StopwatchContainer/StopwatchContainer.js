@@ -11,6 +11,7 @@ class StopwatchContainer extends React.Component {
     this.timerInterval;
     this.startTimer = this.startTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.finishTimer = this.finishTimer.bind(this);
     this.setRestTime = this.setRestTime.bind(this);
     this.state = {
       rest: "",
@@ -89,6 +90,15 @@ class StopwatchContainer extends React.Component {
     });
   }
 
+  finishTimer() {
+    clearInterval(this.timerInterval);
+    this.setRestTime();
+    this.setState({
+      repeatsDone: ++this.state.repeatsDone,
+      isTimerWorking: false
+    })
+  }
+
   showTimer() {
     let minutesRemaining = this.state.restMinutes;
     let secondsRemaining = this.state.restSeconds;
@@ -105,6 +115,7 @@ class StopwatchContainer extends React.Component {
         repeatsDone={this.state.repeatsDone}
         startTimer={this.startTimer}
         resetTimer={this.resetTimer}
+        finishTimer={this.finishTimer}
         isComplete={this.state.isComplete}
         isTimerWorking={this.state.isTimerWorking}
       />
