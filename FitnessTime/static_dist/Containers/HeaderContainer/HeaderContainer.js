@@ -12,12 +12,14 @@ class HeaderContainer extends React.Component {
   }
 
   showNav() {
-    document.querySelector(".header__nav").classList.remove("hidden");
+    document.querySelector(".header__nav-overlay").classList.add("header__nav-overlay_open");
+    document.querySelector(".header__list").classList.add("header__list_open");
     document.addEventListener("click", this.hideNav);
   }
 
   hideNav() {
-    document.querySelector(".header__nav").classList.add("hidden");
+    document.querySelector(".header__nav-overlay").classList.remove("header__nav-overlay_open");
+    document.querySelector(".header__list").classList.remove("header__list_open");
     document.removeEventListener("click", this.hideNav);
   }
 

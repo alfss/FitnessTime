@@ -14,7 +14,7 @@ function App (props) {
   const page = (props.isPageExist) ?  props.ChildNode : <NotFoundPage checkIsPageExist={props.checkIsPageExist} routeParams={props.routeParams}/>;
 
   return (
-    <div>
+    <div className="app">
       <Header routeName={props.routeName} parentRoute={props.parentRoute}/>
       { page }
       <Modal isOpen={props.isDataFetching} overlayClassName="modal__overlay" className="modal__app" />

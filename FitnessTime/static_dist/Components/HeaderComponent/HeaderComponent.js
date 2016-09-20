@@ -17,7 +17,8 @@ function Header (props) {
   return (
     <div className="header">
       <div className="header__previous-page" style={showGoBackBtn} onClick={props.goBack} />
-      <div className="header__nav hidden">
+      <div className="header__nav">
+        <span className="header__nav-overlay" />
         <ul className="header__list">
           {
             links.map( (item,i) => {
