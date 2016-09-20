@@ -11,7 +11,7 @@ const propTypes = {
 
 function Workout (props) {
   return (
-    <div className="workout">
+    <div className="workout-item">
       {
         props.workoutData.map( data => {
           return <WorkoutItem

@@ -14,23 +14,23 @@ const propTypes = {
 function WorkoutItem (props) {
   Modal.setAppElement("body");
   const trigger = (
-    <div className="workout__name">
+    <div className="workout-item__name">
       {props.data.title}
-      <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout__edit-btn" />
-      <button className="workout__close-btn" onClick={props.deleteItem(props.data.uuid)} />
+      <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
+      <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
     </div>
   )
 
   return (
     <Collapsible classParentString="workout" trigger={trigger}>
-      <div className="workout__full-data">
-        <div className="workout__info">
-        <div className="workout__description">
-            <div className="workout__repeats"><span className="workout__description-name">Повторы:</span>{props.data.repeat}</div>
-            <div className="workout__weight"><span className="workout__description-name">Вес:</span>{props.data.weight}</div>
-            <div className="workout__rest"><span className="workout__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
+      <div className="workout-item__full-data">
+        <div className="workout-item__info">
+        <div className="workout-item__description">
+            <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{props.data.repeat}</div>
+            <div className="workout-item__weight"><span className="workout-item__description-name">Вес:</span>{props.data.weight}</div>
+            <div className="workout-item__rest"><span className="workout-item__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
           </div>
-          <div className={props.data.example_photo ? "workout__image" : "workout__no-image"}>
+          <div className={props.data.example_photo ? "workout-item__image" : "workout-item__no-image"}>
             <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
           </div>
         </div>
