@@ -17,8 +17,9 @@ function Header (props) {
   return (
     <div className="header">
       <div className="header__previous-page" style={showGoBackBtn} onClick={props.goBack} />
+      <div className="header__page-name">{props.routeName}</div>
+      <div className="header__account" onClick={props.showNav}></div>
       <div className="header__nav">
-        <span className="header__nav-overlay" />
         <ul className="header__list">
           {
             links.map( (item,i) => {
@@ -34,8 +35,7 @@ function Header (props) {
           </li>
         </ul>
       </div>
-      <div className="header__page-name">{props.routeName}</div>
-      <div className="header__account" onClick={props.showNav}></div>
+      <span className="header__mask" />
     </div>
   );
 }

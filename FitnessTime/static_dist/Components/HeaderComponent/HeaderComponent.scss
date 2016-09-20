@@ -1,5 +1,4 @@
 .header {
-  position: relative;
   height: 60px;
   background-color: $material-blue;
   display: flex;
@@ -28,40 +27,25 @@
 
   &__nav {
     position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    height: calc(100vh - 70px);
     top: 70px;
     right: 0;
-    z-index: 200;
-  }
-
-  &__nav-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(62, 62, 62, 0);
-    transition: background-color 1s ease;
-
-    &_open {
-      background-color: rgba(62, 62, 62, .9);
-    }
-  }
-
-  &__list {
-    transform: translateX(100%);
-    height: 100%;
+    height: calc(100% - 70px);
     width: 60%;
+    transform: translateX(100%);
+    z-index: 100;
     background-color: $white;
+    transition: transform .8s ease;
     border-left: 2px solid $material-blue-rgba-light;
-    margin: 0;
-    padding: 0;
-    transition: transform 1s ease;
 
     &_open {
       transform: translateX(0);
     }
+  }
+
+  &__list {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   &__nav-link {
@@ -85,5 +69,24 @@
   &__list-item {
     list-style: none;
     color: black;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: rgb(62, 62, 62);
+    opacity: 0;
+    z-index: 99;
+    transition: opacity .8s, width 0s .8s,height 0s .8s;
+
+    &_open {
+      transition: opacity .8s;
+      opacity: .9;
+      width: 100%;
+      height: calc(100% - 70px);
+    }
   }
 }
