@@ -3,10 +3,15 @@
 
   &__trigger {
     display: block;
+  }
+
+  &__name {
+    position: relative;
     color: $text-color;
     padding: $gutter-big;
     border-bottom: 2px solid $material-blue-rgba-medium;
     cursor: pointer;
+
   }
 
   &__full-data {
@@ -46,26 +51,27 @@
     background-repeat: no-repeat;
   }
 
-  &__control-button {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-    border: 1px solid black;
-    @include border-radius;
-    background-color: #fff;
-    cursor: pointer;
-    background-size: 24px;
-    background-repeat: no-repeat;
-    background-position: center;
+  &__close-btn {
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $white;
+    border: none;
+    background: url(../../images/cross.svg) no-repeat center;
+    background-size: 20px;
+    transition: all .3s ease;
 
-    &_edit {
-      background-image: url(../../images/pencil-icon.svg);
+    &:hover {
+      background-size: 28px;
     }
+  }
 
-    &_delete {
-      background-image: url(../../images/trash-icon.svg);
-      background-size: 20px
-    }
+  &__edit-btn {
+    @extend .workout__close-btn;
+    background: url(../../images/pencil-icon.svg) no-repeat center;
+    background-size: 20px;
+    right: 50px;
   }
 }

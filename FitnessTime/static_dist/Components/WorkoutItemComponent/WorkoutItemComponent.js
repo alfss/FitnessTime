@@ -13,9 +13,16 @@ const propTypes = {
 
 function WorkoutItem (props) {
   Modal.setAppElement("body");
+  const trigger = (
+    <div className="workout__name">
+      {props.data.title}
+      <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout__edit-btn" />
+      <button className="workout__close-btn" onClick={props.deleteItem(props.data.uuid)} />
+    </div>
+  )
 
   return (
-    <Collapsible classParentString="workout" trigger={props.data.title}>
+    <Collapsible classParentString="workout" trigger={trigger}>
       <div className="workout__full-data">
         <div className="workout__info">
         <div className="workout__description">
@@ -28,12 +35,6 @@ function WorkoutItem (props) {
           </div>
         </div>
         <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
-        <div className="workout__controls">
-          <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`}>
-            <button className="workout__control-button workout__control-button_edit"></button>
-          </Link>
-          <button className="workout__control-button workout__control-button_delete" onClick={props.deleteItem(props.data.uuid)}></button>
-        </div>
       </div>
       <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
         <img src={props.data.example_photo} className="modal__image" />
