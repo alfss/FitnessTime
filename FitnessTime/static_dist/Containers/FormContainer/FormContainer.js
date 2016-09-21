@@ -139,7 +139,7 @@ class Form extends React.Component {
     if (!this.isFormValid()) return;
     let body = new FormData(document.querySelector(".form"));
     if (this.state.formType === "workout") body.append("training", this.props.params.id);
-    body.append("priority", +Date.now().toString().slice(-8));
+    body.append("priority", +Date.now().toString().slice(-11, -2));
     const options = this.createOptions(method, body);
 
     fetch(url, options)
