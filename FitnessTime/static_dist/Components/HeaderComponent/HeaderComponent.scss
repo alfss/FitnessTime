@@ -80,7 +80,7 @@
     background-color: rgb(62, 62, 62);
     opacity: 0;
     z-index: 99;
-    transition: opacity .8s, width 0s .8s,height 0s .8s;
+    transition: opacity .8s, width 0s .8s, height 0s .8s;
 
     &_open {
       transition: opacity .8s;

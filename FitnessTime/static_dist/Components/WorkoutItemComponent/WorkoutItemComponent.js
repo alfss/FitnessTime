@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 function WorkoutItem (props) {
-  console.log(props);
   Modal.setAppElement("body");
   const trigger = (
     <div className="workout-item__name">
