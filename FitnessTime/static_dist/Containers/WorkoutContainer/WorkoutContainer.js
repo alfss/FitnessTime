@@ -44,7 +44,7 @@ class WorkoutContainer extends React.Component {
       .then(data => {
         this.setState({
           workoutName: data.title,
-          workoutData: data.exercises
+          workoutData: data.exercises.sort((a,b) => b.priority - a.priority)
         });
       })
       .catch (error => {
