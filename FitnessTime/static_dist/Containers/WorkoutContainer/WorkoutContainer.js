@@ -82,12 +82,9 @@ class WorkoutContainer extends React.Component {
     const allFullDataItems = document.querySelectorAll(".workout-item__wrapper");
     allFullDataItems.forEach(item => {
       const isItemFullDataClose = item.classList.contains("workout-item__wrapper_closed");
-      if (e.target.nextSibling === item) return;
-      if (isItemFullDataClose) return;
-        this.animateFullData(item, true);
+      if (e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose)
+      else if (!isItemFullDataClose) this.animateFullData(item, true);
     });
-    const isOpen = !e.target.nextSibling.classList.contains("workout-item__wrapper_closed");
-    this.animateFullData(e.target.nextSibling, isOpen);
   }
 
   animateFullData(item, isShown) {
@@ -96,14 +93,12 @@ class WorkoutContainer extends React.Component {
 
     animation(item, `collapse`, {
       start() {
-        if (isShown) {
-          item.style.height = `${item.offsetHeight}px`;
-        } else {
-          const tempHeight = (item.offsetHeight > 0) ? `${item.offsetHeight}px` : 0;
+        const itemHeight = `${item.offsetHeight}px`;
+        if (!isShown) {
           item.style.height = '';
           height = item.offsetHeight;
-          item.style.height = tempHeight;
         }
+        item.style.height = itemHeight;
       },
       active() {
         item.style.height = `${isShown ? 0 : height}px`;
