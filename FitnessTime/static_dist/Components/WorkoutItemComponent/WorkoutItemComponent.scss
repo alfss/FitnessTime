@@ -74,4 +74,10 @@
     background-size: 20px;
     right: 50px;
   }
+
+  &__wrapper {
+    transition: height 1s ease;
+    overflow: hidden;
+  }
+
 }

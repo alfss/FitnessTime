@@ -1,10 +1,12 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import Token from "../../getCSRFToken";
+import animation from 'css-animation';
 
 class WorkoutContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
+    this.toggleItemFullData = this.toggleItemFullData.bind(this);
     this.state = {
       workoutName: "",
       workoutData: []
@@ -76,11 +78,44 @@ class WorkoutContainer extends React.Component {
     };
   }
 
+  toggleItemFullData(e) {
+    const allFullDataItems = document.querySelectorAll(".workout-item__wrapper");
+    allFullDataItems.forEach(item => {
+      const isItemFullDataClose = item.classList.contains("workout-item__wrapper_closed");
+      if (e.target.nextSibling === item) return;
+      if (isItemFullDataClose) return;
+        this.animateFullData(item, true);
+    });
+    const isOpen = !e.target.nextSibling.classList.contains("workout-item__wrapper_closed");
+    this.animateFullData(e.target.nextSibling, isOpen);
+  }
+
+  animateFullData(item, isShown) {
+    let height;
+    item.classList.toggle("workout-item__wrapper_closed");
+
+    animation(item, `collapse`, {
+      start() {
+        if (isShown) {
+          item.style.height = `${item.offsetHeight}px`;
+        } else {
+          const tempHeight = (item.offsetHeight > 0) ? `${item.offsetHeight}px` : 0;
+          item.style.height = '';
+          height = item.offsetHeight;
+          item.style.height = tempHeight;
+        }
+      },
+      active() {
+        item.style.height = `${isShown ? 0 : height}px`;
+      }
+    });
+  }
 
   render() {
     return (
       <Workout
         workoutData={this.state.workoutData}
+        toggleItemFullData={this.toggleItemFullData}
         sessionId={this.props.params.id}
         deleteItem={this.handleDeletingWorkoutItem}
       />

@@ -18,6 +18,7 @@ function Workout (props) {
             key={data.uuid}
             workoutItemData={data}
             deleteItem={props.deleteItem}
+            toggleItemFullData={props.toggleItemFullData}
           />;
         })
       }

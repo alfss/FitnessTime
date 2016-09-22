@@ -28,6 +28,7 @@ class WorkoutItemContainer extends React.Component {
         isModalOpen={this.state.isModalOpen}
         toggleModal={this.toggleModal}
         deleteItem={this.props.deleteItem}
+        toggleItemFullData={this.props.toggleItemFullData}
       />
     );
   }

@@ -1,7 +1,6 @@
 import Stopwatch from "../../Containers/StopwatchContainer/StopwatchContainer";
 import { Link } from "react-router";
 import Modal from "react-modal";
-import Collapsible from 'react-collapsible';
 
 const propTypes = {
   data: React.PropTypes.object.isRequired,
@@ -28,22 +27,29 @@ function WorkoutItem (props) {
       </Modal>;
 
   return (
-    <Collapsible classParentString="workout" trigger={trigger}>
-      <div className="workout-item__full-data">
-        <div className="workout-item__info">
-        <div className="workout-item__description">
-            <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{props.data.repeat}</div>
-            <div className="workout-item__weight"><span className="workout-item__description-name">Вес:</span>{props.data.weight}</div>
-            <div className="workout-item__rest"><span className="workout-item__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
+    <div>
+      <div className="workout-item__name" onClick={props.toggleItemFullData}>
+        {props.data.title}
+        <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
+        <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
+      </div>
+      <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
+        <div className="workout-item__full-data">
+          <div className="workout-item__info">
+          <div className="workout-item__description">
+              <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{props.data.repeat}</div>
+              <div className="workout-item__weight"><span className="workout-item__description-name">Вес:</span>{props.data.weight}</div>
+              <div className="workout-item__rest"><span className="workout-item__description-name">Отдых:</span>{props.formatRestTimer(props.data.rest_time)}</div>
+            </div>
+            <div className={props.data.example_photo ? "workout-item__image" : "workout-item__no-image"}>
+              <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
+            </div>
           </div>
-          <div className={props.data.example_photo ? "workout-item__image" : "workout-item__no-image"}>
-            <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
-          </div>
+          <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
         </div>
-        <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
       </div>
       { modal }
-    </Collapsible>
+    </div>
   );
 }
 
