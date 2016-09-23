@@ -23,8 +23,8 @@ function WorkoutItem (props) {
     <div>
       <div className="workout-item__name" onClick={props.toggleItemFullData}>
         {props.data.title}
-        <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="button__delete" />
-        <button className="button__edit" onClick={props.deleteItem(props.data.uuid)} />
+        <button className="button__delete" onClick={props.deleteItem(props.data.uuid)} />
+        <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="button__edit" />
       </div>
       <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
         <div className={`workout-item__full-data ${props.shouldWarn ? "workout-item__timer-warn" : ""}`}>

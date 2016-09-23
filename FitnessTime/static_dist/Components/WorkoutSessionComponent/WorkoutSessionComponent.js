@@ -28,8 +28,8 @@ function WorkoutSession (props) {
               <Link to={"/app/workout/" + data.uuid} className="workout-session__item-link">
                 {data.title}
               </Link>
-              <Link to={`/app/form/session/${data.uuid}`} className="button__delete" />
-              <button className="button__edit" onClick={props.deleteSession(data.uuid)} />
+              <button className="button__delete" onClick={props.deleteSession(data.uuid)} />
+              <Link to={`/app/form/session/${data.uuid}`} className="button__edit" />
             </div>
           );
         })
