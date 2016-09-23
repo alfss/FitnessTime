@@ -34,8 +34,8 @@ function WorkoutSession (props) {
           );
         })
       }
-      <Link to="/app/form/session" className="button button_add">
-        Новая тренировка
+      <Link to="/app/form/session" className={`button button__round ${props.workoutSessionData.length > 7 ? "button__round_left" : ""}`} >
+        <i className="button__icon" />
       </Link>
     </div>
   );
