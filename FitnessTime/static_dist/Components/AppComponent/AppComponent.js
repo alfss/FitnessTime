@@ -17,7 +17,7 @@ function App (props) {
     <div className="app">
       <Header routeName={props.routeName} parentRoute={props.parentRoute}/>
       { page }
-      <Modal isOpen={props.isDataFetching} overlayClassName="modal__overlay" className="modal__app" />
+      <Modal isOpen={props.isDataFetching} overlayClassName="modal__overlay modal__overlay_app" className="modal__app" />
     </div>
   );
 }

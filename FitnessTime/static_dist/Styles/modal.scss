@@ -3,11 +3,13 @@
   &__overlay {
     display: flex;
     position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    width: 100%;
+    height: 100%;
     background-color: rgba(62, 62, 62, .9);
+
+    &_app {
+      top: 70px;
+    }
   }
 
   &__content {
@@ -31,6 +33,7 @@
     margin: auto;
     background-image: url(../images/preloader.gif);
     background-size: contain;
+    transform: translateY(-50%);
   }
 
   &__close-btn {
