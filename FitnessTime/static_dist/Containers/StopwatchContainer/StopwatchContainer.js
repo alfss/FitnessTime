@@ -99,7 +99,7 @@ class StopwatchContainer extends React.Component {
     this.setState({
       repeatsDone: ++this.state.repeatsDone,
       isTimerWorking: false
-    })
+    });
   }
 
   showTimer() {

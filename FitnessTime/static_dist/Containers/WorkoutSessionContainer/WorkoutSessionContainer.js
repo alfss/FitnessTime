@@ -79,7 +79,7 @@ class WorkoutSessionsContainer extends React.Component {
           userName: data.results[0].owner.username,
           currentPage: page,
           pages: pages,
-          workoutSessionData: data.results,
+          workoutSessionData: data.results
         });
       })
       .catch (error => {
@@ -112,7 +112,7 @@ class WorkoutSessionsContainer extends React.Component {
               this.handleSwitchPage(--page)();
               return;
             }
-            if (this.state.count % 10 === 0) this.fetchPageUrl(page)
+            if (this.state.count % 10 === 0) this.fetchPageUrl(page);
           }
         });
       }

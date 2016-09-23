@@ -1,6 +1,6 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import Token from "../../getCSRFToken";
-import animation from 'css-animation';
+import animation from "css-animation";
 
 class WorkoutContainer extends React.Component {
   constructor() {
@@ -82,7 +82,7 @@ class WorkoutContainer extends React.Component {
     const allFullDataItems = document.querySelectorAll(".workout-item__wrapper");
     allFullDataItems.forEach(item => {
       const isItemFullDataClose = item.classList.contains("workout-item__wrapper_closed");
-      if (e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose)
+      if (e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose);
       else if (!isItemFullDataClose) this.animateFullData(item, true);
     });
   }
@@ -91,11 +91,11 @@ class WorkoutContainer extends React.Component {
     let height;
     item.classList.toggle("workout-item__wrapper_closed");
 
-    animation(item, `collapse`, {
+    animation(item, "collapse", {
       start() {
         const itemHeight = `${item.offsetHeight}px`;
         if (!isShown) {
-          item.style.height = '';
+          item.style.height = "";
           height = item.offsetHeight;
         }
         item.style.height = itemHeight;
