@@ -12,7 +12,8 @@ class WorkoutSessionsContainer extends React.Component {
     this.goToNextPage = this.goToNextPage.bind(this);
     this.goToPreviousPage = this.goToPreviousPage.bind(this);
     this.state = {
-      "userName": "",
+      count: 0,
+      userName: "",
       "page-1": {
         pages: 1,
         previous: null,
@@ -39,11 +40,8 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.userName !== nextState.userName) {
-      this.props.getRouteName(`Тренировки ${nextState.userName}`);
-    }
+    if (this.state.userName !== nextState.userName) this.props.getRouteName(`Тренировки ${nextState.userName}`);
   }
-
 
   handleSwitchPage(page) {
     return () => {
@@ -71,9 +69,7 @@ class WorkoutSessionsContainer extends React.Component {
     this.props.setFethingData(true);
     const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
 
-    fetch(url, {
-      credentials: "include"
-    })
+    fetch(url, { credentials: "include" })
       .then(data => {
         this.props.setFethingData(false);
         if (data.status === 404) throw Error(404);
@@ -82,12 +78,15 @@ class WorkoutSessionsContainer extends React.Component {
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
-        this.setState( this.state[`page-${page || 1}`] = {
-          pages: pages,
-          previous: data.previous,
-          next: data.next,
-          workoutSessionData: data.results,
-          userName: data.results[0].owner.username
+        this.setState({
+          count: data.count,
+          userName: data.results[0].owner.username,
+          [`page-${page || 1}`] : {
+            pages: pages,
+            previous: data.previous,
+            next: data.next,
+            workoutSessionData: data.results,
+          }
         });
       })
       .catch (error => {
@@ -111,11 +110,17 @@ class WorkoutSessionsContainer extends React.Component {
           if (data.status === 204) {
             let page = this.props.params.page || 1;
             const newState = this.state[`page-${page}`].workoutSessionData.filter(session => !(session.url === data.url));
-            this.setState(this.state[`page-${page}`].workoutSessionData = newState);
+            const newSessionData = Object.assign({}, this.state[`page-${page}`], { workoutSessionData: newState });
+            this.setState({
+              count: --this.state.count,
+              [`page-${page}`]: newSessionData
+            });
             if (!newState.length) {
-              page = (page === 1) ? page  : page - 1;
+              if (page !== 1) --page;
               this.handleSwitchPage(page)();
+              return;
             }
+            if (this.state.count % 10 === 0) this.fetchPageUrl(page)
           }
         });
       }
