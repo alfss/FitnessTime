@@ -5,7 +5,11 @@ class WorkoutItemContainer extends React.Component {
     super();
     this.formatRestTimer = this.formatRestTimer.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.state = { isModalOpen: false };
+    this.setShouldStartWarning = this.setShouldStartWarning.bind(this);
+    this.state = {
+      isModalOpen: false,
+      shouldWarn: false
+    };
   }
 
   toggleModal () {
@@ -20,11 +24,17 @@ class WorkoutItemContainer extends React.Component {
     return `${minutes}:${seconds}`;
   }
 
+  setShouldStartWarning(bool) {
+    this.setState({ shouldWarn: bool });
+  }
+
   render() {
     return (
       <WorkoutItem
         data={this.props.workoutItemData}
         formatRestTimer={this.formatRestTimer}
+        shouldWarn={this.state.shouldWarn}
+        setShouldStartWarning={this.setShouldStartWarning}
         isModalOpen={this.state.isModalOpen}
         toggleModal={this.toggleModal}
         deleteItem={this.props.deleteItem}

@@ -63,7 +63,9 @@ class StopwatchContainer extends React.Component {
           restMinutes: minutesRemaining,
           restSeconds: --secondsRemaining
         });
+        if (minutesRemaining === 0 && secondsRemaining === 10) this.props.setShouldStartWarning(true);
         if (minutesRemaining === 0 && secondsRemaining === 0) {
+          this.props.setShouldStartWarning(false);
           this.handleTimerCompletion();
         }
       }
@@ -92,6 +94,7 @@ class StopwatchContainer extends React.Component {
 
   finishTimer() {
     clearInterval(this.timerInterval);
+    this.props.setShouldStartWarning(false);
     this.setRestTime();
     this.setState({
       repeatsDone: ++this.state.repeatsDone,

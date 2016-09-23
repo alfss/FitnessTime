@@ -27,7 +27,7 @@ function WorkoutItem (props) {
         <button className="button__edit" onClick={props.deleteItem(props.data.uuid)} />
       </div>
       <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
-        <div className="workout-item__full-data">
+        <div className={`workout-item__full-data ${props.shouldWarn ? "workout-item__timer-warn" : ""}`}>
           <div className="workout-item__info">
           <div className="workout-item__description">
               <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{props.data.repeat}</div>
@@ -38,7 +38,11 @@ function WorkoutItem (props) {
               <img width="100" height="100" src={props.data.example_photo}  onClick={props.data.example_photo ? props.toggleModal : null} />
             </div>
           </div>
-          <Stopwatch rest={props.formatRestTimer(props.data.rest_time)} repeats={props.data.repeat}/>
+          <Stopwatch
+            rest={props.formatRestTimer(props.data.rest_time)}
+            repeats={props.data.repeat}
+            setShouldStartWarning={props.setShouldStartWarning}
+          />
         </div>
       </div>
       { modal }

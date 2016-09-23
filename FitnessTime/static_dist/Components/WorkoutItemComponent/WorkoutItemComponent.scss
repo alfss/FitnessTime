@@ -56,4 +56,15 @@
     overflow: hidden;
   }
 
+  &__timer-warn {
+    animation-name: timer;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes timer {
+    from { background-color: $background; }
+    50% { background-color: orange; }
+    to { background-color: $background; }
 }
