@@ -12,13 +12,6 @@ const propTypes = {
 
 function WorkoutItem (props) {
   Modal.setAppElement("body");
-  const trigger = (
-    <div className="workout-item__name">
-      {props.data.title}
-      <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
-      <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
-    </div>
-  );
   const modal = (!props.data.example_photo)
     ? null
     : <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
@@ -30,8 +23,8 @@ function WorkoutItem (props) {
     <div>
       <div className="workout-item__name" onClick={props.toggleItemFullData}>
         {props.data.title}
-        <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="workout-item__edit-btn" />
-        <button className="workout-item__close-btn" onClick={props.deleteItem(props.data.uuid)} />
+        <Link to={`/app/form/workout/${props.data.training}/${props.data.uuid}`} className="button__delete" />
+        <button className="button__edit" onClick={props.deleteItem(props.data.uuid)} />
       </div>
       <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
         <div className="workout-item__full-data">

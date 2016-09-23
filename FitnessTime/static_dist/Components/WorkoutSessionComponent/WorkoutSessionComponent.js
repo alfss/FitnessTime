@@ -28,13 +28,13 @@ function WorkoutSession (props) {
               <Link to={"/app/workout/" + data.uuid} className="workout-session__item-link">
                 {data.title}
               </Link>
-              <Link to={`/app/form/session/${data.uuid}`} className="workout-session__edit-btn" />
-              <button className="workout-session__close-btn" onClick={props.deleteSession(data.uuid)} />
+              <Link to={`/app/form/session/${data.uuid}`} className="button__delete" />
+              <button className="button__edit" onClick={props.deleteSession(data.uuid)} />
             </div>
           );
         })
       }
-      <Link to="/app/form/session" className={`button button__round ${props.workoutSessionData.length > 7 ? "button__round_left" : ""}`} >
+      <Link to="/app/form/session" className="button button__round" >
         <i className="button__icon" />
       </Link>
     </div>

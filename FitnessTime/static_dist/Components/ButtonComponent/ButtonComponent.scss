@@ -37,10 +37,6 @@
     &:hover {
       background-color: darken($material-blue, 5%);
     }
-
-    &_left {
-      left: 22px;
-    }
   }
 
   &__icon {
@@ -52,6 +48,29 @@
     height: 16px;
     background: url(../../images/plus.svg) no-repeat center;
     background-size: contain;
+  }
 
+  &__delete {
+    width: 45px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    background-color: $white;
+    border: none;
+    background: url(../../images/delete.svg) no-repeat center;
+    background-size: 20px;
+    transition: all .3s ease;
+
+    &:hover {
+      background-size: 28px;
+    }
+  }
+
+  &__edit {
+    @extend .button__delete;
+    background-image: url(../../images/pencil-icon.svg);
+    left: 45px;
   }
 }

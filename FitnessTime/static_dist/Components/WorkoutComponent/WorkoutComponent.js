@@ -22,7 +22,7 @@ function Workout (props) {
           />;
         })
       }
-      <Link to={`/app/form/workout/${props.sessionId}`} className={`button button__round ${props.workoutData.length > 7 ? "button__round_left" : ""}`} >
+      <Link to={`/app/form/workout/${props.sessionId}`} className="button button__round" >
         <i className="button__icon" />
       </Link>
       <audio id="stop-timer">
