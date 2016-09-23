@@ -115,8 +115,8 @@ class WorkoutSessionsContainer extends React.Component {
               count: --this.state.count,
               [`page-${page}`]: newSessionData
             });
-            if (!newState.length) {
-              if (page !== 1) --page;
+            if (!newState.length && page !== 1) {
+              --page;
               this.handleSwitchPage(page)();
               return;
             }
