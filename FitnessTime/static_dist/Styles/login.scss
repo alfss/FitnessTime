@@ -20,13 +20,19 @@
   &__input {
     outline: none;
     box-sizing: border-box;
-    border: none;
+    border: 0 solid transparent;
     width: calc(100% - 28px);
     border-radius: 0 4px 4px 0;
     padding-left: 7px;
     height: 38px;
+    transition: border 1s ease;
 
     &:focus {
+      border: 1px solid $login-form-color;
+      border-left: none;
+    }
+
+    &:hover {
       border: 1px solid $login-form-color;
       border-left: none;
     }
