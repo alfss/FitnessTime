@@ -7,8 +7,10 @@ import "normalize.css/normalize.css";
 import "./Styles/main.scss";
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <Router history={browserHistory}>{routes}</Router>,
-    document.getElementById("app")
-  );
+  if (document.getElementById("app")) {
+    ReactDOM.render(
+      <Router history={browserHistory}>{routes}</Router>,
+      document.getElementById("app")
+    );
+  }
 });
