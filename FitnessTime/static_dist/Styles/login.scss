@@ -1,0 +1,45 @@
+.login {
+
+  &__social-btn {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+
+    &_gp {
+      background: #DE4C34;
+
+      &:hover {
+        background-color: #CE3E26;
+      }
+    }
+
+    &_vk {
+      background: #5480b1;
+
+      &:hover {
+        background-color: #507299;
+      }
+    }
+  }
+
+  &__social-icon {
+    float: left;
+    width: 43px;
+    height: 40px;
+
+    &_gp {
+      background: #CE3E26 url(../images/gp.svg) 6px no-repeat;
+      background-size: 30px;
+    }
+
+    &_vk {
+      background: #507299 url(../images/vk.svg) 6px no-repeat;
+      background-size: 30px;
+    }
+  }
+
+  &__social-name {
+    display: inline-block;
+    padding: 11px;
+  }
+}

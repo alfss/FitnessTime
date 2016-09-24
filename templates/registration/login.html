@@ -4,6 +4,23 @@
 <html lang="ru">
 {% include "layouts/head.html" %}
 <body>
+
+<form  class="login" action="{% url 'login' %}" method="post" id="login-form">
+  {% csrf_token %}
+  <h3 class="heading-desc"> Sigin </h3>
+  <a href="{% url 'social:begin' 'google-plus' %}" class="login__social-btn login__social-btn_gp">
+    <i class="login__social-icon login__social-icon_gp"></i>
+    <span class="login__social-name">Google+</span>
+  </a>
+  <a href="{% url 'social:begin' 'vk-oauth2' %}" class="login__social-btn login__social-btn_vk">
+    <i class="login__social-icon login__social-icon_vk"></i>
+    <span class="login__social-name">ВКонтакте</span>
+  </a>
+</form>
+
+
+
+
 <div class="container">
     <div class="row">
 
