@@ -5,95 +5,57 @@
 {% include "layouts/head.html" %}
 <body>
 
-<div class="asd">
-  <form  class="login" action="{% url 'login' %}" method="post" id="login-form">
-    {% csrf_token %}
-    <h3 class="heading-desc"> Sigin </h3>
-    <div class="main-signin">
-      <label class="login__label">
-        <i class="login__icon login__icon_user"></i>
-        <input class="login__input" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
-      </label>
-      <label class="login__label">
-        <i class="login__icon login__icon_password"></i>
-        <input class="login__input" id="id_password" name="password" placeholder="Password" type="password">
-      </label>
-
-        <input type="hidden" name="next" value="{{ next }}" />
-        <span class="clearfix"></span>
-    </div>
-
-    <!-- buttons -->
-    <a href="{% url 'social:begin' 'google-plus' %}" class="login__social-btn login__social-btn_gp">
-      <i class="login__social-icon login__social-icon_gp"></i>
-      <span class="login__social-name">Google+</span>
-    </a>
-    <a href="{% url 'social:begin' 'vk-oauth2' %}" class="login__social-btn login__social-btn_vk">
-      <i class="login__social-icon login__social-icon_vk"></i>
-      <span class="login__social-name">ВКонтакте</span>
-    </a>
-  </form>
-
-</div>
+  <div class="login">
 
 
+    <form  class="login__form" action="{% url 'login' %}" method="post" id="login-form">
+      
+
+      <div class="error-box">
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
 
 
-<div class="container">
-    <div class="row">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <h3> Login </h3>
+      <ul class="login__list">
+        <li class="login__item login__item_input">
+          <i class="login__icon login__icon_user"></i>
+          <input class="login__input" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+        </li>
+        <li class="login__item login__item_input">
+          <i class="login__icon login__icon_password"></i>
+          <input class="login__input" id="id_password" name="password" placeholder="Password" type="password">
+        </li>
+        <li class="login__item">
+          <button type="submit" class="login__submit">{% trans 'Sign In' %}</button>
+        </li>
+        <li class="login__item">
+          <a class="login__link" href="{% url 'password_reset' %}">Forgot your password?</a>
+        </li>
+        <li class="login__item">
+          <p>Don' have an account? <a class="login__link" href="{% url 'register' %}">Sign Up!</a></p>
+        </li>
+      </ul>
+      <h3> Login </h3>
+      <p class="login__paragraph">With your social media account</p>
+      <a href="{% url 'social:begin' 'google-plus' %}" class="login__social login__social_gp">
+        <i class="login__social-icon login__social-icon_gp"></i>
+        <span class="login__social-name">Google+</span>
+      </a>
+      <a href="{% url 'social:begin' 'vk-oauth2' %}" class="login__social login__social_vk">
+        <i class="login__social-icon login__social-icon_vk"></i>
+        <span class="login__social-name">ВКонтакте</span>
+      </a>
+    </form>
+  </div>
 
-        <form class="form-signin mg-btm" action="{% url 'login' %}" method="post" id="login-form">
-            {% csrf_token %}
-            <h3 class="heading-desc"> Sigin</h3>
-            <div class="error-box">
-                {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div class="social-box">
-                <div class="row mg-btm">
-                    <div class="col-md-12">
-                        <a href="{% url 'social:begin' 'google-plus' %}" class="btn btn-google-signin btn-block">
-                            Sign in with Google
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="{% url 'social:begin' 'vk-oauth2' %}" class="btn btn-vk-signin btn-block">
-                            Sign in with VK
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="main-signin">
-                {{ form.username.errors }}
-                {{ form.username }}
-                {{ form.password.errors }}
-                {{ form.password }}
-                <input type="hidden" name="next" value="{{ next }}" />
-                <span class="clearfix"></span>
-            </div>
-            <div class="login-footer">
-                <div class="row">
-                    <div class="col-xs-6 col-md-6">
-                        <div class="left-section">
-                            <a href="{% url 'password_reset' %}">Forgot your password?</a>
-                            <a href="{% url 'register' %}">Join Now</a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-6 pull-right">
-                        <button type="submit" class="btn btn-large btn-danger pull-right">{% trans 'Sign In' %}</button>
-                    </div>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</div>
 </body>
 </html>
