@@ -20,7 +20,7 @@ const formTypes = {
     { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file", placeholder: "" }
   ],
   session: [
-    { label: "Название трениров", name:"title", type: "text", classes: "form__session-title", placeholder: "Название тренировки" }
+    { label: "Название тренировки", name:"title", type: "text", classes: "form__session-title", placeholder: "Название тренировки" }
   ]
 };
 

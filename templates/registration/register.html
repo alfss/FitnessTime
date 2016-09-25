@@ -15,20 +15,17 @@
     <form class="form" action="{% url 'register' %}" method="post">
       <h1 class="form__heading">Register</h1>
         {% csrf_token %}
-
         <label class="form__label">
-          Username
-          <input class="form__input" maxlength="30" name="username" type="text">
+          Login name:
+          <input class="form__input" maxlength="30" name="username" type="text" placeholder="Enter your login name">
         </label>
-
         <label class="form__label" >
-          Password
-          <input class="form__input" name="password1" type="password">
+          Password:
+          <input class="form__input" name="password1" type="password" placeholder="Enter password">
         </label>
-
         <label class="form__label">
-          Password confirmation
-          <input class="form__input" name="password2" type="password">
+          Password confirmation:
+          <input class="form__input" name="password2" type="password" placeholder="Repeat password">
         </label>
         <div class="form__controls">
           <button type="submit" name="Save" class="button"/>{% trans 'Join Now' %}</button>
