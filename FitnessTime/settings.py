@@ -24,12 +24,12 @@ def get_setting(x, y=None):
     return os.getenv(x, y)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu'
+SECRET_KEY = get_setting('secret_key', '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_setting('enable_debug', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 # Application definition
 
@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'FitnessTime.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fitness_time',
-        'USER': 'postgres',
-        'PASSWORD': '',
+        'NAME': get_setting('db_name', 'fitness_time'),
+        'USER': get_setting('db_user', 'postgres'),
+        'PASSWORD': get_setting('db_pass', ''),
         'HOST': get_setting('db_host', 'postgres'),
         'PORT': '5432',
     }
