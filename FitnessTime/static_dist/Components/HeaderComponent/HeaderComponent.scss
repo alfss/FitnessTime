@@ -1,5 +1,4 @@
 .header {
-  position: relative;
   height: 60px;
   background-color: $material-blue;
   display: flex;
@@ -28,27 +27,25 @@
 
   &__nav {
     position: absolute;
-    width: 16rem;
-    top: 80px;
-    right: 10px;
+    top: 70px;
+    right: 0;
+    height: calc(100% - 70px);
+    width: 60%;
+    transform: translateX(100%);
+    z-index: 100;
     background-color: $white;
-    border: 2px solid $material-blue-rgba-light;
-    border-radius: 5px;
-    z-index: 200;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: transform .8s ease;
+    border-left: 2px solid $material-blue-rgba-light;
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: -7px;
-      right: 17px;
-      width: 10px;
-      height: 10px;
-      background-image: linear-gradient(135deg, $white 50%, transparent 50%);
-      border-left: 2px solid $material-blue-rgba-light;
-      border-top: 2px solid $material-blue-rgba-light;
-      transform: rotate(45deg);
+    &_open {
+      transform: translateX(0);
     }
+  }
+
+  &__list {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   &__nav-link {
@@ -69,13 +66,27 @@
     }
   }
 
-  &__list {
-    margin: 0;
-    padding: 0;
-  }
-
   &__list-item {
     list-style: none;
     color: black;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: rgb(62, 62, 62);
+    opacity: 0;
+    z-index: 99;
+    transition: opacity .8s, width 0s .8s, height 0s .8s;
+
+    &_open {
+      transition: opacity .8s;
+      opacity: .9;
+      width: 100%;
+      height: calc(100% - 70px);
+    }
   }
 }

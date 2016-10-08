@@ -18,11 +18,12 @@ function Workout (props) {
             key={data.uuid}
             workoutItemData={data}
             deleteItem={props.deleteItem}
+            toggleItemFullData={props.toggleItemFullData}
           />;
         })
       }
-      <Link to={`/app/form/workout/${props.sessionId}`} className="button button_add">
-        Новое упражнение
+      <Link to={`/app/form/workout/${props.sessionId}`} className="button button__round" >
+        <i className="button__icon" />
       </Link>
       <audio id="stop-timer">
         <source src="/static/images/soft-bells.ogg" type="audio/ogg" />

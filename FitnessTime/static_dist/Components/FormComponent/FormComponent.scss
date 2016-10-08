@@ -3,6 +3,13 @@
   display: flex;
   flex-direction: column;
   padding: $gutter-big;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  &__heading {
+    text-align: center;
+    color: $text-color;
+  }
 
   &__label {
     font-size: 12px;

@@ -17,28 +17,4 @@
       background-color: $light-grey;
     }
   }
-
-  &__close-btn {
-    width: 50px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: $white;
-    border: none;
-    background: url(../../images/delete.svg) no-repeat center;
-    background-size: 20px;
-    transition: all .3s ease;
-
-    &:hover {
-      background-size: 28px;
-    }
-  }
-
-  &__edit-btn {
-    @extend .workout-session__close-btn;
-    background: url(../../images/pencil-icon.svg) no-repeat center;
-    background-size: 20px;
-    right: 50px;
-  }
 }
