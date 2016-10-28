@@ -182,15 +182,15 @@ SOCIAL_AUTH_PIPELINE = (
 
 AUTH_USER_MODEL = "common.User"
 
-EMAIL_HOST = 'smtprelay'
-EMAIL_PORT = 2525
+EMAIL_HOST = get_setting('email_host', 'smtprelay')
+EMAIL_PORT = get_setting('email_host', 2525)
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 #dev settgins
-SOCIAL_AUTH_GOOGLE_PLUS_KEY="867124234625-k249s24gko2gdgc4an7li96kecvei8dp.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_PLUS_SECRET="p6oRoAe1I1XqcyNjNtoar4ns"
+SOCIAL_AUTH_GOOGLE_PLUS_KEY=get_setting('google_plus_key', '867124234625-k249s24gko2gdgc4an7li96kecvei8dp.apps.googleusercontent.com')
+SOCIAL_AUTH_GOOGLE_PLUS_SECRET=get_setting('google_plus_secret', 'p6oRoAe1I1XqcyNjNtoar4ns')
 SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
     'https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.me',
@@ -198,19 +198,18 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 ]
 
 #dev settgins
-SOCIAL_AUTH_VK_OAUTH2_SECRET="7PWAPV6LJwURRm2VLYm7"
-SOCIAL_AUTH_VK_OAUTH2_KEY="5494236"
+SOCIAL_AUTH_VK_OAUTH2_SECRET=get_setting('vk_oauth2_secret', '7PWAPV6LJwURRm2VLYm7')
+SOCIAL_AUTH_VK_OAUTH2_KEY=get_setting('vk_oauth2_key', '5494236')
 
 #media
+if get_setting('aws_enable', False):
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_ACCESS_KEY_ID = get_setting('aws_access_key_id', 'AKIAICY4QBM4KE4WSWNA')
+    AWS_STORAGE_BUCKET_NAME = get_setting('aws_storage_bucket_name', 'fitnesstime')
+    AWS_SECRET_ACCESS_KEY = get_setting('aws_secret_access_key', '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')
+
 #for develop aws
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
 #AWS_STORAGE_BUCKET_NAME = 'develop-fitnesstime'
-#AWS_SECRET_ACCESS_KEY = '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'
-
-#media
-#for production aws
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
-#AWS_STORAGE_BUCKET_NAME = 'fitnesstime'
 #AWS_SECRET_ACCESS_KEY = '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'
