@@ -11,4 +11,5 @@ build:
 save:
 	@echo DUMP IMAGE TO "/Users/skravchuk/fitnesstime-app_${IMAGE_VERSION}.tar"
 	@(docker save ${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_VERSION} > "/Users/skravchuk/fitnesstime-app_${IMAGE_VERSION}.tar")
+	@(gzip "/Users/skravchuk/fitnesstime-app_${IMAGE_VERSION}.tar")
 

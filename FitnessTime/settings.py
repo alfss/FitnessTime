@@ -183,7 +183,7 @@ SOCIAL_AUTH_PIPELINE = (
 AUTH_USER_MODEL = "common.User"
 
 EMAIL_HOST = get_setting('email_host', 'smtprelay')
-EMAIL_PORT = get_setting('email_host', 2525)
+EMAIL_PORT = get_setting('email_port', 2525)
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

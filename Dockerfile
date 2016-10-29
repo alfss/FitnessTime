@@ -46,6 +46,8 @@ COPY . /srv/app
 #build static
 RUN webpack
 
+EXPOSE 8000
+
 RUN chmod +x  /srv/app/manage.py
 
 CMD chmod +x  /srv/app/manage.py && python /srv/app/manage.py migrate && python /srv/app/manage.py runserver 0.0.0.0:8000
