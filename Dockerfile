@@ -44,7 +44,8 @@ RUN npm install
 
 COPY . /srv/app
 #build static
-RUN webpack
+ENV NODE_ENV production
+RUN webpack --config webpack.production.config.js
 
 EXPOSE 8000
 

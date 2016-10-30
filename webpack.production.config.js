@@ -8,6 +8,7 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 
 console.log("This is a production config");
 module.exports = {
+  devtool: "inline-source-map",
   entry: "./FitnessTime/static_dist/main.js",
   output: {
     path: path.join(__dirname, "/FitnessTime/static/js/"),
