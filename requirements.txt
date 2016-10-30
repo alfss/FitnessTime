@@ -34,7 +34,7 @@ PyJWT==1.4.0
 pytest==2.9.1
 pytest-django==2.9.1
 python-dateutil==2.5.3
-python-social-auth==0.2.19
+python-social-auth==0.2.21
 python3-openid==3.0.10
 PyYAML==3.11
 raven==5.20.0

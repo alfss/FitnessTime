@@ -203,6 +203,7 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 #dev settgins
 SOCIAL_AUTH_VK_OAUTH2_SECRET=get_setting('vk_oauth2_secret', '7PWAPV6LJwURRm2VLYm7')
 SOCIAL_AUTH_VK_OAUTH2_KEY=get_setting('vk_oauth2_key', '5494236')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE=['email', ]
 
 #media
 if str2bool(get_setting('aws_enable', 'no')):
