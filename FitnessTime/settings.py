@@ -23,11 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def get_setting(x, y=None):
     return os.getenv(x, y)
 
+def str2bool(v):
+    return v.lower() in ("yes", "true", "t", "1")
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_setting('secret_key', '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_setting('enable_debug', True)
+DEBUG = str2bool(get_setting('enable_debug', 'yes'))
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -202,7 +205,7 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET=get_setting('vk_oauth2_secret', '7PWAPV6LJwURRm2VLY
 SOCIAL_AUTH_VK_OAUTH2_KEY=get_setting('vk_oauth2_key', '5494236')
 
 #media
-if get_setting('aws_enable', False):
+if str2bool(get_setting('aws_enable', 'no')):
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_ACCESS_KEY_ID = get_setting('aws_access_key_id', 'AKIAICY4QBM4KE4WSWNA')
     AWS_STORAGE_BUCKET_NAME = get_setting('aws_storage_bucket_name', 'fitnesstime')
