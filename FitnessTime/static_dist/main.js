@@ -4,7 +4,7 @@ import routes from "./routes";
 import { Router, browserHistory } from "react-router";
 
 import "normalize.css/normalize.css";
-import "./Styles/main.scss";
+import "./Styles/main.styl";
 
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("app")) {

@@ -1,9 +1,9 @@
 .button {
-  width: calc(50% - #{ $gutter / 2 });
+  width: calc(50% - 5px);
   padding: 10px 0;
   background-color: #fff;
   border: none;
-  @include border-radius;
+  border-radius: 3px;
   color: $white;
   cursor: pointer;
   background-color: $material-blue;
@@ -46,7 +46,7 @@
     transform: translateY(-50%);
     width: 100%;
     height: 16px;
-    background: url(../../images/plus.svg) no-repeat center;
+    background: url(../images/plus.svg) no-repeat center;
     background-size: contain;
   }
 
@@ -59,7 +59,7 @@
     padding: 0;
     background-color: $white;
     border: none;
-    background: url(../../images/delete.svg) no-repeat center;
+    background: url(../images/delete.svg) no-repeat center;
     background-size: 20px;
     transition: all .3s ease;
 
@@ -70,7 +70,7 @@
 
   &__edit {
     @extend .button__delete;
-    background-image: url(../../images/pencil-icon.svg);
+    background-image: url(../images/pencil-icon.svg);
     left: 45px;
   }
 }

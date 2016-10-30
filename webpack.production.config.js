@@ -29,8 +29,8 @@ module.exports = {
         loader: extractCSS.extract("css!postcss")
       },
       {
-        test: /\.scss$/,
-        loader: extractCSS.extract("css!postcss!resolve-url!sass?sourceMap")
+        test: /\.styl$/,
+        loader: extractCSS.extract("css!postcss!stylus?resolve url")
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
@@ -42,6 +42,7 @@ module.exports = {
   postcss() {
     return [autoprefixer({ browsers: ["last 2 versions"] })];
   },
+
 
   plugins: [
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
