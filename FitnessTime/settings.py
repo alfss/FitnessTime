@@ -210,9 +210,6 @@ if str2bool(get_setting('aws_enable', 'no')):
     AWS_ACCESS_KEY_ID = get_setting('aws_access_key_id', 'AKIAICY4QBM4KE4WSWNA')
     AWS_STORAGE_BUCKET_NAME = get_setting('aws_storage_bucket_name', 'fitnesstime')
     AWS_SECRET_ACCESS_KEY = get_setting('aws_secret_access_key', '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')
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+    AWS_S3_REGION_NAME = 'eu-central-1'
 
-#for develop aws
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
-#AWS_STORAGE_BUCKET_NAME = 'develop-fitnesstime'
-#AWS_SECRET_ACCESS_KEY = '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'
