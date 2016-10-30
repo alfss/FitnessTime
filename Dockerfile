@@ -20,7 +20,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 6.7.0
+ENV NODE_VERSION 4.6.0
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -44,7 +44,8 @@ RUN npm install
 
 COPY . /srv/app
 #build static
-RUN webpack
+#ENV NODE_ENV production
+#RUN webpack --config webpack.production.config.js
 
 EXPOSE 8000
 
