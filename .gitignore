@@ -16,6 +16,7 @@ node_modules/
 /FitnessTime/static/css
 /FitnessTime/static/fonts
 /FitnessTime/static/images
+/FitnessTime/static/sounds
 bower_components/
 tests/coverage_html/
 tests/.coverage

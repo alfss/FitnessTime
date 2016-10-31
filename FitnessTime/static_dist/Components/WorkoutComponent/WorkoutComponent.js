@@ -26,8 +26,8 @@ function Workout (props) {
         <i className="button__icon" />
       </Link>
       <audio id="stop-timer">
-        <source src="/static/images/soft-bells.ogg" type="audio/ogg" />
-        <source src="/static/images/soft-bells.mp3" type="audio/mpeg" />
+        <source src="/static/sounds/beep.ogg" type="audio/ogg" />
+        <source src="/static/sounds/beep.mp3" type="audio/mpeg" />
       </audio>
     </div>
   );

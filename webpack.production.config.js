@@ -4,6 +4,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
 const autoprefixer = require("autoprefixer");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -45,7 +46,8 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(["js", "images", "css"], {
+    new CopyWebpackPlugin([{ from: path.join(__dirname, "/FitnessTime/static_dist/Sounds"), to: "../sounds" }]),
+    new CleanWebpackPlugin(["js", "images", "css", "sounds"], {
       root: path.join(__dirname, "/FitnessTime/static/")
     }),
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
