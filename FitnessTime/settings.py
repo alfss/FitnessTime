@@ -147,7 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = get_setting('static_root', os.path.join(BASE_DIR, 'static'))
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -203,6 +203,7 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 #dev settgins
 SOCIAL_AUTH_VK_OAUTH2_SECRET=get_setting('vk_oauth2_secret', '7PWAPV6LJwURRm2VLYm7')
 SOCIAL_AUTH_VK_OAUTH2_KEY=get_setting('vk_oauth2_key', '5494236')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE=['email', ]
 
 #media
 if str2bool(get_setting('aws_enable', 'no')):
@@ -210,9 +211,6 @@ if str2bool(get_setting('aws_enable', 'no')):
     AWS_ACCESS_KEY_ID = get_setting('aws_access_key_id', 'AKIAICY4QBM4KE4WSWNA')
     AWS_STORAGE_BUCKET_NAME = get_setting('aws_storage_bucket_name', 'fitnesstime')
     AWS_SECRET_ACCESS_KEY = get_setting('aws_secret_access_key', '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')
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+    AWS_S3_REGION_NAME = 'eu-central-1'
 
-#for develop aws
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#AWS_ACCESS_KEY_ID = 'AKIAICY4QBM4KE4WSWNA'
-#AWS_STORAGE_BUCKET_NAME = 'develop-fitnesstime'
-#AWS_SECRET_ACCESS_KEY = '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'
