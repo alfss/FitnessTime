@@ -13,11 +13,10 @@ const propTypes = {
 
 const formTypes = {
   workout: [
-    { label: "Название", name: "title", type: "text", classes: "", placeholder: "Название упражнения"},
-    { label: "Повторы", name: "repeat", type: "text", classes: "", placeholder: "Колличество повторов" },
-    { label: "Вес", name: "weight", type: "number", classes: "", placeholder: "Необходимый вес (в килограммах)" },
-    { label: "Отдых", name: "rest_time", type: "number", classes: "", placeholder: "Время отдыха (в секундах)" },
-    { label: "Фото", name: "example_photo", type: "file", classes: "form__input_file", placeholder: "" }
+    { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
+    { label: "Повторы", name: "repeat", type: "number", placeholder: "Колличество повторов" },
+    { label: "Вес", name: "weight", type: "number", placeholder: "Необходимый вес (в килограммах)" },
+    { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)" }
   ],
   session: [
     { label: "Название тренировки", name:"title", type: "text", classes: "form__session-title", placeholder: "Название тренировки" }
@@ -26,14 +25,23 @@ const formTypes = {
 
 function Form (props) {
   let action = (props.isFormEditing) ? props.handleEditingForm : props.handleCreatingForm;
+  const fileInput = props.formType === "workout" &&
+    <div>
+      <label className="form__label">{"Фото:"}</label>
+      <input
+      type={"file"}
+      name={"example_photo"}
+      className={"form__input form__input_file"}
+      accept="image/*"
+      onChange={props.handleInputChange}
+      />
+    </div>;
 
   return (
     <form className="form">
       {
         formTypes[props.formType].map( (data, i) => {
-          const fileInput = document.querySelector(".form__input_file");
           let value = props.inputValue[data.name] || "";
-          if (fileInput && fileInput.files.length === 0 && data.name === "example_photo") value = "";
 
           return <label key={i} className="form__label">
             {data.label}:
@@ -42,13 +50,14 @@ function Form (props) {
               type={data.type}
               name={data.name}
               onChange={props.handleInputChange}
-              className={`form__input ${data.classes}`}
+              className={`form__input ${data.classes || ""}`}
               value={value}
               placeholder={data.placeholder}
             />
           </label>;
         })
       }
+      {fileInput}
       <div className="form__controls">
         <Button name="Save" action={action}/>
       </div>
