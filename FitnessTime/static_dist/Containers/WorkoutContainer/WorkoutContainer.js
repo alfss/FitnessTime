@@ -79,7 +79,7 @@ class WorkoutContainer extends React.Component {
   }
 
   toggleItemFullData(e) {
-    const allFullDataItems = document.querySelectorAll(".workout-item__wrapper");
+    const allFullDataItems = [...document.querySelectorAll(".workout-item__wrapper")];
     allFullDataItems.forEach(item => {
       const isItemFullDataClose = item.classList.contains("workout-item__wrapper_closed");
       if (e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose);
