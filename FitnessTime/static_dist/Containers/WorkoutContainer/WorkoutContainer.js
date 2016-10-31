@@ -102,6 +102,9 @@ class WorkoutContainer extends React.Component {
       },
       active() {
         item.style.height = `${isShown ? 0 : height}px`;
+      },
+      end() {
+        if (!isShown) item.style.height = "";
       }
     });
   }
