@@ -33,7 +33,7 @@ function Header (props) {
           <li className="header__list-item">
             <a href="/logout/" className="header__nav-link">Logout</a>
           </li>
-        </ul>
+          </ul>
       </div>
       <span className="header__mask" />
     </div>

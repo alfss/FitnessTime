@@ -4,6 +4,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
 const LiveReloadPlugin = require("webpack-livereload-plugin");
 const autoprefixer = require("autoprefixer");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -46,6 +47,9 @@ module.exports = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(["js", "images", "css"], {
+      root: path.join(__dirname, "/FitnessTime/static/")
+    }),
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
     new LiveReloadPlugin({appendScriptTag : true}),
     new webpack.ProvidePlugin({
