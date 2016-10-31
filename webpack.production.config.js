@@ -6,7 +6,7 @@ const autoprefixer = require("autoprefixer");
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-console.log("This is a production config");
+console.log("NODE_ENV: " + NODE_ENV);
 module.exports = {
   entry: "./FitnessTime/static_dist/main.js",
   output: {

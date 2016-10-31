@@ -29,8 +29,8 @@ module.exports = {
         loader: extractCSS.extract("css?sourceMap!postcss")
       },
       {
-        test: /\.scss$/,
-        loader: extractCSS.extract("css?sourceMap!postcss!resolve-url!sass?sourceMap")
+        test: /\.styl$/,
+        loader: extractCSS.extract("css!postcss!stylus?resolve url")
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
