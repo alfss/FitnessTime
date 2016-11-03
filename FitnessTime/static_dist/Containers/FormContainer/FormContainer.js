@@ -20,13 +20,8 @@ class Form extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.props.params.exerciseId !== nextProps.params.exerciseId) this.fetchData();
     if (this.state.formType !== nextState.formType) {
-      let formHeaderName;
-      switch (nextState.formType) {
-        case "workout": formHeaderName = "Создать тренировку"; break;
-        case "session": formHeaderName = "Создать тренировку"; break;
-      }
+      let formHeaderName = (nextState.formType === "workout") ? "Создать упражнение" : "Создать тренировку";
       if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
       this.props.getRouteName(formHeaderName);
     }
