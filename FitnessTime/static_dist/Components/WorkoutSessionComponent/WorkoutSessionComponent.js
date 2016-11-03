@@ -9,18 +9,16 @@ const propTypes = {
 };
 
 function WorkoutSession (props) {
-  const pagination = props.pages <= 1
-    ? null
-    : <Pagination
-        pages={props.pages}
-        switchPage={props.switchPage}
-        nextPage={props.nextPage}
-        previousPage={props.previousPage}
-        currentPage={props.currentPage}
-      />;
+  const pagination =  <Pagination
+    pages={props.pages}
+    switchPage={props.switchPage}
+    nextPage={props.nextPage}
+    previousPage={props.previousPage}
+    currentPage={props.currentPage}
+  />;
   return (
     <div className="workout-session">
-      {pagination}
+      {props.pages > 1 && pagination}
       {
         props.workoutSessionData.map( data => {
           return (
