@@ -6,21 +6,15 @@ import { withRouter } from "react-router";
 class HeaderContainer extends React.Component {
   constructor() {
     super();
-    this.showNav = this.showNav.bind(this);
-    this.hideNav = this.hideNav.bind(this);
+    this.toggleNav = this.toggleNav.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.state = {
+      isNavShown: false
+    };
   }
 
-  showNav() {
-    document.querySelector(".header__mask").classList.add("header__mask_open");
-    document.querySelector(".header__nav").classList.add("header__nav_open");
-    document.addEventListener("click", this.hideNav);
-  }
-
-  hideNav() {
-    document.querySelector(".header__mask").classList.remove("header__mask_open");
-    document.querySelector(".header__nav").classList.remove("header__nav_open");
-    document.removeEventListener("click", this.hideNav);
+  toggleNav() {
+    this.setState({ isNavShown: !this.state.isNavShown });
   }
 
   goBack() {
@@ -31,7 +25,8 @@ class HeaderContainer extends React.Component {
     return (
       <Header
         checkRoute={this.props.router.isActive}
-        showNav={this.showNav}
+        toggleNav = {this.toggleNav}
+        isNavShown = {this.state.isNavShown}
         goBack={this.goBack}
         routeName={this.props.routeName}
         parentRoute={this.props.parentRoute}

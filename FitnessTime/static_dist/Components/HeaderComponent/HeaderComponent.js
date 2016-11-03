@@ -1,9 +1,11 @@
 import { Link } from "react-router";
+import classNames from "classnames";
 
 const propTypes = {
-  showNav: React.PropTypes.func.isRequired,
   goBack: React.PropTypes.func.isRequired,
   checkRoute: React.PropTypes.func.isRequired,
+  toggleNav: React.PropTypes.func.isRequired,
+  isNavShown: React.PropTypes.bool.isRequired,
   routePath: React.PropTypes.string
 };
 
@@ -18,8 +20,8 @@ function Header (props) {
     <div className="header">
       <div className="header__previous-page" style={showGoBackBtn} onClick={props.goBack} />
       <div className="header__page-name">{props.routeName}</div>
-      <div className="header__account" onClick={props.showNav}></div>
-      <div className="header__nav">
+      <div className="header__account" onClick={props.toggleNav}></div>
+      <div className={classNames("header__nav", { header__nav_open: props.isNavShown })}>
         <ul className="header__list">
           {
             links.map( (item,i) => {
@@ -35,7 +37,7 @@ function Header (props) {
           </li>
           </ul>
       </div>
-      <span className="header__mask" />
+      <span className={classNames("header__mask", { header__mask_open: props.isNavShown })} />
     </div>
   );
 }
