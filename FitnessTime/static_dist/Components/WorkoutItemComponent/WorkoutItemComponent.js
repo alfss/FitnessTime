@@ -12,12 +12,10 @@ const propTypes = {
 
 function WorkoutItem (props) {
   Modal.setAppElement("body");
-  const modal = (!props.data.example_photo)
-    ? null
-    : <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
-        <span className="modal__close-btn" onClick={props.toggleModal} />
-        <img src={props.data.example_photo} className="modal__image" />
-      </Modal>;
+  const modal = <Modal isOpen={props.isModalOpen} onRequestClose={props.toggleModal} overlayClassName="modal__overlay" className="modal__content">
+                  <span className="modal__close-btn" onClick={props.toggleModal} />
+                  <img src={props.data.example_photo} className="modal__image" />
+                </Modal>;
 
   return (
     <div>
@@ -45,7 +43,7 @@ function WorkoutItem (props) {
           />
         </div>
       </div>
-      { modal }
+      { props.data.example_photo && modal }
     </div>
   );
 }

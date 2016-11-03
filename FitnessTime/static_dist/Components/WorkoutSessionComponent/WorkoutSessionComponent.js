@@ -16,22 +16,23 @@ function WorkoutSession (props) {
     previousPage={props.previousPage}
     currentPage={props.currentPage}
   />;
+
+  function renderSession(session) {
+    return (
+      <div className="workout-session__item" key={session.uuid}>
+        <Link to={"/app/workout/" + session.uuid} className="workout-session__item-link">
+          { session.title }
+        </Link>
+        <button className="button__delete" onClick={props.deleteSession(session.uuid)} />
+        <Link to={`/app/form/session/${session.uuid}`} className="button__edit" />
+      </div>
+    );
+  }
+
   return (
     <div className="workout-session">
-      {props.pages > 1 && pagination}
-      {
-        props.workoutSessionData.map( data => {
-          return (
-            <div className="workout-session__item" key={data.uuid}>
-              <Link to={"/app/workout/" + data.uuid} className="workout-session__item-link">
-                {data.title}
-              </Link>
-              <button className="button__delete" onClick={props.deleteSession(data.uuid)} />
-              <Link to={`/app/form/session/${data.uuid}`} className="button__edit" />
-            </div>
-          );
-        })
-      }
+      { props.pages > 1 && pagination }
+      { props.workoutSessionData.map(renderSession) }
       <Link to="/app/form/session" className="button button__round" >
         <i className="button__icon" />
       </Link>

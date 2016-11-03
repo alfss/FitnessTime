@@ -10,18 +10,18 @@ const propTypes = {
 };
 
 function Workout (props) {
-  return (
-    <div className="workout-item">
-      {
-        props.workoutData.map( data => {
-          return <WorkoutItem
+  const workoutItem = props.workoutData.map( data => {
+    return <WorkoutItem
             key={data.uuid}
             workoutItemData={data}
             deleteItem={props.deleteItem}
             toggleItemFullData={props.toggleItemFullData}
           />;
-        })
-      }
+  });
+
+  return (
+    <div className="workout-item">
+      { workoutItem }
       <Link to={`/app/form/workout/${props.sessionId}`} className="button button__round" >
         <i className="button__icon" />
       </Link>

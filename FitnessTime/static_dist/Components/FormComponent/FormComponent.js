@@ -37,27 +37,26 @@ function Form (props) {
       />
     </div>;
 
-  return (
-    <form className="form">
-      {
-        formTypes[props.formType].map( (data, i) => {
-          let value = props.inputValue[data.name] || "";
-
-          return <label key={i} className="form__label">
-            {data.label}:
+  function renderInput(input, i) {
+    let value = props.inputValue[input.name] || "";
+    return <label key={i} className="form__label">
+            {input.label}:
             <span className="form__error hidden">(Введите корректную информацию)</span>
             <input
-              type={data.type}
-              name={data.name}
-              onChange={props.handleInputChange}
-              className={`form__input ${data.classes || ""}`}
-              value={value}
-              placeholder={data.placeholder}
+            type={input.type}
+            name={input.name}
+            onChange={props.handleInputChange}
+            className={`form__input ${input.classes || ""}`}
+            value={value}
+            placeholder={input.placeholder}
             />
           </label>;
-        })
-      }
-      {fileInput}
+  }
+
+  return (
+    <form className="form">
+      { formTypes[props.formType].map(renderInput) }
+      { fileInput }
       <div className="form__controls">
         <Button name="Save" action={action}/>
       </div>
