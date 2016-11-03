@@ -1,8 +1,8 @@
 "use strict";
 
 import FormComponent from "../../Components/FormComponent/FormComponent";
-import Token from "../../getCSRFToken";
 import { withRouter } from "react-router";
+import rest from "../../rest";
 
 class Form extends React.Component {
   constructor() {
@@ -52,18 +52,12 @@ class Form extends React.Component {
 
   setupForm() {
     if (this.props.params.exerciseId || this.props.params.form === "session" &&  this.props.params.id) {
-      this.props.setFethingData(true);
       this.fetchData();
     } else this.setState({ formType: this.props.params.form });
   }
 
   fetchData() {
-    fetch(`/api/v1/workout/training/${this.props.params.id}`)
-      .then(data => {
-        this.props.setFethingData(false);
-        if (data.status === 404) throw Error(404);
-        return data.json();
-      })
+    rest.getTrainings(this.props.params.id)
       .then(data => {
         let formData = this.props.params.exerciseId
           ? data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0]
@@ -107,26 +101,26 @@ class Form extends React.Component {
 
   handleCreatingForm(e) {
     e.preventDefault();
-    const fetchUrl = this.createFetchUrl(false);
-    this.sendDataToServer(fetchUrl, "POST", 201);
+    const path = this.props.params.form === "session" ? "training" : "exercise";
+    const body = this.createBody();
+    rest.postForm(path, body)
+      .then(data => {
+        if (data.status === 201) this.setState({ isDataSaved: true });
+      });
   }
 
   handleEditingForm(e) {
     e.preventDefault();
-    const fetchUrl = this.createFetchUrl(true);
-    this.sendDataToServer(fetchUrl, "PUT", 200);
+    const path = this.props.params.form === "session" ? "training" : "exercise";
+    const body = this.createBody();
+    const id = this.props.params.form === "session" ? this.props.params.id : this.state.newData.uuid;
+    rest.putForm(path, body, id)
+      .then(data => {
+        if (data.status === 200) this.setState({ isDataSaved: true });
+      });
   }
 
-  createFetchUrl(isEditing) {
-    switch (this.state.formType) {
-      case ("session"):
-        return isEditing ? `/api/v1/workout/training/${this.props.params.id}/` : "/api/v1/workout/training/";
-      case ("workout"):
-        return isEditing ? `/api/v1/workout/exercise/${this.state.newData.uuid}/` : "/api/v1/workout/exercise/";
-    }
-  }
-
-  sendDataToServer(url, method, code) {
+  createBody() {
     if (!this.isDataChanged()) {
       this.setState({ isDataSaved: true });
       return;
@@ -135,12 +129,7 @@ class Form extends React.Component {
     let body = new FormData(document.querySelector(".form"));
     if (this.state.formType === "workout") body.append("training", this.props.params.id);
     body.append("priority", +Date.now().toString().slice(-10, -2));
-    const options = this.createOptions(method, body);
-
-    fetch(url, options)
-    .then(data => {
-      if (data.status === code) this.setState({ isDataSaved: true });
-    });
+    return body;
   }
 
   isFormValid() {
@@ -157,20 +146,6 @@ class Form extends React.Component {
       }
     }
     return isFormValid;
-  }
-
-  createOptions(method, body, contentType) {
-    let options = {
-      credentials: "include",
-      headers: {
-        "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": Token
-      },
-      method,
-      body
-    };
-    if (contentType) options.headers["Content-Type"] = contentType;
-    return options;
   }
 
   render() {

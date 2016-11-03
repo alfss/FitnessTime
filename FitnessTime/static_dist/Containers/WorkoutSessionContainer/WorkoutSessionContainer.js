@@ -1,8 +1,8 @@
 "use strict";
 
 import WorkoutSession from "../../Components/WorkoutSessionComponent/WorkoutSessionComponent";
-import Token from "../../getCSRFToken";
 import { withRouter } from "react-router";
+import rest from "../../rest";
 
 class WorkoutSessionsContainer extends React.Component {
   constructor() {
@@ -62,15 +62,7 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   fetchPageUrl(page) {
-    this.props.setFethingData(true);
-    const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
-
-    fetch(url, { credentials: "include" })
-      .then(data => {
-        this.props.setFethingData(false);
-        if (data.status === 404) throw Error(404);
-        return data.json();
-      })
+    rest.getSession(page)
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
@@ -91,14 +83,7 @@ class WorkoutSessionsContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
-        fetch(`/api/v1/workout/training/${sessionId}`, {
-          credentials: "include",
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": Token
-          }
-        })
+        rest.deleteSession(sessionId)
         .then(data => {
           if (data.status === 204) {
             let page = this.state.currentPage;

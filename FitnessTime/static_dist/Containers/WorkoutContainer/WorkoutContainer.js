@@ -1,6 +1,6 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
-import Token from "../../getCSRFToken";
 import animation from "css-animation";
+import rest from "../../rest";
 
 class WorkoutContainer extends React.Component {
   constructor() {
@@ -18,7 +18,7 @@ class WorkoutContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.loadWorkoutData();
+    this.fetchData(this.props.params.id);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -31,18 +31,8 @@ class WorkoutContainer extends React.Component {
     if (this.props.params.id !== nextProps.params.id) this.fetchData(nextProps.params.id);
   }
 
-  loadWorkoutData() {
-    this.props.setFethingData(true);
-    this.fetchData(this.props.params.id);
-  }
-
   fetchData(id) {
-    fetch(`/api/v1/workout/training/${id}`)
-      .then(data => {
-        this.props.setFethingData(false);
-        if (data.status === 404) throw Error(404);
-        return data.json();
-      })
+    rest.getTrainings(id)
       .then(data => {
         this.setState({
           workoutName: data.title,
@@ -58,22 +48,13 @@ class WorkoutContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить уражнение?");
       if (confirmDeleting) {
-        fetch(`/api/v1/workout/exercise/${itemId}`, {
-          credentials: "include",
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": Token
-          }
-        })
-        .then(data => {
-          if (data.status === 204) {
-            const newState = this.state.workoutData.filter(session => !(session.url === data.url));
-            this.setState({
-              workoutData: newState
-            });
-          }
-        });
+        rest.deleteTraining(itemId)
+          .then(data => {
+            if (data.status === 204) {
+              const newState = this.state.workoutData.filter(session => !(session.url === data.url));
+              this.setState({ workoutData: newState });
+            }
+          });
       }
     };
   }
