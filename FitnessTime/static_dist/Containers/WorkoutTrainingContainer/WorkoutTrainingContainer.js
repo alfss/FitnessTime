@@ -1,13 +1,13 @@
 "use strict";
 
-import WorkoutSession from "../../Components/WorkoutSessionComponent/WorkoutSessionComponent";
+import WorkoutTraining from "../../Components/WorkoutTrainingComponent/WorkoutTrainingComponent";
 import { withRouter } from "react-router";
 import rest from "../../rest";
 
-class WorkoutSessionsContainer extends React.Component {
+class WorkoutTrainingsContainer extends React.Component {
   constructor() {
     super();
-    this.handleDeletingSession = this.handleDeletingSession.bind(this);
+    this.handleDeletingTraining = this.handleDeletingTraining.bind(this);
     this.handleSwitchPage = this.handleSwitchPage.bind(this);
     this.goToNextPage = this.goToNextPage.bind(this);
     this.goToPreviousPage = this.goToPreviousPage.bind(this);
@@ -16,7 +16,7 @@ class WorkoutSessionsContainer extends React.Component {
       userName: "",
       currentPage: 1,
       pages: 1,
-      workoutSessionData: []
+      workoutTrainingData: []
     };
   }
 
@@ -62,7 +62,7 @@ class WorkoutSessionsContainer extends React.Component {
   }
 
   fetchPageUrl(page) {
-    rest.getSession(page)
+    rest.getTraining(page)
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
@@ -71,7 +71,7 @@ class WorkoutSessionsContainer extends React.Component {
           userName: data.results[0].owner.username,
           currentPage: page,
           pages: pages,
-          workoutSessionData: data.results
+          workoutTrainingData: data.results
         });
       })
       .catch (error => {
@@ -79,18 +79,18 @@ class WorkoutSessionsContainer extends React.Component {
       });
   }
 
-  handleDeletingSession(sessionId) {
+  handleDeletingTraining(trainingId) {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
-        rest.deleteSession(sessionId)
+        rest.deleteTraining(trainingId)
         .then(data => {
           if (data.status === 204) {
             let page = this.state.currentPage;
-            const newState = this.state.workoutSessionData.filter(session => !(session.url === data.url));
+            const newState = this.state.workoutTrainingData.filter(training => !(training.url === data.url));
             this.setState({
               count: this.state.count - 1,
-              workoutSessionData: newState
+              workoutTrainingData: newState
             });
             if (!newState.length && page === 1) return;
             if (!newState.length) {
@@ -106,17 +106,17 @@ class WorkoutSessionsContainer extends React.Component {
 
   render() {
     return (
-      <WorkoutSession
-        workoutSessionData={this.state.workoutSessionData}
+      <WorkoutTraining
+        workoutTrainingData={this.state.workoutTrainingData}
         pages={this.state.pages}
         switchPage={this.handleSwitchPage}
         nextPage={this.goToNextPage}
         previousPage={this.goToPreviousPage}
-        deleteSession={this.handleDeletingSession}
+        deleteTraining={this.handleDeletingTraining}
         currentPage={+this.state.currentPage}
       />
     );
   }
 }
 
-export default withRouter(WorkoutSessionsContainer);
+export default withRouter(WorkoutTrainingsContainer);

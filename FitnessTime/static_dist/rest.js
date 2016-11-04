@@ -2,7 +2,7 @@ import Token from "./getCSRFToken";
 
 class rest {
 
-  getSession(page = 1) {
+  getTraining(page = 1) {
     const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;
     return this.restGet(url);
   }
@@ -20,12 +20,12 @@ class rest {
     });
   }
 
-  deleteSession(session) {
-    return this.restDelete("training", session);
+  deleteTraining(training) {
+    return this.restDelete("training", training);
   }
 
-  deleteTraining(training) {
-    return this.restDelete("exercise", training);
+  deleteExercise(exercise) {
+    return this.restDelete("exercise", exercise);
   }
 
   restDelete(path, id) {

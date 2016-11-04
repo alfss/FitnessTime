@@ -12,7 +12,7 @@ const propTypes = {
 function Header (props) {
   const links = [
     {route: "/app", name: "Главная страница"},
-    {route: "/app/form/session", name: "Создать тренировку "}
+    {route: "/app/form/training", name: "Создать тренировку "}
   ];
   const showGoBackBtn = (!props.parentRoute) ? {visibility:"hidden"} : null;
 

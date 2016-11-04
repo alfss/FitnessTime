@@ -12,20 +12,20 @@ const propTypes = {
 };
 
 const formTypes = {
-  workout: [
+  exercise: [
     { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
     { label: "Повторы", name: "repeat", type: "number", placeholder: "Колличество повторов" },
     { label: "Вес", name: "weight", type: "number", placeholder: "Необходимый вес (в килограммах)" },
     { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)" }
   ],
-  session: [
-    { label: "Название тренировки", name:"title", type: "text", classes: "form__session-title", placeholder: "Название тренировки" }
+  training: [
+    { label: "Название тренировки", name:"title", type: "text", classes: "form__training-title", placeholder: "Название тренировки" }
   ]
 };
 
 function Form (props) {
   let action = (props.isFormEditing) ? props.handleEditingForm : props.handleCreatingForm;
-  const fileInput = props.formType === "workout" &&
+  const fileInput = props.formType === "exercise" &&
     <div>
       <label className="form__label">{"Фото:"}</label>
       <input

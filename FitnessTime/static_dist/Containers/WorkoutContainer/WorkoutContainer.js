@@ -51,7 +51,7 @@ class WorkoutContainer extends React.Component {
         rest.deleteTraining(itemId)
           .then(data => {
             if (data.status === 204) {
-              const newState = this.state.workoutData.filter(session => !(session.url === data.url));
+              const newState = this.state.workoutData.filter(training => !(training.url === data.url));
               this.setState({ workoutData: newState });
             }
           });
@@ -95,7 +95,7 @@ class WorkoutContainer extends React.Component {
       <Workout
         workoutData={this.state.workoutData}
         toggleItemFullData={this.toggleItemFullData}
-        sessionId={this.props.params.id}
+        trainingId={this.props.params.id}
         deleteItem={this.handleDeletingWorkoutItem}
       />
     );

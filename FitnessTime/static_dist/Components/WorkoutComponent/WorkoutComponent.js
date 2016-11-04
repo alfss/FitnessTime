@@ -5,7 +5,7 @@ import WorkoutItem from "../../Containers/WorkoutItemContainer/WorkoutItemContai
 
 const propTypes = {
   workoutData: React.PropTypes.array.isRequired,
-  sessionId: React.PropTypes.string.isRequired,
+  trainingId: React.PropTypes.string.isRequired,
   deleteItem: React.PropTypes.func.isRequired
 };
 
@@ -22,7 +22,7 @@ function Workout (props) {
   return (
     <div className="workout-item">
       { workoutItem }
-      <Link to={`/app/form/workout/${props.sessionId}`} className="button button__round" >
+      <Link to={`/app/form/exercise/${props.trainingId}`} className="button button__round" >
         <i className="button__icon" />
       </Link>
       <audio id="stop-timer">
