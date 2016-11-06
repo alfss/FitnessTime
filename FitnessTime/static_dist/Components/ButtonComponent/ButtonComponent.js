@@ -9,10 +9,8 @@ const propTypes = {
 };
 
 function Button (props) {
-  let classes = `button ${props.classes} ${(props.isHidden) ? "removed" : ""}`;
-
   return (
-    <button type={props.type} className={classes} onClick={props.action} disabled={props.isDisabled}>{props.name}</button>
+    <button type={props.type} className={classNames("button", props.classes, {removed: props.isHidden} )} onClick={props.action} disabled={props.isDisabled}>{props.name}</button>
   );
 }
 
