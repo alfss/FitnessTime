@@ -102,7 +102,7 @@ class StopwatchContainer extends React.Component {
     });
   }
 
-  showTimer() {
+  formatTime() {
     let minutesRemaining = this.state.restMinutes;
     let secondsRemaining = this.state.restSeconds;
     if (minutesRemaining < 10) minutesRemaining = `0${minutesRemaining}`;
@@ -114,7 +114,7 @@ class StopwatchContainer extends React.Component {
   render() {
     return (
       <Stopwatch
-        rest={this.showTimer()}
+        rest={this.formatTime()}
         repeatsDone={this.state.repeatsDone}
         startTimer={this.startTimer}
         resetTimer={this.resetTimer}
