@@ -5,34 +5,40 @@
   align-items: center;
   padding: 5px 20px;
 
-  &__previous-page {
-    background: url(../Images/left-angle-bracket.svg) no-repeat;
-    background-size: cover;
+  &__action {
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
     height: 30px;
     width: 30px;
-    cursor: pointer;
-    margin-right: auto;
+
+    &_nav {
+      background-image: url(../Images/menu.svg);
+      background-size: 30px;
+    }
+
+    &_prev-page {
+      background-image: url(../Images/left-angle-bracket.svg);
+      cursor: pointer;
+    }
+
+    &_menu {
+      background-image: url(../Images/show-more.svg);
+    }
   }
 
   &__page-name {
     color: $white;
-    margin-right: auto;
-  }
-
-  &__account {
-    background: url(../Images/show-more.svg) no-repeat;
-    background-size: cover;
-    height: 30px;
-    width: 30px;
+    margin: auto;
   }
 
   &__nav {
     position: absolute;
     top: 70px;
-    right: 0;
+    left: 0;
     height: calc(100% - 70px);
     width: 60%;
-    transform: translateX(100%);
+    transform: translateX(-100%);
     z-index: 100;
     background-color: $white;
     transition: transform .4s ease;

@@ -14,7 +14,9 @@ function Header (props) {
     {route: "/app", name: "Главная страница"},
     {route: "/app/form/training", name: "Создать тренировку "}
   ];
-  const showGoBackBtn = (!props.parentRoute) ? {visibility:"hidden"} : null;
+  const leftAction = (!props.parentRoute)
+    ? <div className="header__action header__action_nav" onClick={props.toggleNav} />
+    : <div className="header__action header__action_prev-page" onClick={props.goBack} />;
 
   function renderLink (link, i) {
     return (
@@ -26,9 +28,9 @@ function Header (props) {
 
   return (
     <div className="header">
-      <div className="header__previous-page" style={showGoBackBtn} onClick={props.goBack} />
+      { leftAction }
       <div className="header__page-name">{props.routeName}</div>
-      <div className="header__account" onClick={props.toggleNav}></div>
+      <div className="header__action header__action_menu" />
       <div className={classNames("header__nav", { header__nav_open: props.isNavShown })}>
         <ul className="header__list">
           { links.map(renderLink) }
