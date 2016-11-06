@@ -8,7 +8,7 @@ const formTypes = {
     { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)" }
   ],
   training: [
-    { label: "Название тренировки", name:"title", type: "text", classes: "form__training-title", placeholder: "Название тренировки" }
+    { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки" }
   ]
 };
 
@@ -18,11 +18,11 @@ function Form ({isFormEditing, handleEditingForm, handleCreatingForm, formType, 
     <div>
       <label className="form__label">{"Фото:"}</label>
       <input
-      type={"file"}
-      name={"example_photo"}
-      className={"form__input form__input_file"}
-      accept="image/*"
-      onChange={handleInputChange}
+        type="file"
+        name="example_photo"
+        className="form__input form__input_file"
+        accept="image/*"
+        onChange={handleInputChange}
       />
     </div>;
 
@@ -32,12 +32,12 @@ function Form ({isFormEditing, handleEditingForm, handleCreatingForm, formType, 
             {input.label}:
             <span className="form__error removed">(Введите корректную информацию)</span>
             <input
-            type={input.type}
-            name={input.name}
-            onChange={handleInputChange}
-            className={`form__input ${input.classes || ""}`}
-            value={value}
-            placeholder={input.placeholder}
+              className="form__input"
+              type={input.type}
+              name={input.name}
+              onChange={handleInputChange}
+              value={value}
+              placeholder={input.placeholder}
             />
           </label>;
   }

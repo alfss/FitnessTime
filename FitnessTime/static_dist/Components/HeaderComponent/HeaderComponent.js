@@ -11,7 +11,7 @@ function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.
     : <div className="header__action header__action_prev-page" onClick={goBack} />;
 
   function renderLink (link, i) {
-    let linkItem = link.route === "/logout/"
+    let linkItem = (link.route === "/logout/")
       ? <a href={link.route} className="header__nav-link">{link.name}</a>
       : <Link to={link.route} className="header__nav-link">{link.name}</Link>;
     return (

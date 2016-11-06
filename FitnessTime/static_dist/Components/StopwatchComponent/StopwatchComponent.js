@@ -1,6 +1,6 @@
 "use strict";
 
-function Stopwatch ({isComplete, repeatsDone, rest, startTimer, isTimerWorking, finishTimer, resetTimer} = this.props) {
+function Stopwatch ({rest, repeatsDone, startTimer, finishTimer, resetTimer, isComplete, isTimerWorking} = this.props) {
   const showFinishBlock = isComplete ? {display: ""} : {display: "none"};
   const buttons = [
     {name: "Начать отдых", class: "button_start", action: startTimer, isRemoved: isTimerWorking || isComplete},
