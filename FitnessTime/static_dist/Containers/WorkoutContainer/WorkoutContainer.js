@@ -40,7 +40,7 @@ class WorkoutContainer extends React.Component {
         });
       })
       .catch (error => {
-        if (error.message === "404") this.props.checkIsPageExist(false);
+        if (error.message === "404") this.props.renderNotFoundPage(true);
       });
   }
 

@@ -7,7 +7,7 @@ class App extends React.Component {
     super();
     this.getRouteName = this.getRouteName.bind(this);
     this.getParentRoute = this.getParentRoute.bind(this);
-    this.checkIsPageExist = this.checkIsPageExist.bind(this);
+    this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
     this.setFethingData = this.setFethingData.bind(this);
     this.state = {
       routeName: "",
@@ -25,8 +25,8 @@ class App extends React.Component {
     this.setState({ parentRoute: path});
   }
 
-  checkIsPageExist(bool) {
-    this.setState({ isPageExist: bool });
+  renderNotFoundPage(bool) {
+    this.setState({ isPageExist: !bool });
   }
 
   setFethingData(fetching){
@@ -35,7 +35,7 @@ class App extends React.Component {
 
   render() {
     const ChildNode = React.cloneElement(this.props.children, {
-      checkIsPageExist: this.checkIsPageExist,
+      renderNotFoundPage: this.renderNotFoundPage,
       getRouteName: this.getRouteName,
       getParentRoute: this.getParentRoute,
       setFethingData: this.setFethingData
@@ -45,7 +45,7 @@ class App extends React.Component {
       <AppComponent
         ChildNode={ChildNode}
         routeParams={this.props.params}
-        checkIsPageExist={this.checkIsPageExist}
+        renderNotFoundPage={this.renderNotFoundPage}
         isPageExist={this.state.isPageExist}
         routeName={this.state.routeName}
         parentRoute={this.state.parentRoute}

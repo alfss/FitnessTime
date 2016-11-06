@@ -2,10 +2,10 @@ import Header from "../../Containers/HeaderContainer/HeaderContainer";
 import Modal from "react-modal";
 import NotFoundPage from "../../Containers/NotFound404Container/NotFound404Container";
 
-function App ({isPageExist, ChildNode, checkIsPageExist, routeName, parentRoute, isDataFetching, routeParams} = this.props) {
+function App ({isPageExist, ChildNode, renderNotFoundPage, routeName, parentRoute, isDataFetching, routeParams} = this.props) {
   Modal.setAppElement("body");
 
-  const page = (isPageExist) ?  ChildNode : <NotFoundPage checkIsPageExist={checkIsPageExist} routeParams={routeParams}/>;
+  const page = (isPageExist) ?  ChildNode : <NotFoundPage renderNotFoundPage={renderNotFoundPage} routeParams={routeParams}/>;
 
   return (
     <div className="app">

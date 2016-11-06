@@ -36,7 +36,7 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.params.form === "exercise" && !this.props.params.id) this.props.checkIsPageExist(false);
+    if (this.props.params.form === "exercise" && !this.props.params.id) this.props.renderNotFoundPage(true);
     let parentRoute;
     switch (this.props.params.form) {
       case "exercise": parentRoute = `/app/workout/${this.props.params.id}`; break;
@@ -70,7 +70,7 @@ class Form extends React.Component {
         });
       })
       .catch( error => {
-        if (error.message === "404") this.props.checkIsPageExist(false);
+        if (error.message === "404") this.props.renderNotFoundPage(true);
       });
   }
 
