@@ -3,26 +3,20 @@
 import { Link } from "react-router";
 import WorkoutItem from "../../Containers/WorkoutItemContainer/WorkoutItemContainer";
 
-const propTypes = {
-  workoutData: React.PropTypes.array.isRequired,
-  trainingId: React.PropTypes.string.isRequired,
-  deleteItem: React.PropTypes.func.isRequired
-};
-
-function Workout (props) {
-  const workoutItem = props.workoutData.map( data => {
+function Workout ({workoutData, deleteItem, toggleItemFullData, trainingId}) {
+  const workoutItem = workoutData.map( data => {
     return <WorkoutItem
             key={data.uuid}
             workoutItemData={data}
-            deleteItem={props.deleteItem}
-            toggleItemFullData={props.toggleItemFullData}
+            deleteItem={deleteItem}
+            toggleItemFullData={toggleItemFullData}
           />;
   });
 
   return (
     <div className="workout-item">
       { workoutItem }
-      <Link to={`/app/form/exercise/${props.trainingId}`} className="button button__round" >
+      <Link to={`/app/form/exercise/${trainingId}`} className="button button__round" >
         <i className="button__icon" />
       </Link>
       <audio id="stop-timer">
@@ -32,7 +26,5 @@ function Workout (props) {
     </div>
   );
 }
-
-Workout.propTypes = propTypes;
 
 export default Workout;

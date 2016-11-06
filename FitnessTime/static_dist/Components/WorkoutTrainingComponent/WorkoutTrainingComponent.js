@@ -8,13 +8,13 @@ const propTypes = {
   deleteTraining: React.PropTypes.func.isRequired
 };
 
-function WorkoutTraining (props) {
+function WorkoutTraining ({pages, switchPage, nextPage, previousPage, currentPage, deleteTraining, workoutTrainingData} = this.props) {
   const pagination =  <Pagination
-    pages={props.pages}
-    switchPage={props.switchPage}
-    nextPage={props.nextPage}
-    previousPage={props.previousPage}
-    currentPage={props.currentPage}
+    pages={pages}
+    switchPage={switchPage}
+    nextPage={nextPage}
+    previousPage={previousPage}
+    currentPage={currentPage}
   />;
 
   function renderTraining(training) {
@@ -23,7 +23,7 @@ function WorkoutTraining (props) {
         <Link to={"/app/workout/" + training.uuid} className="workout-training__item-link">
           { training.title }
         </Link>
-        <button className="button__delete" onClick={props.deleteTraining(training.uuid)} />
+        <button className="button__delete" onClick={deleteTraining(training.uuid)} />
         <Link to={`/app/form/training/${training.uuid}`} className="button__edit" />
       </div>
     );
@@ -31,8 +31,8 @@ function WorkoutTraining (props) {
 
   return (
     <div className="workout-training">
-      { props.pages > 1 && pagination }
-      { props.workoutTrainingData.map(renderTraining) }
+      { pages > 1 && pagination }
+      { workoutTrainingData.map(renderTraining) }
       <Link to="/app/form/training" className="button button__round" >
         <i className="button__icon" />
       </Link>

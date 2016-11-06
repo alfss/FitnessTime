@@ -2,15 +2,6 @@
 
 import Button from "../ButtonComponent/ButtonComponent";
 
-const propTypes = {
-  formType: React.PropTypes.string.isRequired,
-  isFormEditing: React.PropTypes.bool.isRequired,
-  handleCreatingForm: React.PropTypes.func.isRequired,
-  handleEditingForm: React.PropTypes.func.isRequired,
-  handleInputChange: React.PropTypes.func.isRequired,
-  inputValue: React.PropTypes.object.isRequired
-};
-
 const formTypes = {
   exercise: [
     { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
@@ -23,9 +14,9 @@ const formTypes = {
   ]
 };
 
-function Form (props) {
-  let action = (props.isFormEditing) ? props.handleEditingForm : props.handleCreatingForm;
-  const fileInput = props.formType === "exercise" &&
+function Form ({isFormEditing, handleEditingForm, handleCreatingForm, formType, handleInputChange, inputValue} = this.props) {
+  let action = (isFormEditing) ? handleEditingForm : handleCreatingForm;
+  const fileInput = formType === "exercise" &&
     <div>
       <label className="form__label">{"Фото:"}</label>
       <input
@@ -33,19 +24,19 @@ function Form (props) {
       name={"example_photo"}
       className={"form__input form__input_file"}
       accept="image/*"
-      onChange={props.handleInputChange}
+      onChange={handleInputChange}
       />
     </div>;
 
   function renderInput(input, i) {
-    let value = props.inputValue[input.name] || "";
+    let value = inputValue[input.name] || "";
     return <label key={i} className="form__label">
             {input.label}:
             <span className="form__error removed">(Введите корректную информацию)</span>
             <input
             type={input.type}
             name={input.name}
-            onChange={props.handleInputChange}
+            onChange={handleInputChange}
             className={`form__input ${input.classes || ""}`}
             value={value}
             placeholder={input.placeholder}
@@ -55,7 +46,7 @@ function Form (props) {
 
   return (
     <form className="form">
-      { formTypes[props.formType].map(renderInput) }
+      { formTypes[formType].map(renderInput) }
       { fileInput }
       <div className="form__controls">
         <Button name="Save" action={action}/>
@@ -63,7 +54,5 @@ function Form (props) {
     </form>
   );
 }
-
-Form.propTypes = propTypes;
 
 export default Form;

@@ -24,7 +24,6 @@ class HeaderContainer extends React.Component {
   render() {
     return (
       <Header
-        checkRoute={this.props.router.isActive}
         toggleNav = {this.toggleNav}
         isNavShown = {this.state.isNavShown}
         goBack={this.goBack}
