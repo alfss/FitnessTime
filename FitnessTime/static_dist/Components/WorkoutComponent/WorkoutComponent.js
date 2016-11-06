@@ -16,7 +16,7 @@ function Workout ({workoutData, deleteItem, toggleItemFullData, trainingId}) {
   return (
     <div className="workout-item">
       { workoutItem }
-      <Link to={`/app/form/exercise/${trainingId}`} className="button button__round" >
+      <Link to={`/app/form/exercise/${trainingId}`} className="button button_round" >
         <i className="button__icon" />
       </Link>
       <audio id="stop-timer">

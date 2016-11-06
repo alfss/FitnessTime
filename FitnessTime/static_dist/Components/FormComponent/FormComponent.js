@@ -1,7 +1,5 @@
 "use strict";
 
-import Button from "../ButtonComponent/ButtonComponent";
-
 const formTypes = {
   exercise: [
     { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
@@ -49,7 +47,7 @@ function Form ({isFormEditing, handleEditingForm, handleCreatingForm, formType, 
       { formTypes[formType].map(renderInput) }
       { fileInput }
       <div className="form__controls">
-        <Button name="Save" action={action}/>
+        <button className="button" onClick={action}>Save</button>
       </div>
     </form>
   );

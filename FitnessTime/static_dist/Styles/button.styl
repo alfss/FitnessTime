@@ -1,31 +1,36 @@
 .button {
-  width: calc(50% - 5px);
+  width: 80%;
   padding: 10px 0;
   background-color: #fff;
   border: none;
   border-radius: 3px;
   color: $white;
-  cursor: pointer;
   background-color: $material-blue;
+
+  &:hover {
+    background-color: darken($material-blue, 5%);
+  }
 
   &:disabled {
     background-color: lighten($material-blue, 25%);
   }
 
-  &_cancel {
+  &_reset {
     background-color: $material-red;
-    margin-left: 10px;
+    &:hover {
+      background-color: darken($material-red, 8%);
+    }
+  }
+  &_pause {
+    background-color: $material-orange;
+    &:hover {
+      background-color: darken($material-orange, 8%);
+    }
   }
 
-  &_add {
-    display: inline-block;
-    margin-top: $gutter-big;
-    text-decoration: none;
-    padding: 10px 20px;
-  }
-
-  &__round {
+  &_round {
     position: fixed;
+    cursor: pointer;
     bottom: 22px;
     right: 22px;
     width: 50px;
@@ -33,10 +38,6 @@
     padding: 0;
     border-radius: 50%;
     box-shadow: 0 2px 5px 1px rgba(0,0,0,0.3);
-
-    &:hover {
-      background-color: darken($material-blue, 5%);
-    }
   }
 
   &__icon {

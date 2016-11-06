@@ -33,7 +33,7 @@ function WorkoutTraining ({pages, switchPage, nextPage, previousPage, currentPag
     <div className="workout-training">
       { pages > 1 && pagination }
       { workoutTrainingData.map(renderTraining) }
-      <Link to="/app/form/training" className="button button__round" >
+      <Link to="/app/form/training" className="button button_round" >
         <i className="button__icon" />
       </Link>
     </div>
