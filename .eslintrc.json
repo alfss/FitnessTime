@@ -14,7 +14,8 @@
     },
     "plugins": [ "react" ],
     "globals": {
-        "React": true
+        "React": true,
+        "classNames": true
     },
     "rules": {
         "no-console": 0,

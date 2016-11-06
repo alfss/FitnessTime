@@ -41,7 +41,7 @@ function Form (props) {
     let value = props.inputValue[input.name] || "";
     return <label key={i} className="form__label">
             {input.label}:
-            <span className="form__error hidden">(Введите корректную информацию)</span>
+            <span className="form__error removed">(Введите корректную информацию)</span>
             <input
             type={input.type}
             name={input.name}

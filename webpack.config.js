@@ -55,7 +55,8 @@ module.exports = {
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
     new LiveReloadPlugin({appendScriptTag : true}),
     new webpack.ProvidePlugin({
-      React: "react"
+      React: "react",
+      classNames:"classnames"
     }),
     extractCSS
   ]

@@ -82,7 +82,7 @@ class Form extends React.Component {
 
 
   handleInputChange(e) {
-    if (!e.target.previousSibling.classList.contains("hidden")) e.target.previousSibling.classList.add("hidden");
+    if (!e.target.previousSibling.classList.contains("removed")) e.target.previousSibling.classList.add("removed");
     let newValue = Object.assign({}, this.state.newData);
     newValue[e.target.name] = (e.target.type === "number") ? +e.target.value : e.target.value;
     this.setState({ newData : newValue });
@@ -135,7 +135,7 @@ class Form extends React.Component {
       const isFieldNaN = (fieldsForChecking[i] === "weight" || fieldsForChecking[i] === "rest_time") && isNaN(+formField.value);
       if (isFieldNaN || isFieldEmpty) {
         isFormValid = false;
-        formField.previousSibling.classList.remove("hidden");
+        formField.previousSibling.classList.remove("removed");
       }
     }
     return isFormValid;

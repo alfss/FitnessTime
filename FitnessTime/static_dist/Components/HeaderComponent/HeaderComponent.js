@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import classNames from "classnames";
 
 const propTypes = {
   goBack: React.PropTypes.func.isRequired,
@@ -10,11 +9,12 @@ const propTypes = {
 };
 
 function Header (props) {
+  const isFirstPage = !props.parentRoute;
   const links = [
     {route: "/app", name: "Главная страница"},
     {route: "/app/form/training", name: "Создать тренировку "}
   ];
-  const leftAction = (!props.parentRoute)
+  const leftAction = (isFirstPage)
     ? <div className="header__action header__action_nav" onClick={props.toggleNav} />
     : <div className="header__action header__action_prev-page" onClick={props.goBack} />;
 
@@ -30,7 +30,7 @@ function Header (props) {
     <div className="header">
       { leftAction }
       <div className="header__page-name">{props.routeName}</div>
-      <div className="header__action header__action_menu" />
+      <div className={classNames("header__action", "header__action_menu", { hidden: isFirstPage })}/>
       <div className={classNames("header__nav", { header__nav_open: props.isNavShown })}>
         <ul className="header__list">
           { links.map(renderLink) }
