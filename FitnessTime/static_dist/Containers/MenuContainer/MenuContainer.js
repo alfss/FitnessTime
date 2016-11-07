@@ -12,7 +12,8 @@ class MenuContainer extends React.Component {
     document.removeEventListener("click", this.toggleMenu);
   }
 
-  toggleMenu() {
+  toggleMenu(e) {
+    e.stopPropagation();
     if (!this.state.isMenuOpen) document.addEventListener("click", this.toggleMenu);
     else document.removeEventListener("click", this.toggleMenu);
     this.setState({ isMenuOpen: !this.state.isMenuOpen});
