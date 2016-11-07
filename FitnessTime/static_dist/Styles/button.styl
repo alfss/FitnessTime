@@ -51,27 +51,16 @@
     background-size: contain;
   }
 
-  &__delete {
+  &__menu {
     width: 45px;
     height: 100%;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 12px;
     padding: 0;
     background-color: $white;
     border: none;
-    background: url(../Images/delete.svg) no-repeat center;
-    background-size: 20px;
-    transition: all .3s ease;
-
-    &:hover {
-      background-size: 28px;
-    }
-  }
-
-  &__edit {
-    @extend .button__delete;
-    background-image: url(../Images/pencil-icon.svg);
-    right: 45px;
+    background: url(../Images/show-more2.svg) no-repeat center;
+    background-size: 18px;
   }
 }

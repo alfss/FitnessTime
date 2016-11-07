@@ -2,22 +2,24 @@ import Stopwatch from "../../Containers/StopwatchContainer/StopwatchContainer";
 import { Link } from "react-router";
 import Modal from "react-modal";
 
-function WorkoutItem ({isModalOpen, toggleModal, data, toggleItemFullData, shouldWarn, deleteItem, formatRestTimer, setShouldStartWarning} = this.props) {
+function WorkoutItem ({isModalOpen, toggleModal, isMenuOpen, toggleMenu, data, toggleItemFullData, shouldWarn, deleteItem, formatRestTimer, setShouldStartWarning} = this.props) {
   Modal.setAppElement("body");
   const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
                   <span className="modal__close-btn" onClick={toggleModal} />
                   <img src={data.example_photo} className="modal__image" />
                 </Modal>;
-
   return (
     <div>
       <div className="workout-item__name" onClick={toggleItemFullData}>
         {data.title}
-        <button className="button__delete" onClick={deleteItem(data.uuid)} />
-        <Link to={`/app/form/exercise/${data.training}/${data.uuid}`} className="button__edit" />
+        <button className="button__menu" onClick={toggleMenu}/>
+        <div className={classNames("workout-item__menu", {"removed": !isMenuOpen})}>
+          <Link className="workout-item__menu-item workout-item__menu-item_link" to={`/app/form/exercise/${data.training}/${data.uuid}`}>Редактировать</Link>
+          <div className="workout-item__menu-item" onClick={deleteItem(data.uuid)}>Удалить</div>
+        </div>
       </div>
       <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
-        <div className={`workout-item__full-data ${shouldWarn ? "workout-item__timer-warn" : ""}`}>
+        <div className={classNames("workout-item__full-data", {"workout-item__timer-warn": shouldWarn})}>
           <div className="workout-item__info">
           <div className="workout-item__description">
               <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{data.repeat}</div>

@@ -15,6 +15,29 @@
     background: $white;
   }
 
+  &__menu {
+    position: absolute;
+    z-index: 10;
+    top: 45px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: inline-block;
+    width: 200px;
+    border: 1px solid #E0E0E0;
+  }
+
+  &__menu-item {
+    display: block;
+    padding: 7px;
+    text-decoration: none;
+    color: inherit;
+
+    &:not(:last-child) {
+      border-bottom: 2px solid #E0E0E0;
+    }
+  }
+
   &__full-data {
     text-align: left;
     padding: $gutter-big;
