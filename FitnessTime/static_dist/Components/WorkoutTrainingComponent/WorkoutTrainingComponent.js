@@ -1,5 +1,3 @@
-"use strict";
-
 import { Link } from "react-router";
 import Pagination from "../../Components/PaginationComponent/PaginationComponent";
 

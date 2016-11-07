@@ -1,5 +1,3 @@
-"use strict";
-
 import FormComponent from "../../Components/FormComponent/FormComponent";
 import { withRouter } from "react-router";
 import rest from "../../rest";

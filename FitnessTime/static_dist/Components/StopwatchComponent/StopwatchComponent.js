@@ -1,5 +1,3 @@
-"use strict";
-
 function Stopwatch ({rest, repeatsDone, startTimer, finishTimer, resetTimer, isComplete, isTimerWorking} = this.props) {
   return (
     <div className="stopwatch">

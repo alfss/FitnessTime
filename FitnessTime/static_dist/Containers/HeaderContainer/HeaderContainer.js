@@ -1,5 +1,3 @@
-"use strict";
-
 import Header from "../../Components/HeaderComponent/HeaderComponent";
 import { withRouter } from "react-router";
 

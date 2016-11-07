@@ -1,5 +1,3 @@
-"use strict";
-
 import AppComponent from "../../Components/AppComponent/AppComponent";
 
 class App extends React.Component {

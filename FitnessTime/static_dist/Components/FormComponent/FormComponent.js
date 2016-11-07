@@ -1,5 +1,3 @@
-"use strict";
-
 const formTypes = {
   exercise: [
     { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},

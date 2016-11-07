@@ -1,5 +1,3 @@
-"use strict";
-
 import WorkoutTraining from "../../Components/WorkoutTrainingComponent/WorkoutTrainingComponent";
 import { withRouter } from "react-router";
 import rest from "../../rest";

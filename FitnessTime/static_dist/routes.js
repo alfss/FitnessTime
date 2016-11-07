@@ -1,7 +1,4 @@
-"use strict";
-
 import { Router, Route, IndexRoute } from "react-router";
-
 import App from "./Containers/AppContainer/AppContainer";
 import Workout from "./Containers/WorkoutContainer/WorkoutContainer";
 import WorkoutTraining from "./Containers/WorkoutTrainingContainer/WorkoutTrainingContainer";
