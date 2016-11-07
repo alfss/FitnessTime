@@ -1,8 +1,9 @@
 import Stopwatch from "../../Containers/StopwatchContainer/StopwatchContainer";
+import Menu from "../../Containers/MenuContainer/MenuContainer";
 import { Link } from "react-router";
 import Modal from "react-modal";
 
-function WorkoutItem ({isModalOpen, toggleModal, isMenuOpen, toggleMenu, data, toggleItemFullData, shouldWarn, deleteItem, formatRestTimer, setShouldStartWarning} = this.props) {
+function WorkoutItem ({isModalOpen, toggleModal, data, toggleItemFullData, shouldWarn, deleteItem, formatRestTimer, setShouldStartWarning} = this.props) {
   Modal.setAppElement("body");
   const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
                   <span className="modal__close-btn" onClick={toggleModal} />
@@ -12,11 +13,10 @@ function WorkoutItem ({isModalOpen, toggleModal, isMenuOpen, toggleMenu, data, t
     <div>
       <div className="workout-item__name" onClick={toggleItemFullData}>
         {data.title}
-        <button className="button__menu" onClick={toggleMenu}/>
-        <div className={classNames("workout-item__menu", {"removed": !isMenuOpen})}>
-          <Link className="workout-item__menu-item workout-item__menu-item_link" to={`/app/form/exercise/${data.training}/${data.uuid}`}>Редактировать</Link>
-          <div className="workout-item__menu-item" onClick={deleteItem(data.uuid)}>Удалить</div>
-        </div>
+        <Menu>
+          <Link className="menu__item" to={`/app/form/exercise/${data.training}/${data.uuid}`}>Редактировать</Link>
+          <div className="menu__item" onClick={deleteItem(data.uuid)}>Удалить</div>
+        </Menu>
       </div>
       <div className="workout-item__wrapper workout-item__wrapper_closed" style={{height:0}}>
         <div className={classNames("workout-item__full-data", {"workout-item__timer-warn": shouldWarn})}>

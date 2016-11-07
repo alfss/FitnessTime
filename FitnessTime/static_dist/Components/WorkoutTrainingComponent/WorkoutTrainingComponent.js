@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import Pagination from "../../Components/PaginationComponent/PaginationComponent";
+import Menu from "../../Containers/MenuContainer/MenuContainer";
 
 const propTypes = {
   workoutTrainingData: React.PropTypes.array.isRequired,
@@ -21,8 +22,10 @@ function WorkoutTraining ({pages, switchPage, nextPage, previousPage, currentPag
         <Link to={"/app/workout/" + training.uuid} className="workout-training__item-link">
           { training.title }
         </Link>
-        <button className="button__delete" onClick={deleteTraining(training.uuid)} />
-        <Link to={`/app/form/training/${training.uuid}`} className="button__edit" />
+        <Menu>
+          <Link className="menu__item" to={`/app/form/training/${training.uuid}`}>Редактировать</Link>
+          <div className="menu__item" onClick={deleteTraining(training.uuid)}>Удалить</div>
+        </Menu>
       </div>
     );
   }

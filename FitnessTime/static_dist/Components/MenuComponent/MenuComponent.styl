@@ -1,0 +1,39 @@
+.menu {
+
+
+  &__trigger {
+    width: 45px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 12px;
+    padding: 0;
+    background-color: $white;
+    border: none;
+    background: url(../Images/show-more2.svg) no-repeat center;
+    background-size: 18px;
+  }
+
+  &__wrapper {
+    position: absolute;
+    z-index: 10;
+    top: 45px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: inline-block;
+    width: 200px;
+    border: 1px solid #E0E0E0;
+  }
+
+  &__item {
+    display: block;
+    padding: 7px;
+    text-decoration: none;
+    color: $text-color;
+
+    &:not(:last-child) {
+      border-bottom: 2px solid #E0E0E0;
+    }
+  }
+}
