@@ -32,14 +32,11 @@ class WorkoutItemContainer extends React.Component {
   render() {
     return (
       <WorkoutItem
-        data={this.props.workoutItemData}
+        {...this.props}
+        {...this.state}
         formatRestTimer={this.formatRestTimer}
-        shouldWarn={this.state.shouldWarn}
         setShouldStartWarning={this.setShouldStartWarning}
         toggleModal={this.toggleModal}
-        isModalOpen={this.state.isModalOpen}
-        deleteItem={this.props.deleteItem}
-        toggleItemFullData={this.props.toggleItemFullData}
       />
     );
   }

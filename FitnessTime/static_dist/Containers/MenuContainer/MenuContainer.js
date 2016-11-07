@@ -22,7 +22,7 @@ class MenuContainer extends React.Component {
     return (
       <Menu
         {...this.props}
-        isMenuOpen={this.state.isMenuOpen}
+        {...this.state}
         toggleMenu={this.toggleMenu}
       />
     );

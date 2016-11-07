@@ -41,13 +41,10 @@ class App extends React.Component {
 
     return (
       <AppComponent
+        {...this.state}
         ChildNode={ChildNode}
         routeParams={this.props.params}
         renderNotFoundPage={this.renderNotFoundPage}
-        isPageExist={this.state.isPageExist}
-        routeName={this.state.routeName}
-        parentRoute={this.state.parentRoute}
-        isDataFetching={this.state.isDataFetching}
       />
     );
   }

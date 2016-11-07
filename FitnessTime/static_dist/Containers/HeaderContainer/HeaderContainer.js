@@ -22,11 +22,10 @@ class HeaderContainer extends React.Component {
   render() {
     return (
       <Header
+        {...this.props}
+        {...this.state}
         toggleNav = {this.toggleNav}
-        isNavShown = {this.state.isNavShown}
         goBack={this.goBack}
-        routeName={this.props.routeName}
-        parentRoute={this.props.parentRoute}
       />
     );
   }
