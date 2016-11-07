@@ -48,7 +48,7 @@ class WorkoutContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить уражнение?");
       if (confirmDeleting) {
-        rest.deleteTraining(itemId)
+        rest.deleteExercise(itemId)
           .then(data => {
             if (data.status === 204) {
               const newState = this.state.workoutData.filter(training => !(training.url === data.url));
