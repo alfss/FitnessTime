@@ -1,17 +1,28 @@
 .menu {
 
+  &_header {
+    position: relative;
+  }
 
   &__trigger {
-    width: 45px;
+    width: 40px;
     height: 100%;
     position: absolute;
     top: 0;
-    right: 12px;
+    right: 2px;
     padding: 0;
     background-color: $white;
     border: none;
     background: url(../Images/show-more2.svg) no-repeat center;
     background-size: 18px;
+
+    &_header {
+      background-image: url(../Images/show-more.svg);
+      width: 100%;
+      right: 0;
+      background-size: 26px;
+      background-position: 9px;
+    }
   }
 
   &__wrapper {
@@ -24,11 +35,17 @@
     display: inline-block;
     width: 200px;
     border: 1px solid #E0E0E0;
+
+    &_header {
+      top: 40px;
+      right: 0px;
+    }
   }
 
   &__item {
+    text-align: left;
     display: block;
-    padding: 7px;
+    padding: 12px;
     text-decoration: none;
     color: $text-color;
 

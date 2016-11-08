@@ -1,8 +1,8 @@
-function Menu ({children, toggleMenu, isMenuOpen} = this.props) {
+function Menu ({children, toggleMenu, isMenuOpen, menuClass, triggerClass, wrapperClass} = this.props) {
   return (
-    <div>
-      <button className="menu__trigger" onClick={toggleMenu}/>
-      <div className={classNames("menu__wrapper", {"removed": !isMenuOpen})}>
+    <div className={classNames({[menuClass]: menuClass})}>
+      <button className={classNames("menu__trigger", {[triggerClass]: triggerClass})} onClick={toggleMenu}/>
+      <div className={classNames("menu__wrapper", {[wrapperClass]: wrapperClass, "removed": !isMenuOpen})}>
         {children}
       </div>
     </div>

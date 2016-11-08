@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import Menu from "../../Containers/MenuContainer/MenuContainer";
 
 function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.props) {
   const isFirstPage = !parentRoute;
@@ -25,7 +26,9 @@ function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.
     <div className="header">
       { leftAction }
       <div className="header__page-name">{routeName}</div>
-      <div className={classNames("header__action", "header__action_menu", { hidden: isFirstPage })}/>
+      <Menu menuClass={classNames("header__action", "menu_header", {hidden: isFirstPage})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
+        <div className="menu__item">Изменить порядок</div>
+      </Menu>
       <div className={classNames("header__nav", { header__nav_open: isNavShown })}>
         <ul className="header__list">
           { links.map(renderLink) }
