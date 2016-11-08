@@ -29,12 +29,14 @@ function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.
       <Menu menuClass={classNames("header__action", "menu_header", {hidden: isFirstPage})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
         <div className="menu__item">Изменить порядок</div>
       </Menu>
-      <div className={classNames("header__nav", { header__nav_open: isNavShown })}>
-        <ul className="header__list">
-          { links.map(renderLink) }
-        </ul>
+      <div className={classNames({"removed": !isFirstPage})}>
+        <div className={classNames("header__nav", { header__nav_open: isNavShown })}>
+          <ul className="header__list">
+            { links.map(renderLink) }
+          </ul>
+        </div>
+        <span className={classNames("header__mask", { header__mask_open: isNavShown })} />
       </div>
-      <span className={classNames("header__mask", { header__mask_open: isNavShown })} />
     </div>
   );
 }

@@ -11,7 +11,10 @@ class HeaderContainer extends React.Component {
     };
   }
 
-  toggleNav() {
+  toggleNav(e) {
+    e.stopPropagation();
+    if (!this.state.isNavShown) document.addEventListener("click", this.toggleNav);
+    else document.removeEventListener("click", this.toggleNav);
     this.setState({ isNavShown: !this.state.isNavShown });
   }
 
