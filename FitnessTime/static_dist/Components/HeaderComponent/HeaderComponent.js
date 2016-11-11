@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import Menu from "../../Containers/MenuContainer/MenuContainer";
 
-function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.props) {
+function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown, setAppState}) {
   const isFirstPage = !parentRoute;
   const links = [
     {route: "/app/form/training", name: "Создать тренировку"},
@@ -27,7 +27,7 @@ function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown} = this.
       { leftAction }
       <div className="header__page-name">{routeName}</div>
       <Menu menuClass={classNames("header__action", "menu_header", {hidden: isFirstPage})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
-        <div className="menu__item">Изменить порядок</div>
+        <div className="menu__item" onClick={()=>setAppState("editing")}>Изменить порядок</div>
       </Menu>
       <div className={classNames({"removed": !isFirstPage})}>
         <div className={classNames("header__nav", { header__nav_open: isNavShown })}>

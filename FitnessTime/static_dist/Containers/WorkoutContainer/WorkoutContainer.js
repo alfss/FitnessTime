@@ -7,8 +7,10 @@ class WorkoutContainer extends React.Component {
     super();
     this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
     this.toggleItemFullData = this.toggleItemFullData.bind(this);
+    this.changeItemsOrder = this.changeItemsOrder.bind(this);
     this.state = {
       workoutName: "",
+      test: true,
       workoutData: []
     };
   }
@@ -90,13 +92,21 @@ class WorkoutContainer extends React.Component {
     });
   }
 
+  changeItemsOrder(newOrder) {
+    let newState = [];
+    newOrder.forEach((oldPosition, newPosition) => newState[newPosition] = this.state.workoutData[oldPosition]);
+    this.setState({ workoutData: newState});
+  }
+
   render() {
     return (
       <Workout
+        appState={this.props.appState}
         workoutData={this.state.workoutData}
         toggleItemFullData={this.toggleItemFullData}
         trainingId={this.props.params.id}
         deleteItem={this.handleDeletingWorkoutItem}
+        changeItemsOrder={this.changeItemsOrder}
       />
     );
   }

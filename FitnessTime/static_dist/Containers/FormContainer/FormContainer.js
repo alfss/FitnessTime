@@ -110,7 +110,7 @@ class Form extends React.Component {
   createBody() {
     let body = new FormData(document.querySelector(".form"));
     if (this.state.formType === "exercise") body.append("training", this.props.params.id);
-    body.append("priority", +Date.now().toString().slice(-10, -2));
+  //  body.append("priority", +Date.now().toString().slice(-10, -2));
     return body;
   }
 

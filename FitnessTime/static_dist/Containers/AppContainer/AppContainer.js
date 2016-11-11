@@ -7,11 +7,13 @@ class App extends React.Component {
     this.getParentRoute = this.getParentRoute.bind(this);
     this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
     this.setFethingData = this.setFethingData.bind(this);
+    this.setAppState = this.setAppState.bind(this);
     this.state = {
       routeName: "",
       parentRoute: "",
       isPageExist: true,
-      isDataFetching: false
+      isDataFetching: false,
+      appState: "default"
     };
   }
 
@@ -27,8 +29,12 @@ class App extends React.Component {
     this.setState({ isPageExist: !bool });
   }
 
-  setFethingData(fetching){
+  setFethingData(fetching) {
     this.setState({ isDataFetching: fetching });
+  }
+
+  setAppState(state = "default") {
+    this.setState({ appState: state });
   }
 
   render() {
@@ -36,7 +42,8 @@ class App extends React.Component {
       renderNotFoundPage: this.renderNotFoundPage,
       getRouteName: this.getRouteName,
       getParentRoute: this.getParentRoute,
-      setFethingData: this.setFethingData
+      setFethingData: this.setFethingData,
+      appState: this.state.appState
     });
 
     return (
@@ -45,6 +52,7 @@ class App extends React.Component {
         ChildNode={ChildNode}
         routeParams={this.props.params}
         renderNotFoundPage={this.renderNotFoundPage}
+        setAppState={this.setAppState}
       />
     );
   }
