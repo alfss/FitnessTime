@@ -1,11 +1,12 @@
 import { Link } from "react-router";
 import WorkoutItem from "../../Containers/WorkoutItemContainer/WorkoutItemContainer";
+import Sortable from "react-sortablejs";
 
 function Workout ({workoutData, deleteItem, toggleItemFullData, trainingId}) {
-  const workoutItem = workoutData.map( data => {
+  const workoutItems = workoutData.map( item => {
     return <WorkoutItem
-            key={data.uuid}
-            workoutItemData={data}
+            key={item.uuid}
+            workoutItemData={item}
             deleteItem={deleteItem}
             toggleItemFullData={toggleItemFullData}
           />;
@@ -13,9 +14,11 @@ function Workout ({workoutData, deleteItem, toggleItemFullData, trainingId}) {
 
   return (
     <div className="workout-item">
-      { workoutItem }
+      <Sortable options={{handle: ".workout-item__drag"}}>
+        { workoutItems }
+      </Sortable>
       <Link to={`/app/form/exercise/${trainingId}`} className="button button_round" >
-        <i className="button__icon" />
+        <i className="button__add" />
       </Link>
       <audio id="stop-timer">
         <source src="/static/sounds/beep.ogg" type="audio/ogg" />

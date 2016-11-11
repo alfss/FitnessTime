@@ -13,7 +13,8 @@ function WorkoutItem ({isModalOpen, toggleModal, workoutItemData, toggleItemFull
     <div>
       <div className="workout-item__name" onClick={toggleItemFullData}>
         {workoutItemData.title}
-        <Menu>
+        <span className="workout-item__drag" />
+        <Menu menuClass="removed">
           <Link className="menu__item" to={`/app/form/exercise/${workoutItemData.training}/${workoutItemData.uuid}`}>Редактировать</Link>
           <div className="menu__item" onClick={deleteItem(workoutItemData.uuid)}>Удалить</div>
         </Menu>
