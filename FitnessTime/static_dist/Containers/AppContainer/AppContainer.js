@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 
   setAppState(state = "default") {
-    this.setState({ appState: state });
+    return () => this.setState({ appState: state });
   }
 
   render() {
@@ -43,7 +43,8 @@ class App extends React.Component {
       getRouteName: this.getRouteName,
       getParentRoute: this.getParentRoute,
       setFethingData: this.setFethingData,
-      appState: this.state.appState
+      appState: this.state.appState,
+      setAppState: this.setAppState
     });
 
     return (

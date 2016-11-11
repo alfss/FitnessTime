@@ -27,7 +27,7 @@ function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown, setAppS
       { leftAction }
       <div className="header__page-name">{routeName}</div>
       <Menu menuClass={classNames("header__action", "menu_header", {hidden: isFirstPage})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
-        <div className="menu__item" onClick={()=>setAppState("editing")}>Изменить порядок</div>
+        <div className="menu__item" onClick={setAppState("editing")}>Изменить порядок</div>
       </Menu>
       <div className={classNames({"removed": !isFirstPage})}>
         <div className={classNames("header__nav", { header__nav_open: isNavShown })}>

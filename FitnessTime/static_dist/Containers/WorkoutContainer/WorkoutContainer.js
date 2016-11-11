@@ -101,6 +101,7 @@ class WorkoutContainer extends React.Component {
   render() {
     return (
       <Workout
+        setAppState={this.props.setAppState}
         appState={this.props.appState}
         workoutData={this.state.workoutData}
         toggleItemFullData={this.toggleItemFullData}
