@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const extractCSS = new ExtractTextPlugin("../css/styles.css", { allChunks : true });
+const extractCSS = new ExtractTextPlugin("/css/styles.css", { allChunks : true });
 const autoprefixer = require("autoprefixer");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -12,9 +12,9 @@ console.log("NODE_ENV: " + NODE_ENV);
 module.exports = {
   entry: "./FitnessTime/static_dist/main.js",
   output: {
-    path: path.join(__dirname, "/FitnessTime/static/js/"),
-    publicPath: "/static/js/",
-    filename: "main.js"
+    path: path.join(__dirname, "/FitnessTime/static/"),
+    publicPath: "/static/",
+    filename: "/js/main.js"
   },
 
   module: {
@@ -37,7 +37,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
-        loader: "url?name=../images/[name]-[hash:6].[ext]&limit=5000"
+        loader: "url?name=images/[name]-[hash:6].[ext]&limit=5000"
       }
     ]
   },
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   plugins: [
-    new CopyWebpackPlugin([{ from: path.join(__dirname, "/FitnessTime/static_dist/Sounds"), to: "../sounds" }]),
+    new CopyWebpackPlugin([{ from: path.join(__dirname, "/FitnessTime/static_dist/Sounds"), to: "./sounds" }]),
     new CleanWebpackPlugin(["js", "images", "css", "sounds"], {
       root: path.join(__dirname, "/FitnessTime/static/")
     }),
