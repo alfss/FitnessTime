@@ -13,6 +13,7 @@ module.exports = {
   entry: "./FitnessTime/static_dist/main.js",
   output: {
     path: path.join(__dirname, "/FitnessTime/static/js/"),
+    publicPath: "/static/js/",
     filename: "main.js"
   },
 
@@ -52,7 +53,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({ NODE_ENV: JSON.stringify(NODE_ENV) }),
     new webpack.ProvidePlugin({
-      React: "react"
+      React: "react",
+      classNames:"classnames"
     }),
     extractCSS
   ]
