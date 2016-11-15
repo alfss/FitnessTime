@@ -57,8 +57,10 @@ class Form extends React.Component {
   }
 
   fetchData() {
+    this.props.setFetchingData(true);
     Rest.getTrainings(this.props.params.id)
       .then(data => {
+        this.props.setFetchingData(false);
         let formData = this.props.params.exerciseId
           ? data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0]
           : { title: data.title };
@@ -99,8 +101,10 @@ class Form extends React.Component {
     e.preventDefault();
     if (!this.validateForm()) return;
     const body = this.createBody();
+    this.props.setFetchingData(true);
     Rest.postForm(this.props.params.form, body)
       .then(data => {
+        this.props.setFetchingData(false);
         if (data.status === 201) this.setState({ isDataSaved: true });
       });
   }
@@ -110,8 +114,10 @@ class Form extends React.Component {
     if (!this.validateForm()) return;
     const body = this.createBody();
     const id = this.props.params.form === "training" ? this.props.params.id : this.state.newData.uuid;
+    this.props.setFetchingData(true);
     Rest.putForm(this.props.params.form, body, id)
       .then(data => {
+        this.props.setFetchingData(false);
         if (data.status === 200) this.setState({ isDataSaved: true });
       });
   }

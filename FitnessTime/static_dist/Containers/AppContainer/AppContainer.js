@@ -6,7 +6,7 @@ class App extends React.Component {
     this.getRouteName = this.getRouteName.bind(this);
     this.getParentRoute = this.getParentRoute.bind(this);
     this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
-    this.setFethingData = this.setFethingData.bind(this);
+    this.setFetchingData = this.setFetchingData.bind(this);
     this.setAppState = this.setAppState.bind(this);
     this.state = {
       routeName: "",
@@ -29,7 +29,7 @@ class App extends React.Component {
     this.setState({ isPageExist: !bool });
   }
 
-  setFethingData(fetching) {
+  setFetchingData(fetching) {
     this.setState({ isDataFetching: fetching });
   }
 
@@ -42,7 +42,7 @@ class App extends React.Component {
       renderNotFoundPage: this.renderNotFoundPage,
       getRouteName: this.getRouteName,
       getParentRoute: this.getParentRoute,
-      setFethingData: this.setFethingData,
+      setFetchingData: this.setFetchingData,
       appState: this.state.appState,
       setAppState: this.setAppState
     });

@@ -34,8 +34,10 @@ class WorkoutContainer extends React.Component {
   }
 
   fetchData(id) {
+    this.props.setFetchingData(true);
     Rest.getTrainings(id)
       .then(data => {
+        this.props.setFetchingData(false);
         this.setState({
           workoutName: data.title,
           workoutData: data.exercises.sort((a,b) => b.priority - a.priority)
@@ -50,8 +52,10 @@ class WorkoutContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить уражнение?");
       if (confirmDeleting) {
+        this.props.setFetchingData(true);
         Rest.deleteExercise(itemId)
           .then(data => {
+            this.props.setFetchingData(false);
             if (data.status === 204) {
               const newState = this.state.workoutData.filter(training => !(training.url === data.url));
               this.setState({ workoutData: newState });

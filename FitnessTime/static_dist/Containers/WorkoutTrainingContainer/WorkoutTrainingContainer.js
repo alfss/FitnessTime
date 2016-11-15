@@ -60,8 +60,10 @@ class WorkoutTrainingsContainer extends React.Component {
   }
 
   fetchPageUrl(page) {
+    this.props.setFetchingData(true);
     Rest.getTraining(page)
       .then(data => {
+        this.props.setFetchingData(false);
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
         this.setState({
@@ -81,8 +83,10 @@ class WorkoutTrainingsContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
+        this.props.setFetchingData(true);
         Rest.deleteTraining(trainingId)
         .then(data => {
+          this.props.setFetchingData(false);
           if (data.status === 204) {
             let page = this.state.currentPage;
             const newState = this.state.workoutTrainingData.filter(training => !(training.url === data.url));
