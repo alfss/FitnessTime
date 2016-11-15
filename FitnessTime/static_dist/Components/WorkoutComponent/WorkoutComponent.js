@@ -2,7 +2,15 @@ import { Link } from "react-router";
 import WorkoutItem from "../../Containers/WorkoutItemContainer/WorkoutItemContainer";
 import Sortable from "react-sortablejs";
 
-function Workout ({workoutData, deleteItem, toggleItemFullData, trainingId, changeItemsOrder, appState, setAppState}) {
+function Workout ({
+  workoutData,
+  deleteItem,
+  toggleItemFullData,
+  trainingId,
+  changeItemsOrder,
+  appState,
+  setAppState
+}) {
   const workoutItems = workoutData.map( (item, i) => {
     return <WorkoutItem
             key={i}

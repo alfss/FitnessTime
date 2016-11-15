@@ -12,7 +12,16 @@ const formTypes = {
   ]
 };
 
-function Form ({isFormEditing, handleEditingForm, handleCreatingForm, handleImageDrop, formType, handleInputChange, inputValue, image}) {
+function Form ({
+  isFormEditing,
+  handleEditingForm,
+  handleCreatingForm,
+  handleImageDrop,
+  formType,
+  handleInputChange,
+  inputValue,
+  image
+}) {
   const action = (isFormEditing) ? handleEditingForm : handleCreatingForm;
   const inputInner = (image)
     ? <img className="form__image" width="115" height="115"  src={image} />

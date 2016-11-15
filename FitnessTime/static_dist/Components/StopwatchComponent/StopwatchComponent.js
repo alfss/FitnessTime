@@ -1,4 +1,12 @@
-function Stopwatch ({rest, repeatsDone, startTimer, finishTimer, resetTimer, isComplete, isTimerWorking} = this.props) {
+function Stopwatch ({
+  rest,
+  repeatsDone,
+  startTimer,
+  finishTimer,
+  resetTimer,
+  isComplete,
+  isTimerWorking
+}) {
   return (
     <div className="stopwatch">
       <div className="stopwatch__info">

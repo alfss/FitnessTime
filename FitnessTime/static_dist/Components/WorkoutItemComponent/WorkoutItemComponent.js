@@ -3,7 +3,18 @@ import Menu from "../../Containers/MenuContainer/MenuContainer";
 import { Link } from "react-router";
 import Modal from "react-modal";
 
-function WorkoutItem ({isModalOpen, toggleModal, workoutItemData, toggleItemFullData, shouldWarn, deleteItem, formatRestTimer, setShouldStartWarning, id, appState}) {
+function WorkoutItem ({
+  isModalOpen,
+  toggleModal,
+  workoutItemData,
+  toggleItemFullData,
+  shouldWarn,
+  deleteItem,
+  formatRestTimer,
+  setShouldStartWarning,
+  id,
+  appState
+}) {
   Modal.setAppElement("body");
   const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
     <span className="modal__close-btn" onClick={toggleModal} />

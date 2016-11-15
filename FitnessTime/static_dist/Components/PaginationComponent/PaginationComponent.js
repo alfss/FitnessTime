@@ -1,4 +1,10 @@
-function Pagination ({pages, currentPage, switchPage, previousPage, nextPage} = this.props) {
+function Pagination ({
+  pages,
+  currentPage,
+  switchPage,
+  previousPage,
+  nextPage
+}) {
   const pagesNumber = [...Array(+pages)].map((x, i) => {
     const page = i + 1;
     return (

@@ -7,7 +7,15 @@ const propTypes = {
   deleteTraining: React.PropTypes.func.isRequired
 };
 
-function WorkoutTraining ({pages, switchPage, nextPage, previousPage, currentPage, deleteTraining, workoutTrainingData} = this.props) {
+function WorkoutTraining ({
+  pages,
+  switchPage,
+  nextPage,
+  previousPage,
+  currentPage,
+  deleteTraining,
+  workoutTrainingData
+}) {
   const pagination =  <Pagination
     pages={pages}
     switchPage={switchPage}

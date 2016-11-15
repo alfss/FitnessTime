@@ -1,7 +1,14 @@
 import { Link } from "react-router";
 import Menu from "../../Containers/MenuContainer/MenuContainer";
 
-function Header ({parentRoute, toggleNav, goBack, routeName, isNavShown, setAppState}) {
+function Header ({
+  parentRoute,
+  toggleNav,
+  goBack,
+  routeName,
+  isNavShown,
+  setAppState
+}) {
   const isFirstPage = !parentRoute;
   const links = [
     {route: "/app/form/training", name: "Создать тренировку"},
