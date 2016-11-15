@@ -2,11 +2,6 @@ import { Link } from "react-router";
 import Pagination from "../../Components/PaginationComponent/PaginationComponent";
 import Menu from "../../Containers/MenuContainer/MenuContainer";
 
-const propTypes = {
-  workoutTrainingData: React.PropTypes.array.isRequired,
-  deleteTraining: React.PropTypes.func.isRequired
-};
-
 function WorkoutTraining ({
   pages,
   switchPage,
@@ -48,7 +43,5 @@ function WorkoutTraining ({
     </div>
   );
 }
-
-WorkoutTraining.propTypes = propTypes;
 
 export default WorkoutTraining;

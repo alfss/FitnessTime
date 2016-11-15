@@ -1,10 +1,5 @@
 import Stopwatch from "../../Components/StopwatchComponent/StopwatchComponent";
 
-const propTypes = {
-  rest: React.PropTypes.string.isRequired,
-  repeats: React.PropTypes.string.isRequired
-};
-
 class StopwatchContainer extends React.Component {
   constructor() {
     super();
@@ -125,7 +120,5 @@ class StopwatchContainer extends React.Component {
     );
   }
 }
-
-StopwatchContainer.propTypes = propTypes;
 
 export default StopwatchContainer;
