@@ -1,6 +1,6 @@
 import FormComponent from "../../Components/FormComponent/FormComponent";
 import { withRouter } from "react-router";
-import rest from "../../rest";
+import Rest from "../../rest";
 
 class Form extends React.Component {
   constructor() {
@@ -8,10 +8,12 @@ class Form extends React.Component {
     this.handleCreatingForm = this.handleCreatingForm.bind(this);
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleImageDrop = this.handleImageDrop.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.state = {
       formType: "",
       isDataSaved: false,
+      imagePreview: "",
       newData: {},
       oldData: {}
     };
@@ -55,7 +57,7 @@ class Form extends React.Component {
   }
 
   fetchData() {
-    rest.getTrainings(this.props.params.id)
+    Rest.getTrainings(this.props.params.id)
       .then(data => {
         let formData = this.props.params.exerciseId
           ? data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0]
@@ -64,7 +66,8 @@ class Form extends React.Component {
         this.setState({
           formType: this.props.params.form,
           newData: formData,
-          oldData: formData
+          oldData: formData,
+          imagePreview: formData.example_photo
         });
       })
       .catch( error => {
@@ -86,11 +89,17 @@ class Form extends React.Component {
     this.setState({ newData : newValue });
   }
 
+  handleImageDrop(image) {
+    this.setState({
+      imagePreview: image[0].preview
+    });
+  }
+
   handleCreatingForm(e) {
     e.preventDefault();
     if (!this.validateForm()) return;
     const body = this.createBody();
-    rest.postForm(this.props.params.form, body)
+    Rest.postForm(this.props.params.form, body)
       .then(data => {
         if (data.status === 201) this.setState({ isDataSaved: true });
       });
@@ -101,7 +110,7 @@ class Form extends React.Component {
     if (!this.validateForm()) return;
     const body = this.createBody();
     const id = this.props.params.form === "training" ? this.props.params.id : this.state.newData.uuid;
-    rest.putForm(this.props.params.form, body, id)
+    Rest.putForm(this.props.params.form, body, id)
       .then(data => {
         if (data.status === 200) this.setState({ isDataSaved: true });
       });
@@ -144,7 +153,10 @@ class Form extends React.Component {
       if (!this.state.oldData.title) {
         if (this.state.newData[key]) return true;
       } else {
-        if (key === "example_photo" && this.state.newData[key] === "") continue;
+        if (key === "example_photo") {
+          if (this.state.newData[key] !== this.state.imagePreview) return true;
+          else continue;
+        }
         if (this.state.oldData[key] !== this.state.newData[key]) return true;
       }
     }
@@ -160,7 +172,9 @@ class Form extends React.Component {
         handleCreatingForm={this.handleCreatingForm}
         handleEditingForm={this.handleEditingForm}
         handleInputChange={this.handleInputChange}
+        handleImageDrop={this.handleImageDrop}
         inputValue={this.state.newData}
+        image={this.state.imagePreview}
       />
     );
   }

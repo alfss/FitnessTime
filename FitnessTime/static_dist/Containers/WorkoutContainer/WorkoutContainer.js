@@ -1,6 +1,6 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import animation from "css-animation";
-import rest from "../../rest";
+import Rest from "../../rest";
 
 class WorkoutContainer extends React.Component {
   constructor() {
@@ -34,7 +34,7 @@ class WorkoutContainer extends React.Component {
   }
 
   fetchData(id) {
-    rest.getTrainings(id)
+    Rest.getTrainings(id)
       .then(data => {
         this.setState({
           workoutName: data.title,
@@ -50,7 +50,7 @@ class WorkoutContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить уражнение?");
       if (confirmDeleting) {
-        rest.deleteExercise(itemId)
+        Rest.deleteExercise(itemId)
           .then(data => {
             if (data.status === 204) {
               const newState = this.state.workoutData.filter(training => !(training.url === data.url));

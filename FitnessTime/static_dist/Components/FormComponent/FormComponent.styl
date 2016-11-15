@@ -33,11 +33,26 @@
     }
 
     &_file {
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      margin-bottom: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 250px;
+      height: 150px;
+      border: 2px dashed $text-color;
+      box-sizing: border-box;
+      padding: 0px 15px;
     }
+  }
+
+  &__input-text {
+    text-align: center;
+    color: $text-color;
+  }
+
+  &__image {
+    box-shadow: 1px 1px 5px 0 #666666;
+    padding: 5px;
   }
 
   &__controls {

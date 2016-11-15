@@ -1,6 +1,6 @@
 import WorkoutTraining from "../../Components/WorkoutTrainingComponent/WorkoutTrainingComponent";
 import { withRouter } from "react-router";
-import rest from "../../rest";
+import Rest from "../../rest";
 
 class WorkoutTrainingsContainer extends React.Component {
   constructor() {
@@ -60,7 +60,7 @@ class WorkoutTrainingsContainer extends React.Component {
   }
 
   fetchPageUrl(page) {
-    rest.getTraining(page)
+    Rest.getTraining(page)
       .then(data => {
         let pages = parseInt(data.count / 10);
         if (data.count % 10) ++pages;
@@ -81,7 +81,7 @@ class WorkoutTrainingsContainer extends React.Component {
     return () => {
       const confirmDeleting = confirm("Вы действительно хотите удалить тренировку?");
       if (confirmDeleting) {
-        rest.deleteTraining(trainingId)
+        Rest.deleteTraining(trainingId)
         .then(data => {
           if (data.status === 204) {
             let page = this.state.currentPage;
