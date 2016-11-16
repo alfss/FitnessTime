@@ -14,7 +14,7 @@ function Workout ({
   const workoutItems = workoutData.map( (item, i) => {
     return <WorkoutItem
             key={i}
-            id={i}
+            dragId={i}
             workoutItemData={item}
             deleteItem={deleteItem}
             toggleItemFullData={toggleItemFullData}

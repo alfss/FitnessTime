@@ -31,6 +31,7 @@ class WorkoutContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params.id !== nextProps.params.id) this.fetchData(nextProps.params.id);
+    if (nextProps.appState === "editing") this.toggleItemFullData();
   }
 
   fetchData(id) {
@@ -66,10 +67,11 @@ class WorkoutContainer extends React.Component {
   }
 
   toggleItemFullData(e) {
+    if (e && this.props.appState === "editing") return;
     const allFullDataItems = [...document.querySelectorAll(".workout-item__wrapper")];
     allFullDataItems.forEach(item => {
       const isItemFullDataClose = item.classList.contains("workout-item__wrapper_closed");
-      if (e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose);
+      if (e && e.target.nextSibling === item) this.animateFullData(e.target.nextSibling, !isItemFullDataClose);
       else if (!isItemFullDataClose) this.animateFullData(item, true);
     });
   }

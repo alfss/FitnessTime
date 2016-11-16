@@ -11,21 +11,22 @@ function WorkoutItem ({
   shouldWarn,
   deleteItem,
   setShouldStartWarning,
-  id,
+  dragId,
   currentRepeat,
   setRepeatsDone,
   appState
 }) {
   Modal.setAppElement("body");
+  const repeatsText = (currentRepeat > workoutItemData.repeat)
+    ? `${workoutItemData.repeat}/${workoutItemData.repeat}`
+    : `${currentRepeat}/${workoutItemData.repeat}`;
   const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
                   <span className="modal__close-btn" onClick={toggleModal} />
                   <img src={workoutItemData.example_photo} className="modal__image" />
                 </Modal>;
-  const repeatsText = (currentRepeat > workoutItemData.repeat)
-    ? `${workoutItemData.repeat}/${workoutItemData.repeat}`
-    : `${currentRepeat}/${workoutItemData.repeat}`;
+
   return (
-    <div data-id={id}>
+    <div data-id={dragId}>
       <div className="workout-item__name" onClick={toggleItemFullData}>
         {workoutItemData.title}
         <span className={classNames("workout-item__drag", {removed: appState !== "editing"})} />
