@@ -6,14 +6,16 @@ function Stopwatch ({
   isComplete,
   isTimerWorking
 }) {
+  const infoBlock = (isComplete)
+    ? <div className="stopwatch__finish">Вы завершили все подходы. Если хотите, можете начать заново.</div>
+    : <div className="stopwatch__rest-timer">Отдых: {rest}</div>;
   return (
     <div className="stopwatch">
-      <div className="stopwatch__rest-timer">Отдых: {rest}</div>
-      <div className={classNames("stopwatch__finish", {"removed": !isComplete})}>Вы уже сделали все повторы.</div>
+      { infoBlock }
       <div className="stopwatch__controls">
         <button className={classNames("button", "button_start", {removed: isTimerWorking || isComplete} )} onClick={startTimer}>Начать отдых</button>
         <button className={classNames("button", "button_pause", {removed: !isTimerWorking} )} onClick={finishTimer}>Закончить отдых</button>
-        <button className={classNames("button", "button_reset", {removed: !isComplete} )} onClick={resetTimer}>Сбросить</button>
+        <button className={classNames("button", "button_reset", {removed: !isComplete} )} onClick={resetTimer}>Начать заново</button>
       </div>
     </div>
   );

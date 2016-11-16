@@ -22,8 +22,8 @@ function WorkoutItem ({
                   <img src={workoutItemData.example_photo} className="modal__image" />
                 </Modal>;
   const repeatsText = (currentRepeat > workoutItemData.repeat)
-    ? "Завершенно"
-    : `${currentRepeat }/${workoutItemData.repeat}`;
+    ? `${workoutItemData.repeat}/${workoutItemData.repeat}`
+    : `${currentRepeat}/${workoutItemData.repeat}`;
   return (
     <div data-id={id}>
       <div className="workout-item__name" onClick={toggleItemFullData}>
