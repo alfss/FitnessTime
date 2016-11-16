@@ -9,7 +9,6 @@ class StopwatchContainer extends React.Component {
     this.finishTimer = this.finishTimer.bind(this);
     this.setRestTime = this.setRestTime.bind(this);
     this.state = {
-      rest: "",
       repeats: "",
       restMinutes: "",
       restSeconds: "",
@@ -19,10 +18,7 @@ class StopwatchContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      rest: this.props.rest,
-      repeats: +this.props.repeats + 1
-    });
+    this.setState({ repeats: this.props.repeats + 1 });
     this.setRestTime();
   }
 
@@ -31,7 +27,7 @@ class StopwatchContainer extends React.Component {
   }
 
   setRestTime() {
-    const timer = this.props.rest.split(":");
+    const timer = this.formatRestTimer(this.props.rest).split(":");
     this.setState({
       restMinutes: +timer[0],
       restSeconds: +timer[1]
@@ -39,7 +35,7 @@ class StopwatchContainer extends React.Component {
   }
 
   startTimer() {
-    if (this.state.repeats === this.props.repeatsDone) {
+    if (this.state.repeats === this.props.currentRepeat) {
       this.setState({ isComplete: true });
       return;
     }
@@ -82,19 +78,18 @@ class StopwatchContainer extends React.Component {
     document.getElementById("stop-timer").play();
   }
 
-  formatTime() {
-    let minutesRemaining = this.state.restMinutes;
-    let secondsRemaining = this.state.restSeconds;
-    if (minutesRemaining < 10) minutesRemaining = `0${minutesRemaining}`;
-    if (secondsRemaining < 10) secondsRemaining = `0${secondsRemaining}`;
-    const timer = `${minutesRemaining}:${secondsRemaining}`;
-    return timer;
+  formatRestTimer(time) {
+    let minutes = (time) ? parseInt(time / 60) : this.state.restMinutes;
+    let seconds = (time) ? (time  - minutes * 60) : this.state.restSeconds;
+    if (minutes < 10) minutes = `0${minutes}`;
+    if (seconds < 10) seconds = `0${seconds}`;
+    return `${minutes}:${seconds}`;
   }
 
   render() {
     return (
       <Stopwatch
-        rest={this.formatTime()}
+        rest={this.formatRestTimer()}
         startTimer={this.startTimer}
         resetTimer={this.resetTimer}
         finishTimer={this.finishTimer}

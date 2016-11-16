@@ -10,10 +10,9 @@ function WorkoutItem ({
   toggleItemFullData,
   shouldWarn,
   deleteItem,
-  formatRestTimer,
   setShouldStartWarning,
   id,
-  repeatsDone,
+  currentRepeat,
   setRepeatsDone,
   appState
 }) {
@@ -22,9 +21,9 @@ function WorkoutItem ({
                   <span className="modal__close-btn" onClick={toggleModal} />
                   <img src={workoutItemData.example_photo} className="modal__image" />
                 </Modal>;
-  const repeatsText = (repeatsDone > workoutItemData.repeat)
+  const repeatsText = (currentRepeat > workoutItemData.repeat)
     ? "Завершенно"
-    : `${repeatsDone }/${workoutItemData.repeat}`;
+    : `${currentRepeat }/${workoutItemData.repeat}`;
   return (
     <div data-id={id}>
       <div className="workout-item__name" onClick={toggleItemFullData}>
@@ -51,9 +50,9 @@ function WorkoutItem ({
             </div>
           </div>
           <Stopwatch
-            rest={formatRestTimer(workoutItemData.rest_time)}
+            rest={workoutItemData.rest_time}
             repeats={workoutItemData.repeat}
-            repeatsDone={repeatsDone}
+            currentRepeat={currentRepeat}
             setShouldStartWarning={setShouldStartWarning}
             setRepeatsDone={setRepeatsDone}
           />
