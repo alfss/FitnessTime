@@ -13,7 +13,6 @@ class StopwatchContainer extends React.Component {
       repeats: "",
       restMinutes: "",
       restSeconds: "",
-      repeatsDone: 0,
       isComplete: false,
       isTimerWorking: false
     };
@@ -22,7 +21,7 @@ class StopwatchContainer extends React.Component {
   componentWillMount() {
     this.setState({
       rest: this.props.rest,
-      repeats: +this.props.repeats
+      repeats: +this.props.repeats + 1
     });
     this.setRestTime();
   }
@@ -40,7 +39,7 @@ class StopwatchContainer extends React.Component {
   }
 
   startTimer() {
-    if (this.state.repeats === this.state.repeatsDone) {
+    if (this.state.repeats === this.props.repeatsDone) {
       this.setState({ isComplete: true });
       return;
     }
@@ -59,42 +58,28 @@ class StopwatchContainer extends React.Component {
           restSeconds: --secondsRemaining
         });
         if (minutesRemaining === 0 && secondsRemaining === 10) this.props.setShouldStartWarning(true);
-        if (minutesRemaining === 0 && secondsRemaining === 0) {
-          this.props.setShouldStartWarning(false);
-          this.handleTimerCompletion();
-        }
+        if (minutesRemaining === 0 && secondsRemaining === 0) this.finishTimer();
       }
     }, 1000);
-  }
-
-  handleTimerCompletion() {
-    clearInterval(this.timerInterval);
-    this.setRestTime();
-    this.setState({
-      repeatsDone: ++this.state.repeatsDone,
-      isTimerWorking: false
-    });
-    document.getElementById("stop-timer").play();
   }
 
   resetTimer() {
     clearInterval(this.timerInterval);
     this.setRestTime();
     this.setState({
-      repeatsDone: 0,
       isComplete: false,
       isTimerWorking: false
     });
+    this.props.setRepeatsDone(1);
   }
 
   finishTimer() {
     clearInterval(this.timerInterval);
     this.props.setShouldStartWarning(false);
+    this.props.setRepeatsDone();
     this.setRestTime();
-    this.setState({
-      repeatsDone: ++this.state.repeatsDone,
-      isTimerWorking: false
-    });
+    this.setState({ isTimerWorking: false });
+    document.getElementById("stop-timer").play();
   }
 
   formatTime() {
@@ -110,7 +95,6 @@ class StopwatchContainer extends React.Component {
     return (
       <Stopwatch
         rest={this.formatTime()}
-        repeatsDone={this.state.repeatsDone}
         startTimer={this.startTimer}
         resetTimer={this.resetTimer}
         finishTimer={this.finishTimer}

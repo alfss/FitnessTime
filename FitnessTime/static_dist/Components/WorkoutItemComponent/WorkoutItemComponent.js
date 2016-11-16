@@ -13,13 +13,18 @@ function WorkoutItem ({
   formatRestTimer,
   setShouldStartWarning,
   id,
+  repeatsDone,
+  setRepeatsDone,
   appState
 }) {
   Modal.setAppElement("body");
   const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
-    <span className="modal__close-btn" onClick={toggleModal} />
-    <img src={workoutItemData.example_photo} className="modal__image" />
-  </Modal>;
+                  <span className="modal__close-btn" onClick={toggleModal} />
+                  <img src={workoutItemData.example_photo} className="modal__image" />
+                </Modal>;
+  const repeatsText = (repeatsDone > workoutItemData.repeat)
+    ? "Завершенно"
+    : `${repeatsDone }/${workoutItemData.repeat}`;
   return (
     <div data-id={id}>
       <div className="workout-item__name" onClick={toggleItemFullData}>
@@ -34,9 +39,12 @@ function WorkoutItem ({
         <div className={classNames("workout-item__full-data", {"workout-item__timer-warn": shouldWarn})}>
           <div className="workout-item__info">
             <div className="workout-item__description">
-              <div className="workout-item__repeats"><span className="workout-item__description-name">Повторы:</span>{workoutItemData.repeat}</div>
-              <div className="workout-item__weight"><span className="workout-item__description-name">Вес:</span>{workoutItemData.weight}</div>
-              <div className="workout-item__rest"><span className="workout-item__description-name">Отдых:</span>{formatRestTimer(workoutItemData.rest_time)}</div>
+              <div className="workout-item__repeats">
+                <span className="workout-item__description-name">Подход:</span>{ repeatsText }
+              </div>
+              <div className="workout-item__weight">
+                <span className="workout-item__description-name">Вес:</span>{workoutItemData.weight}
+              </div>
             </div>
             <div className={workoutItemData.example_photo ? "workout-item__image" : "workout-item__no-image"}>
               <img width="100" height="100" src={workoutItemData.example_photo}  onClick={workoutItemData.example_photo ? toggleModal : null} />
@@ -45,7 +53,9 @@ function WorkoutItem ({
           <Stopwatch
             rest={formatRestTimer(workoutItemData.rest_time)}
             repeats={workoutItemData.repeat}
+            repeatsDone={repeatsDone}
             setShouldStartWarning={setShouldStartWarning}
+            setRepeatsDone={setRepeatsDone}
           />
         </div>
       </div>

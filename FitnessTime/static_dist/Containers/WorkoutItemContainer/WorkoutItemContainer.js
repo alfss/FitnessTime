@@ -6,9 +6,11 @@ class WorkoutItemContainer extends React.Component {
     this.formatRestTimer = this.formatRestTimer.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.setShouldStartWarning = this.setShouldStartWarning.bind(this);
+    this.setRepeatsDone = this.setRepeatsDone.bind(this);
     this.state = {
       isModalOpen: false,
-      shouldWarn: false
+      shouldWarn: false,
+      repeatsDone: 1
     };
   }
 
@@ -28,6 +30,10 @@ class WorkoutItemContainer extends React.Component {
     this.setState({ shouldWarn: bool });
   }
 
+  setRepeatsDone(repeat) {
+    const newRepeat = +repeat || this.state.repeatsDone + 1;
+    this.setState({ repeatsDone: newRepeat});
+  }
 
   render() {
     return (
@@ -37,6 +43,7 @@ class WorkoutItemContainer extends React.Component {
         formatRestTimer={this.formatRestTimer}
         setShouldStartWarning={this.setShouldStartWarning}
         toggleModal={this.toggleModal}
+        setRepeatsDone={this.setRepeatsDone}
       />
     );
   }
