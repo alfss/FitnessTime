@@ -15,6 +15,12 @@ $white = #fff;
 $gutter = 10px;
 $gutter-big = 20px;
 
+//width
+$width = 8.33333333%
+
+//Fonts
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,700);
+
 //Classes
 .removed {
   display: none !important;
@@ -22,4 +28,21 @@ $gutter-big = 20px;
 
 .hidden {
   visibility: hidden !important;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
 }
