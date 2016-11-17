@@ -2,6 +2,10 @@
   &__paddings {
     padding-top: 100px;
     padding-bottom: 50px;
+
+    @media (max-width: 768px) {
+      padding-top: 50px;
+    }
   }
 
   &__headline {
@@ -16,6 +20,10 @@
     font-size: 60px;
     color: #111;
     font-weight: 100;
+
+    @media (max-width: 768px) {
+      font-size: 50px;
+    }
 
     &_white {
       color: #fff;
@@ -44,6 +52,10 @@
       height: 1px;
       background-color: #777;
       top: 50%;
+
+      @media (max-width: 768px) {
+        width: 110px;
+      }
     }
 
     &:before { left: 0; }

@@ -10,13 +10,27 @@
   &__wrapper {
     display: flex;
     color: #fff;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
   }
 
   &__left {
     width: $width * 7;
+
+    @media (max-width: 768px) {
+      margin-bottom: 55px;
+      width: 100%;
+      text-align: center;
+    }
   }
   &__right {
     width: $width * 5
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 
   &__heading {
@@ -24,6 +38,10 @@
     margin-top: 50px;
     margin-bottom: 30px;
     font-weight: 100;
+
+    @media (max-width: 768px) {
+      margin-top: 15px;
+    }
 
     &_h2 {
       font-size: 32px;
@@ -40,7 +58,9 @@
   }
 
   &__action {
-
+    @media (max-width: 768px) {
+      text-align: center;
+    }
   }
 
   &__button {
@@ -66,6 +86,10 @@
 
     &:hover {
       background-color: $material-blue;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 22px;
     }
   }
 
