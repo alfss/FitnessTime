@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("/css/styles.css", { allChunks : true });
+const extractHTML = new ExtractTextPlugin("", { allChunks : true });
 const autoprefixer = require("autoprefixer");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -36,6 +37,10 @@ module.exports = {
         loader: extractCSS.extract("css!postcss!stylus?resolve url")
       },
       {
+        test: /\.html$/,
+        loader: extractHTML.extract("url?name=../templates/main.[ext]&limit=1")
+      },
+      {
         test: /\.(jpg|png|gif|svg)$/,
         loader: "url?name=images/[name]-[hash:6].[ext]&limit=5000"
       }
@@ -47,7 +52,10 @@ module.exports = {
   },
 
   plugins: [
-    new CopyWebpackPlugin([{ from: path.join(__dirname, "/FitnessTime/static_dist/Sounds"), to: "./sounds" }]),
+    new CopyWebpackPlugin([
+      { from: path.join(__dirname, "/FitnessTime/static_dist/Sounds"), to: "./sounds" },
+      { from: path.join(__dirname, "/FitnessTime/static_dist/Images/MainPageImages/layout"), to: "./images" }
+    ]),
     new CleanWebpackPlugin(["js", "images", "css", "sounds"], {
       root: path.join(__dirname, "/FitnessTime/static/")
     }),
