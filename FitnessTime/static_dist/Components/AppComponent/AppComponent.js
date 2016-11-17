@@ -19,7 +19,9 @@ function App ({
   return (
     <div className="app">
       <Header routeName={routeName} parentRoute={parentRoute} setAppState={setAppState}/>
-      { page }
+      <div className="app__container">
+        { page }
+      </div>
       <Modal isOpen={isDataFetching} overlayClassName="modal__overlay modal__overlay_app" className="modal__app" />
     </div>
   );
