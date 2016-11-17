@@ -24,7 +24,6 @@
 </header>
 <!-- ====== End Features Section ====== -->
 
-
 <!-- ====== Features Section ====== -->
   <section class="main-features">
     <div class="container section__paddings">
@@ -133,38 +132,40 @@
 <!-- ====== Download Section ====== -->
 <section class="main-download">
     <div class="main-download__overlay">
-      <div class="main-download__wrapper container section__paddings">
+      <div class="main-download__wrapper section__paddings">
+        <div class="container">
 
-        <div class="section__headline">
-          <h1 class="section__heading section__heading_white">Amazing Features</h1>
-          <p class="section__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis nesciunt eos, ipsum id, architecto velit sequi fuga minima commodi, porro vitae officiis, voluptatibus minus voluptates ab. Dolore, dolor repellat quasi.</p>
-          <div class="section__underline">
-            <i class="section__icon section__icon_briefcase"></i>
+          <div class="section__headline">
+            <h1 class="section__heading section__heading_white">Amazing Features</h1>
+            <p class="section__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis nesciunt eos, ipsum id, architecto velit sequi fuga minima commodi, porro vitae officiis, voluptatibus minus voluptates ab. Dolore, dolor repellat quasi.</p>
+            <div class="section__underline">
+              <i class="section__icon section__icon_briefcase"></i>
+            </div>
           </div>
-        </div>
 
-        <div class="main-download__items">
-          <a href="{% url 'main-app' %}" class="main-download__item">
-            <i class="main-download__icon main-download__icon_desctop"></i>
-            <div class="main-download__info">
-              <div>Available in</div>
-              <strong>Browser</strong>
-            </div>
-          </a>
-          <a href="#" class="main-download__item">
-            <i class="main-download__icon main-download__icon_google"></i>
-            <div class="main-download__info">
-              <div>Get it on</div>
-              <strong>Google Play</strong>
-            </div>
-          </a>
-          <a href="#" class="main-download__item">
-            <i class="main-download__icon main-download__icon_apple"></i>
-            <div class="main-download__info">
-              <div>Soon at</div>
-              <strong>App Store</strong>
-            </div>
-          </a>
+          <div class="main-download__items">
+            <a href="{% url 'main-app' %}" class="main-download__item">
+              <i class="main-download__icon main-download__icon_desctop"></i>
+              <div class="main-download__info">
+                <div>Available in</div>
+                <strong>Browser</strong>
+              </div>
+            </a>
+            <a href="#" class="main-download__item">
+              <i class="main-download__icon main-download__icon_google"></i>
+              <div class="main-download__info">
+                <div>Get it on</div>
+                <strong>Google Play</strong>
+              </div>
+            </a>
+            <a href="#" class="main-download__item">
+              <i class="main-download__icon main-download__icon_apple"></i>
+              <div class="main-download__info">
+                <div>Soon at</div>
+                <strong>App Store</strong>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -176,6 +177,5 @@
   <p class="main-copyright__paragraph">&copy; 2016 <a class="main-copyright__link" href="#">Fitness Time</a>, All Rights Reserved</p>
 </section>
 <!-- ====== End Copyright Section ====== -->
-
 
 {% endblock %}
