@@ -2,6 +2,10 @@
   text-align: center;
   margin-bottom: 85px;
 
+  @media (min-width: 540px) {
+    margin-bottom: 0;
+  }
+
   &__trigger {
     display: block;
   }
@@ -76,7 +80,7 @@
   }
 
   &__wrapper {
-    transition: height 1s ease;
+    transition: height .8s ease;
     overflow: hidden;
   }
 
@@ -89,6 +93,6 @@
 
 @keyframes timer {
     from { background-color: $background; }
-    50% { background-color: orange; }
+    50% { background-color: #ffa500; }
     to { background-color: $background; }
 }
