@@ -18,7 +18,7 @@ function App ({
 
   return (
     <div className="app">
-      <Header routeName={routeName} parentRoute={parentRoute} setAppState={setAppState}/>
+      <Header routeName={routeName} parentRoute={parentRoute} setAppState={setAppState} routeParams={routeParams}/>
       <div className="app__container">
         { page }
       </div>
