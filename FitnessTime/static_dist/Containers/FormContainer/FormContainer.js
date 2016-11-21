@@ -14,8 +14,13 @@ class Form extends React.Component {
       formType: "",
       isDataSaved: false,
       imagePreview: "",
-      newData: {},
-      oldData: {}
+      oldData: {},
+      newData: {
+        "title": "",
+        "repeat": "",
+        "weight": "",
+        "rest_time": ""
+      }
     };
   }
 
@@ -87,14 +92,19 @@ class Form extends React.Component {
   handleInputChange(e) {
     if (!e.target.previousSibling.classList.contains("removed")) e.target.previousSibling.classList.add("removed");
     let newValue = Object.assign({}, this.state.newData);
-    newValue[e.target.name] = (e.target.type === "number") ? +e.target.value : e.target.value;
+    let targetValue;
+    if (e.target.type === "number") {
+      targetValue = parseInt(e.target.value);
+      if (isNaN(targetValue)) targetValue = "";
+    } else {
+      targetValue = e.target.value;
+    }
+    newValue[e.target.name] = targetValue;
     this.setState({ newData : newValue });
   }
 
   handleImageDrop(image) {
-    this.setState({
-      imagePreview: image[0].preview
-    });
+    this.setState({ imagePreview: image[0].preview });
   }
 
   handleCreatingForm(e) {

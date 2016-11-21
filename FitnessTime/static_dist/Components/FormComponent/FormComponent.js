@@ -37,7 +37,6 @@ function Form ({
                     </Dropzone>;
 
   function renderInput(input, i) {
-    let value = inputValue[input.name] || "";
     return <label key={i} className="form__label">
             {input.label}:
             <span className="form__error removed">(Введите корректную информацию)</span>
@@ -45,7 +44,7 @@ function Form ({
                   type={input.type}
                   name={input.name}
                   onChange={handleInputChange}
-                  value={value}
+                  value={inputValue[input.name]}
                   placeholder={input.placeholder}
                   />
           </label>;
