@@ -3,15 +3,17 @@ import { withRouter } from "react-router";
 import Rest from "../../rest";
 
 class Form extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
+    this.id = props.params.id;
+    this.exerciseId = props.params.exerciseId;
+    this.isTraining = props.params.form === "training";
     this.handleCreatingForm = this.handleCreatingForm.bind(this);
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.state = {
-      formType: "",
       isDataSaved: false,
       imagePreview: "",
       oldData: {},
@@ -25,51 +27,47 @@ class Form extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.formType !== nextState.formType) {
-      let formHeaderName = (nextState.formType === "exercise") ? "Создать упражнение" : "Создать тренировку";
-      if (nextState.oldData.title) formHeaderName = `Редиктировать ${nextState.oldData.title}`;
-      this.props.getRouteName(formHeaderName);
+    if (this.state.newData.title !== nextState.newData.title) {
+      this.props.getRouteName(`Редиктировать ${nextState.newData.title}`);
     }
   }
 
   componentDidUpdate() {
     if (this.state.isDataSaved) {
-      this.props.params.form !== "training"
-        ? this.props.router.push(`/app/workout/${this.props.params.id}`)
+      (!this.isTraining)
+        ? this.props.router.push(`/app/workout/${this.id}`)
         : this.props.router.push("/app");
     }
   }
 
   componentWillMount() {
-    if (this.props.params.form === "exercise" && !this.props.params.id) this.props.renderNotFoundPage(true);
-    let parentRoute = (this.props.params.form === "exercise")
-      ? `/app/workout/${this.props.params.id}`
+    if (!this.isTraining && !this.id) this.props.renderNotFoundPage(true);
+    let parentRoute = (!this.isTraining)
+      ? `/app/workout/${this.id}`
       : "/app";
     this.props.getParentRoute(parentRoute);
   }
 
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
-    this.setupForm();
-  }
-
-  setupForm() {
-    if (this.props.params.exerciseId || this.props.params.form === "training" &&  this.props.params.id) {
+    if (this.exerciseId || this.isTraining && this.id) {
       this.fetchData();
-    } else this.setState({ formType: this.props.params.form });
+    } else {
+      let formHeaderName = (this.isTraining) ? "Создать тренировку" : "Создать упражнение";
+      this.props.getRouteName(formHeaderName);
+    }
   }
 
   fetchData() {
     this.props.setFetchingData(true);
-    Rest.getTrainings(this.props.params.id)
+    Rest.getTrainings(this.id)
       .then(data => {
         this.props.setFetchingData(false);
-        let formData = this.props.params.exerciseId
-          ? data.exercises.filter(exercise => exercise.uuid === this.props.params.exerciseId)[0]
+        let formData = this.exerciseId
+          ? data.exercises.filter(exercise => exercise.uuid === this.exerciseId)[0]
           : { title: data.title };
         if (!formData) throw Error(404);
         this.setState({
-          formType: this.props.params.form,
           newData: formData,
           oldData: formData,
           imagePreview: formData.example_photo
@@ -121,7 +119,7 @@ class Form extends React.Component {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
-    const id = this.props.params.form === "training" ? this.props.params.id : this.state.newData.uuid;
+    const id = this.isTraining ? this.id : this.state.newData.uuid;
     this.props.setFetchingData(true);
     Rest.putForm(this.props.params.form, body, id)
       .then(data => {
@@ -132,7 +130,7 @@ class Form extends React.Component {
 
   createBody() {
     let body = new FormData(document.querySelector(".form"));
-    if (this.state.formType === "exercise") body.append("training", this.props.params.id);
+    if (!this.isTraining) body.append("training", this.id);
   //  body.append("priority", +Date.now().toString().slice(-10, -2));
     return body;
   }
@@ -140,7 +138,7 @@ class Form extends React.Component {
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
-    const fieldsForChecking = (this.state.formType === "training") ? ["title"] : ["title", "repeat", "weight", "rest_time"];
+    const fieldsForChecking = (this.isTraining) ? ["title"] : ["title", "repeat", "weight", "rest_time"];
     for (let i = 0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
       if (!formField.value) {
@@ -167,7 +165,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const isFormEditing = this.props.params.exerciseId || this.props.params.form === "training" &&  this.props.params.id ? true : false;
+    const isFormEditing = this.exerciseId || this.isTraining && this.id;
     return (
       <FormComponent
         formType={this.props.params.form}
