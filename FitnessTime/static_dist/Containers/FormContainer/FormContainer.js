@@ -42,11 +42,9 @@ class Form extends React.Component {
 
   componentWillMount() {
     if (this.props.params.form === "exercise" && !this.props.params.id) this.props.renderNotFoundPage(true);
-    let parentRoute;
-    switch (this.props.params.form) {
-      case "exercise": parentRoute = `/app/workout/${this.props.params.id}`; break;
-      case "training": parentRoute = "/app"; break;
-    }
+    let parentRoute = (this.props.params.form === "exercise")
+      ? `/app/workout/${this.props.params.id}`
+      : "/app";
     this.props.getParentRoute(parentRoute);
   }
 
@@ -109,7 +107,7 @@ class Form extends React.Component {
 
   handleCreatingForm(e) {
     e.preventDefault();
-    if (!this.validateForm()) return;
+    if (!this.isFormValid()) return;
     const body = this.createBody();
     this.props.setFetchingData(true);
     Rest.postForm(this.props.params.form, body)
@@ -121,7 +119,7 @@ class Form extends React.Component {
 
   handleEditingForm(e) {
     e.preventDefault();
-    if (!this.validateForm()) return;
+    if (!this.isFormValid()) return;
     const body = this.createBody();
     const id = this.props.params.form === "training" ? this.props.params.id : this.state.newData.uuid;
     this.props.setFetchingData(true);
@@ -139,24 +137,13 @@ class Form extends React.Component {
     return body;
   }
 
-  validateForm() {
-    if (!this.isDataChanged()) {
-      this.setState({ isDataSaved: true });
-      return false;
-    }
-    if (!this.isFormValid()) return false;
-    return true;
-  }
-
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
     const fieldsForChecking = (this.state.formType === "training") ? ["title"] : ["title", "repeat", "weight", "rest_time"];
-    for (let i =0; i < fieldsForChecking.length; i++) {
+    for (let i = 0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
-      const isFieldEmpty = !formField.value;
-      const isFieldNaN = (fieldsForChecking[i] === "weight" || fieldsForChecking[i] === "rest_time") && isNaN(+formField.value);
-      if (isFieldNaN || isFieldEmpty) {
+      if (!formField.value) {
         isFormValid = false;
         formField.previousSibling.classList.remove("removed");
       }
