@@ -37,9 +37,9 @@ function WorkoutTraining ({
     <div className="workout-training">
       { pages > 1 && pagination }
       { workoutTrainingData.map(renderTraining) }
-      <div className={classNames("workout-training__tooltip", {"removed": workoutTrainingData.length})}>
+      <div className={classNames("tooltip", {"removed": workoutTrainingData.length})}>
         Создайте свою первую тренировку
-        <div className="workout-training__tooltip-arrow" />
+        <div className="tooltip__arrow" />
       </div>
       <Link to="/app/form/training" className="button button_round" >
         <i className="button__add" />

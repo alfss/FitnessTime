@@ -34,6 +34,10 @@ function Workout ({
       <button className={classNames("button button_app-actions", {"removed": appState !== "editing"})} onClick={setAppState()}>
         Сохранить изменения
       </button>
+      <div className={classNames("tooltip", {"removed": workoutData.length})}>
+        Создайте свою первое упражнение
+        <div className="tooltip__arrow" />
+      </div>
       <Link to={`/app/form/exercise/${trainingId}`} className={classNames("button button_round", {"removed": appState !== "default"})}>
         <i className="button__add" />
       </Link>
