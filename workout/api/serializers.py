@@ -25,7 +25,7 @@ class TrainingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Training
-        fields = ('url', 'uuid', 'owner', 'title', 'color', 'label', 'exercises', )
+        fields = ('url', 'uuid', 'owner', 'title', 'color', 'label', 'exercises', 'sequence_priority', )
 
 class LabelSerializer(serializers.ModelSerializer):
     trainings = TrainingSerializer(many=True, read_only=True)

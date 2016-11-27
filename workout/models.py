@@ -2,6 +2,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models import F
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -18,6 +19,7 @@ class Training(models.Model):
                                 default=None,
                                 null=True
                               )
+    sequence_priority = models.IntegerField( default=1 )
 
     class Meta:
         unique_together = (("title", "owner"),)
@@ -27,6 +29,13 @@ class Training(models.Model):
 
     def is_owner(self, user):
         return self.owner == user
+
+    def set_order_exercises(self, exercises_list):
+        value = 0
+        for exercise in Exercise.objects.filter(uuid__in=exercises_list):
+            value += 1
+            exercise.priority = value
+            exercise.save()
 
 class Exercise(models.Model):
     uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
@@ -52,6 +61,10 @@ class Exercise(models.Model):
         return self.training.owner == user
 
     def save(self, *args, **kwargs):
+        if not self.pk:
+            Training.objects.filter(uuid=self.training.uuid).\
+                update(sequence_priority=F('sequence_priority') + 1)
+            self.priority = self.training.sequence_priority
         super(Exercise, self).save(*args, **kwargs)
 
     def __str__(self):
