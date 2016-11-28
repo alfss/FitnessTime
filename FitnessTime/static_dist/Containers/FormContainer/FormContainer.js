@@ -27,7 +27,7 @@ class Form extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.newData.title !== nextState.newData.title) {
+    if (this.state.oldData.title !== nextState.oldData.title) {
       this.props.getRouteName(`Редиктировать ${nextState.newData.title}`);
     }
   }
