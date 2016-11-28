@@ -1,12 +1,14 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import animation from "css-animation";
 import Rest from "../../rest";
+import Token from "../../getCSRFToken";
 
 class WorkoutContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
     this.toggleItemFullData = this.toggleItemFullData.bind(this);
+    this.handleOrderChange = this.handleOrderChange.bind(this);
     this.changeItemsOrder = this.changeItemsOrder.bind(this);
     this.state = {
       workoutName: "",
@@ -41,7 +43,7 @@ class WorkoutContainer extends React.Component {
         this.props.setFetchingData(false);
         this.setState({
           workoutName: data.title,
-          workoutData: data.exercises.sort((a,b) => b.priority - a.priority)
+          workoutData: data.exercises
         });
       })
       .catch (error => {
@@ -64,6 +66,26 @@ class WorkoutContainer extends React.Component {
           });
       }
     };
+  }
+
+  handleOrderChange() {
+    this.props.setAppState("default")();
+    let newArr = this.state.workoutData.map(item => item.uuid);
+    console.log(newArr);
+    fetch(`/api/v1/workout/training/${this.props.params.id}/set_order_exercises/`, {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json, application/xml, text/plain, text/html",
+        "X-CSRFToken": Token
+      },
+      method: "POST",
+      body: JSON.stringify({
+        exercises: newArr
+      })
+    })
+    .then(data => data.json())
+    .then(console.log);
   }
 
   toggleItemFullData(e) {
@@ -107,12 +129,12 @@ class WorkoutContainer extends React.Component {
   render() {
     return (
       <Workout
-        setAppState={this.props.setAppState}
         appState={this.props.appState}
         workoutData={this.state.workoutData}
         toggleItemFullData={this.toggleItemFullData}
         trainingId={this.props.params.id}
         deleteItem={this.handleDeletingWorkoutItem}
+        changeOrder={this.handleOrderChange}
         changeItemsOrder={this.changeItemsOrder}
       />
     );

@@ -131,7 +131,6 @@ class Form extends React.Component {
   createBody() {
     let body = new FormData(document.querySelector(".form"));
     if (!this.isTraining) body.append("training", this.id);
-  //  body.append("priority", +Date.now().toString().slice(-10, -2));
     return body;
   }
 

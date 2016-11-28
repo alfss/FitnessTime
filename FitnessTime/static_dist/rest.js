@@ -39,6 +39,10 @@ class rest {
     });
   }
 
+  // postOrder(path, body) {
+  //   return this.restSend(`/api/v1/workout/${path}/`, body, "POST");
+  // }
+
   postForm(path, body) {
     return this.restSend(`/api/v1/workout/${path}/`, body, "POST");
   }

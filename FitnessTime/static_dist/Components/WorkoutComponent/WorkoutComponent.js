@@ -7,9 +7,9 @@ function Workout ({
   deleteItem,
   toggleItemFullData,
   trainingId,
+  changeOrder,
   changeItemsOrder,
-  appState,
-  setAppState
+  appState
 }) {
   const workoutItems = workoutData.map( (item, i) => {
     return <WorkoutItem
@@ -24,14 +24,15 @@ function Workout ({
   return (
     <div className="workout-item">
       <Sortable
-      onChange={ changeItemsOrder }
-      options={{
-        handle: ".workout-item__drag",
-        animation: 150
-      }}>
+        onChange={ changeItemsOrder }
+        options={{
+          handle: ".workout-item__drag",
+          animation: 150
+        }}
+      >
         { workoutItems }
       </Sortable>
-      <button className={classNames("button button_app-actions", {"removed": appState !== "editing"})} onClick={setAppState()}>
+      <button className={classNames("button button_app-actions", {"removed": appState !== "editing"})} onClick={changeOrder}>
         Сохранить изменения
       </button>
       <div className={classNames("tooltip", {"removed": workoutData.length})}>
