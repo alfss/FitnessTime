@@ -45,7 +45,7 @@ class rest {
     return this.restSend(`/api/v1/workout/training/${id}/set_order_exercises/`, options);
   }
 
-  postItemsForm(path, body) {
+  postForm(path, body) {
     const options = this.createOptions({
       method: "POST",
       body

@@ -3,6 +3,7 @@ import AppComponent from "../../Components/AppComponent/AppComponent";
 class App extends React.Component {
   constructor() {
     super();
+    this.spinnerTimeout;
     this.getRouteName = this.getRouteName.bind(this);
     this.getParentRoute = this.getParentRoute.bind(this);
     this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
@@ -30,7 +31,14 @@ class App extends React.Component {
   }
 
   setFetchingData(fetching) {
-    this.setState({ isDataFetching: fetching });
+    if (fetching) {
+      this.spinnerTimeout = setTimeout(()=>{
+        this.setState({ isDataFetching: fetching });
+      }, 1000);
+    } else {
+      clearTimeout(this.spinnerTimeout);
+      this.setState({ isDataFetching: fetching });
+    }
   }
 
   setAppState(state = "default") {
