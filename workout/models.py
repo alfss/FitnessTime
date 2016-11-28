@@ -32,10 +32,17 @@ class Training(models.Model):
 
     def set_order_exercises(self, exercises_list):
         value = 0
+        exercises_oreder_list = {}
+        for exercise_uuid in exercises_list:
+             value += 1
+             exercises_oreder_list[exercise_uuid] = value
+
         for exercise in Exercise.objects.filter(uuid__in=exercises_list):
-            value += 1
-            exercise.priority = value
-            exercise.save()
+            try:
+                exercise.priority = exercises_oreder_list[str(exercise.uuid)]
+                exercise.save()
+            except KeyError:
+                pass
 
 class Exercise(models.Model):
     uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
