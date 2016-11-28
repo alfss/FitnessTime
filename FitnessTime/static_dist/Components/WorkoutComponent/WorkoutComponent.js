@@ -7,8 +7,8 @@ function Workout ({
   deleteItem,
   toggleItemFullData,
   trainingId,
-  changeOrder,
-  changeItemsOrder,
+  saveItemsOrder,
+  handleOrderChange,
   appState
 }) {
   const workoutItems = workoutData.map( (item, i) => {
@@ -24,7 +24,7 @@ function Workout ({
   return (
     <div className="workout-item">
       <Sortable
-        onChange={ changeItemsOrder }
+        onChange={ handleOrderChange }
         options={{
           handle: ".workout-item__drag",
           animation: 150
@@ -32,7 +32,7 @@ function Workout ({
       >
         { workoutItems }
       </Sortable>
-      <button className={classNames("button button_app-actions", {"removed": appState !== "editing"})} onClick={changeOrder}>
+      <button className={classNames("button button_app-actions", {"removed": appState !== "editing"})} onClick={saveItemsOrder}>
         Сохранить изменения
       </button>
       <div className={classNames("tooltip", {"removed": workoutData.length})}>

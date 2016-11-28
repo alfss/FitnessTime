@@ -29,38 +29,54 @@ class rest {
   }
 
   restDelete(path, id) {
-    return fetch(`/api/v1/workout/${path}/${id}`, {
-      credentials: "include",
+    const options = this.createOptions({
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": Token
-      }
+      includeType: true
     });
+    return fetch(`/api/v1/workout/${path}/${id}`, options);
   }
 
-  // postOrder(path, body) {
-  //   return this.restSend(`/api/v1/workout/${path}/`, body, "POST");
-  // }
+  postItemsOrder(id, body) {
+    const options = this.createOptions({
+      method: "POST",
+      includeType: true,
+      body
+    });
+    return this.restSend(`/api/v1/workout/training/${id}/set_order_exercises/`, options);
+  }
 
-  postForm(path, body) {
-    return this.restSend(`/api/v1/workout/${path}/`, body, "POST");
+  postItemsForm(path, body) {
+    const options = this.createOptions({
+      method: "POST",
+      body
+    });
+    return this.restSend(`/api/v1/workout/${path}/`, options);
   }
 
   putForm(path, body, id) {
-    return this.restSend(`/api/v1/workout/${path}/${id}/`, body, "PUT");
+    const options = this.createOptions({
+      method: "PUT",
+      body
+    });
+    return this.restSend(`/api/v1/workout/${path}/${id}/`, options);
   }
 
-  restSend(url, body, method) {
-    return fetch(url, {
+  restSend(url, options) {
+    return fetch(url, options);
+  }
+
+  createOptions(data) {
+    let options = {
       credentials: "include",
       headers: {
         "Accept": "application/json, application/xml, text/plain, text/html",
         "X-CSRFToken": Token
       },
-      method,
-      body
-    });
+      method: data.method
+    };
+    if (data.includeType) options.headers["Content-Type"] = "application/json";
+    if (data.body) options.body = data.body;
+    return options;
   }
 }
 

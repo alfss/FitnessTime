@@ -1,15 +1,14 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import animation from "css-animation";
 import Rest from "../../rest";
-import Token from "../../getCSRFToken";
 
 class WorkoutContainer extends React.Component {
   constructor() {
     super();
     this.handleDeletingWorkoutItem = this.handleDeletingWorkoutItem.bind(this);
     this.toggleItemFullData = this.toggleItemFullData.bind(this);
+    this.saveItemsOrder = this.saveItemsOrder.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
-    this.changeItemsOrder = this.changeItemsOrder.bind(this);
     this.state = {
       workoutName: "",
       test: true,
@@ -68,24 +67,13 @@ class WorkoutContainer extends React.Component {
     };
   }
 
-  handleOrderChange() {
+  saveItemsOrder() {
     this.props.setAppState("default")();
-    let newArr = this.state.workoutData.map(item => item.uuid);
-    console.log(newArr);
-    fetch(`/api/v1/workout/training/${this.props.params.id}/set_order_exercises/`, {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json, application/xml, text/plain, text/html",
-        "X-CSRFToken": Token
-      },
-      method: "POST",
-      body: JSON.stringify({
-        exercises: newArr
-      })
-    })
-    .then(data => data.json())
-    .then(console.log);
+    let itemsOrder = this.state.workoutData.map(item => item.uuid);
+    const body = JSON.stringify({
+      exercises: itemsOrder
+    });
+    Rest.postItemsOrder(this.props.params.id, body);
   }
 
   toggleItemFullData(e) {
@@ -120,7 +108,7 @@ class WorkoutContainer extends React.Component {
     });
   }
 
-  changeItemsOrder(newOrder) {
+  handleOrderChange(newOrder) {
     let newState = [];
     newOrder.forEach((oldPosition, newPosition) => newState[newPosition] = this.state.workoutData[oldPosition]);
     this.setState({ workoutData: newState});
@@ -134,8 +122,8 @@ class WorkoutContainer extends React.Component {
         toggleItemFullData={this.toggleItemFullData}
         trainingId={this.props.params.id}
         deleteItem={this.handleDeletingWorkoutItem}
-        changeOrder={this.handleOrderChange}
-        changeItemsOrder={this.changeItemsOrder}
+        saveItemsOrder={this.saveItemsOrder}
+        handleOrderChange={this.handleOrderChange}
       />
     );
   }
