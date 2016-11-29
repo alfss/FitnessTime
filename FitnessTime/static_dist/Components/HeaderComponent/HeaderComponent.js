@@ -8,7 +8,8 @@ function Header ({
   routeName,
   isNavShown,
   setAppState,
-  routeParams
+  routeParams,
+  isPageExist
 }) {
   const isFirstPage = !parentRoute;
   const links = [
@@ -34,7 +35,7 @@ function Header ({
     <div className="header">
       { leftAction }
       <div className="header__page-name">{routeName}</div>
-      <Menu menuClass={classNames("header__action", "menu_header", {hidden: !routeParams.id})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
+      <Menu menuClass={classNames("header__action", "menu_header", {hidden: !routeParams.id || !isPageExist})} triggerClass="menu__trigger_header" wrapperClass="menu__wrapper_header">
         <div className="menu__item" onClick={setAppState("editing")}>Изменить порядок</div>
       </Menu>
       <div className={classNames({"removed": !isFirstPage})}>

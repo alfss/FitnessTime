@@ -7,12 +7,18 @@ function App ({
   parentRoute,
   isDataFetching,
   routeParams,
+  isPageExist,
   setAppState
 }) {
   Modal.setAppElement("body");
   return (
     <div className="app">
-      <Header routeName={routeName} parentRoute={parentRoute} setAppState={setAppState} routeParams={routeParams}/>
+      <Header routeName={routeName}
+              parentRoute={parentRoute}
+              setAppState={setAppState}
+              routeParams={routeParams}
+              isPageExist={isPageExist}
+      />
       <div className="app__container">
         { ChildNode }
       </div>

@@ -57,7 +57,7 @@ class App extends React.Component {
     });
     const notFoundPage = <NotFoundPage
                           renderNotFoundPage={this.renderNotFoundPage}
-                          routeParams={this.routeParams}
+                          routeParams={this.props.params}
                           setFetchingData={this.setFetchingData}
                         />;
     const ChildNode = this.state.isPageExist ? children : notFoundPage;
