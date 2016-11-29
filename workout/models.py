@@ -31,11 +31,7 @@ class Training(models.Model):
         return self.owner == user
 
     def set_order_exercises(self, exercises_list):
-        value = 0
-        exercises_oreder_list = {}
-        for exercise_uuid in exercises_list:
-             value += 1
-             exercises_oreder_list[exercise_uuid] = value
+        exercises_oreder_list = dict(zip(exercises_list, range(1, len(exercises_list) + 1)))
 
         for exercise in Exercise.objects.filter(uuid__in=exercises_list):
             try:
