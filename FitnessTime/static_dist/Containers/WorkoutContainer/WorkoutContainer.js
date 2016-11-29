@@ -41,6 +41,7 @@ class WorkoutContainer extends React.Component {
     this.props.setFetchingData(true);
     Rest.getTrainings(id)
       .then(data => {
+        console.log(data.owner.username);
         this.props.setFetchingData(false);
         this.setState({
           workoutName: data.title,
