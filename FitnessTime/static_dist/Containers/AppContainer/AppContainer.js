@@ -1,4 +1,5 @@
 import AppComponent from "../../Components/AppComponent/AppComponent";
+import NotFoundPage from "../../Containers/NotFound404Container/NotFound404Container";
 
 class App extends React.Component {
   constructor() {
@@ -46,7 +47,7 @@ class App extends React.Component {
   }
 
   render() {
-    const ChildNode = React.cloneElement(this.props.children, {
+    const children = React.cloneElement(this.props.children, {
       renderNotFoundPage: this.renderNotFoundPage,
       getRouteName: this.getRouteName,
       getParentRoute: this.getParentRoute,
@@ -54,13 +55,17 @@ class App extends React.Component {
       appState: this.state.appState,
       setAppState: this.setAppState
     });
-
+    const notFoundPage = <NotFoundPage
+                          renderNotFoundPage={this.renderNotFoundPage}
+                          routeParams={this.routeParams}
+                          setFetchingData={this.setFetchingData}
+                        />;
+    const ChildNode = this.state.isPageExist ? children : notFoundPage;
     return (
       <AppComponent
         {...this.state}
         ChildNode={ChildNode}
         routeParams={this.props.params}
-        renderNotFoundPage={this.renderNotFoundPage}
         setAppState={this.setAppState}
       />
     );
