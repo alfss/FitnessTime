@@ -75,6 +75,7 @@ class WorkoutTrainingsContainer extends React.Component {
           pages: pages,
           workoutTrainingData: data.results
         });
+        this.props.setUser(data.results[0].owner);
       })
       .catch (error => {
         if (error.message === "404") this.props.renderNotFoundPage(true);

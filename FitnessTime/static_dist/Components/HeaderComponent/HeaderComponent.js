@@ -8,7 +8,8 @@ function Header ({
   isNavShown,
   setAppState,
   routeParams,
-  isPageExist
+  isPageExist,
+  user
 }) {
   const isFirstPage = !parentRoute;
   const leftAction = (isFirstPage)
@@ -33,7 +34,7 @@ function Header ({
                  width="40"
                  height="40"
             />
-            <span className="header__username">Zizik</span>
+            <span className="header__username">{user.username}</span>
           </div>
           <ul className="header__list">
             <li className="header__list-item">

@@ -8,7 +8,8 @@ function App ({
   isDataFetching,
   routeParams,
   isPageExist,
-  setAppState
+  setAppState,
+  user
 }) {
   Modal.setAppElement("body");
   return (
@@ -18,6 +19,7 @@ function App ({
               setAppState={setAppState}
               routeParams={routeParams}
               isPageExist={isPageExist}
+              user={user}
       />
       <div className="app__container">
         { ChildNode }
