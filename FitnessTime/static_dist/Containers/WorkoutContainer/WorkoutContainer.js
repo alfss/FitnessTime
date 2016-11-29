@@ -18,6 +18,7 @@ class WorkoutContainer extends React.Component {
 
   componentWillMount() {
     this.props.getParentRoute("/app");
+    document.title = "Тренировка";
   }
 
   componentDidMount() {
@@ -27,6 +28,7 @@ class WorkoutContainer extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if (this.state.workoutName !== nextState.workoutName) {
       this.props.getRouteName(nextState.workoutName);
+      document.title = `Тренировка ${nextState.workoutName}`;
     }
   }
 

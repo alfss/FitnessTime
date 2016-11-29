@@ -29,6 +29,7 @@ class Form extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if (this.state.oldData.title !== nextState.oldData.title) {
       this.props.getRouteName(`Редиктировать ${nextState.newData.title}`);
+      document.title = `Редиктировать ${nextState.newData.title}`;
     }
   }
 
@@ -55,6 +56,7 @@ class Form extends React.Component {
     } else {
       let formHeaderName = (this.isTraining) ? "Создать тренировку" : "Создать упражнение";
       this.props.getRouteName(formHeaderName);
+      document.title = formHeaderName;
     }
   }
 

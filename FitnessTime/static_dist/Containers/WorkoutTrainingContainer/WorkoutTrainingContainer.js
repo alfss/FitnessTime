@@ -20,6 +20,7 @@ class WorkoutTrainingsContainer extends React.Component {
 
   componentWillMount() {
     this.props.getParentRoute("");
+    document.title = "Тренировки";
   }
 
   componentDidMount() {
@@ -36,6 +37,7 @@ class WorkoutTrainingsContainer extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.userName !== nextState.userName) this.props.getRouteName(`Тренировки ${nextState.userName}`);
+    document.title = `Тренировки ${nextState.userName}`;
   }
 
   handleSwitchPage(page) {
