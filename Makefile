@@ -9,7 +9,7 @@ build:
 	@echo BUILD IMAGE
 	@(docker build -t ${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_VERSION} .)
 save:
-	@echo DUMP IMAGE TO "/Users/alfss/TMP/fitnesstime-app_${IMAGE_VERSION}.tar"
-	@(docker save ${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_VERSION} > "/Users/alfss/TMP/fitnesstime-app_${IMAGE_VERSION}.tar")
-	@(gzip "/Users/alfss/TMP/fitnesstime-app_${IMAGE_VERSION}.tar")
+	@echo DUMP IMAGE TO "${HOME}/TMP/fitnesstime-app_${IMAGE_VERSION}.tar"
+	@(docker save ${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_VERSION} > "${HOME}/TMP/fitnesstime-app_${IMAGE_VERSION}.tar")
+	@(gzip "${HOME}/TMP/fitnesstime-app_${IMAGE_VERSION}.tar")
 
