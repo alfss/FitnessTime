@@ -26,6 +26,11 @@ class WorkoutTrainingsContainer extends React.Component {
   componentDidMount() {
     const page = this.props.params.page || 1;
     this.fetchPageUrl(page);
+    Rest.getUserProfile()
+      .then(user => {
+        this.props.setUser(user);
+        this.setState({ userName: user.username});
+      });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,12 +75,10 @@ class WorkoutTrainingsContainer extends React.Component {
         if (data.count % 10) ++pages;
         this.setState({
           count: data.count,
-          userName: data.results[0].owner.username,
           currentPage: page,
           pages: pages,
           workoutTrainingData: data.results
         });
-        this.props.setUser(data.results[0].owner);
       })
       .catch (error => {
         if (error.message === "404") this.props.renderNotFoundPage(true);
