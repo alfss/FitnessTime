@@ -1,13 +1,8 @@
 from django.conf.urls import url
 
-from rest_framework import routers
-
 from . import views
 
+urlpatterns = [
+    url('^users/profile/$', views.UserProfileView.as_view(), name = 'user-profile'),
 
-urlpatterns = []
-
-router = routers.DefaultRouter()
-router.register('users', views.User)
-
-urlpatterns += router.urls
+]

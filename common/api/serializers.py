@@ -3,16 +3,16 @@ from common.models import User
 
 
 class UserMiniSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail', lookup_field='uuid')
 
     class Meta:
         model = User
-        fields = ('uuid', 'username','url', )
+        fields = ('uuid', 'username', )
 
-
-class UserSerializer(UserMiniSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail', lookup_field='uuid')
+class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('uuid', 'username', 'email', 'first_name', 'last_name' ,'url', )
+        fields = ('uuid', 'username', 'email', 'first_name', 'last_name', 'password', )
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
