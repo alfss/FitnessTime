@@ -1,6 +1,6 @@
 import Workout from "../../Components/WorkoutComponent/WorkoutComponent";
 import animation from "css-animation";
-import Rest from "../../rest";
+import Rest from "../../restAPI";
 
 class WorkoutContainer extends React.Component {
   constructor() {

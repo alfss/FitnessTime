@@ -1,6 +1,9 @@
 import Token from "./getCSRFToken";
 
 class rest {
+  getUserProfile() {
+    return this.restGet("/api/v1/common/users/profile/");
+  }
 
   getTraining(page = 1) {
     const url = (page === 1) ? "/api/v1/workout/training/" : `/api/v1/workout/training/?page=${page}`;

@@ -1,6 +1,6 @@
 import WorkoutTraining from "../../Components/WorkoutTrainingComponent/WorkoutTrainingComponent";
 import { withRouter } from "react-router";
-import Rest from "../../rest";
+import Rest from "../../restAPI";
 
 class WorkoutTrainingsContainer extends React.Component {
   constructor() {

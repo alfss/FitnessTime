@@ -1,6 +1,6 @@
 import FormComponent from "../../Components/FormComponent/FormComponent";
 import { withRouter } from "react-router";
-import Rest from "../../rest";
+import Rest from "../../restAPI";
 
 class Form extends React.Component {
   constructor(props) {
