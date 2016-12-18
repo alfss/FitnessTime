@@ -24,7 +24,7 @@ function App ({
       <div className="app__container">
         { ChildNode }
       </div>
-      <Modal isOpen={isDataFetching} overlayClassName="modal__overlay modal__overlay_app" className="modal__app" />
+      <Modal isOpen={isDataFetching} contentLabel="SpinnerModal" overlayClassName="modal__overlay modal__overlay_app" className="modal__app" />
     </div>
   );
 }

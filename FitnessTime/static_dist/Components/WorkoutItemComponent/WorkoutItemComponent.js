@@ -20,7 +20,7 @@ function WorkoutItem ({
   const repeatsText = (currentRepeat > workoutItemData.repeat)
     ? `${workoutItemData.repeat}/${workoutItemData.repeat}`
     : `${currentRepeat}/${workoutItemData.repeat}`;
-  const modal = <Modal isOpen={isModalOpen} onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
+  const modal = <Modal isOpen={isModalOpen} contentLabel="ImageModal" onRequestClose={toggleModal} overlayClassName="modal__overlay" className="modal__content">
                   <span className="modal__close-btn" onClick={toggleModal} />
                   <img src={workoutItemData.example_photo} className="modal__image" />
                 </Modal>;
