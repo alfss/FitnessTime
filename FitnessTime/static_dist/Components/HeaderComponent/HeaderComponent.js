@@ -1,4 +1,5 @@
 import Menu from "../../Containers/MenuContainer/MenuContainer";
+import { Link } from "react-router";
 
 function Header ({
   parentRoute,
@@ -38,10 +39,10 @@ function Header ({
           </div>
           <ul className="header__list">
             <li className="header__list-item">
-              <a href="#" className="header__nav-link">
+              <Link to="/app/profile" className="header__nav-link">
                 <i className="header__nav-icon header__nav-icon_setup" />
                 <span className="header__nav-name">Настройки</span>
-              </a>
+              </Link>
             </li>
             <li className="header__list-item">
               <a href="/logout/" className="header__nav-link">
