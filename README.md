@@ -3,9 +3,9 @@
 * docker-compose
 
 ## Build
-docker-compose build
+docker-compose -p fitnesstime build
 
-docker-compose up -d
+docker-compose -p fitnesstime up -d
 
 ## only first time
 docker exec -it fitnesstime_postgres_1 psql -U postgres -c "create database fitness_time"
