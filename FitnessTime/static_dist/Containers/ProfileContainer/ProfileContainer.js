@@ -1,9 +1,9 @@
 import Profile from "../../Components/ProfileComponent/ProfilComponent";
 
-class ProfileComponent extends React.Component {
+class ProfileContainer extends React.Component {
   render() {
-    return <div>Hello</div>;
+    return <Profile/>;
   }
 }
 
-export default ProfileComponent;
+export default ProfileContainer;
