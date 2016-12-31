@@ -1,3 +1,5 @@
+import {Link} from "react-router";
+
 function ProfileComponent() {
   return (
     <div className="profile">
@@ -12,6 +14,8 @@ function ProfileComponent() {
             <div className="profile__user-mail">Zizik@mail</div>
           </div>
       </div>
+      <Link to="/app/form/personal" className="profile__action">Сменить персональные данные</Link>
+      <Link to="/app/form/password" className="profile__action">Сменить пароль</Link>
     </div>
   );
 }
