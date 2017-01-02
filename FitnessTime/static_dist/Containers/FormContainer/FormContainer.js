@@ -42,10 +42,16 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.isTraining && !this.id) this.props.renderNotFoundPage(true);
-    let parentRoute = (!this.isTraining)
-      ? `/app/workout/${this.id}`
-      : "/app";
+    let parentRoute;
+    switch (this.props.params.form) {
+      case "exercise":
+        parentRoute = `/app/workout/${this.id}`; break;
+      case "training":
+        parentRoute = "/app"; break;
+      case "password":
+      case "personal":
+        parentRoute = "/app/profile"; break;
+    }
     this.props.getParentRoute(parentRoute);
   }
 

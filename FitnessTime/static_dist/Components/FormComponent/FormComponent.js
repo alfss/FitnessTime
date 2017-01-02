@@ -9,6 +9,14 @@ const formTypes = {
   ],
   training: [
     { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки" }
+  ],
+  password: [
+    { label: "Пароль", name:"password", type: "password", placeholder: "Введите пароль" },
+    { label: "Подтвердите пароль", name:"confirm-password", type: "password", placeholder: "Повторите пароль" }
+  ],
+  personal: [
+    { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин" },
+    { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту" }
   ]
 };
 
