@@ -47,7 +47,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
-    if (this.exerciseId || this.isTraining && this.trainingId) {
+    if (this.isFetchNeeded()) {
       this.fetchData();
     } else {
       let formHeaderName = this.getInfoFromFormType({
@@ -61,12 +61,17 @@ class Form extends React.Component {
     }
   }
 
-  getInfoFromFormType(obj) {
-    return obj[this.props.params.form];
+  isFetchNeeded() {
+    return this.getInfoFromFormType({
+      exercise: Boolean(this.exerciseId),
+      training: Boolean(this.trainingId),
+      personal: true,
+      password: true
+    });
   }
 
-  shouldFetchData() {
-    (this.exerciseId || this.isTraining && this.trainingId);
+  getInfoFromFormType(obj) {
+    return obj[this.props.params.form];
   }
 
   fetchData() {
