@@ -21,16 +21,13 @@ const formTypes = {
 };
 
 function Form ({
-  isFormEditing,
-  handleEditingForm,
-  handleCreatingForm,
+  formAction,
   handleImageDrop,
   formType,
   handleInputChange,
   inputValue,
   image
 }) {
-  const action = (isFormEditing) ? handleEditingForm : handleCreatingForm;
   const inputInner = (image)
     ? <img className="form__image" width="115" height="115"  src={image} />
     : <div className="form__input-text">Что бы добавить картинку, нажмите или перенесите файл сюда.</div>;
@@ -63,7 +60,7 @@ function Form ({
       { formTypes[formType].map(renderInput) }
       { fileInput }
       <div className="form__controls">
-        <button className="button" onClick={action}>Save</button>
+        <button className="button" onClick={formAction}>Save</button>
       </div>
     </form>
   );

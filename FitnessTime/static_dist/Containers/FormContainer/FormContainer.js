@@ -8,7 +8,7 @@ class Form extends React.Component {
     this.trainingId = props.params.trainingId;
     this.exerciseId = props.params.exerciseId;
     this.isTraining = props.params.form === "training";
-    this.parentRoute = "";
+    this.parentRoute;
     this.handleCreatingForm = this.handleCreatingForm.bind(this);
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -49,6 +49,7 @@ class Form extends React.Component {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
     if (this.isFetchNeeded()) {
       this.fetchData();
+      this.formAction = this.handleEditingForm;
     } else {
       let formHeaderName = this.getInfoFromFormType({
         exercise: "Создать упражнение",
@@ -56,6 +57,7 @@ class Form extends React.Component {
         personal: "Редактировать профиль",
         password: "Редактировать пароль"
       });
+      this.formAction = this.handleCreatingForm;
       this.props.getRouteName(formHeaderName);
       document.title = formHeaderName;
     }
@@ -68,6 +70,16 @@ class Form extends React.Component {
       personal: false,
       password: false
     });
+  }
+
+  setFormAction() {
+    const isEditable = this.getInfoFromFormType({
+      exercise: Boolean(this.exerciseId),
+      training: Boolean(this.trainingId),
+      personal: true,
+      password: true
+    });
+    return isEditable ? this.handleEditingForm : this.handleCreatingForm;
   }
 
   getInfoFromFormType(obj) {
@@ -180,14 +192,10 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-    const isFormEditing = this.exerciseId || this.isTraining && this.trainingId;
     return (
       <FormComponent
         formType={this.props.params.form}
-        isFormEditing={isFormEditing}
-        handleCreatingForm={this.handleCreatingForm}
-        handleEditingForm={this.handleEditingForm}
+        formAction={this.setFormAction()}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
         inputValue={this.state.newData}
