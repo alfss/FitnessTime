@@ -8,6 +8,7 @@ class Form extends React.Component {
     this.id = props.params.id;
     this.exerciseId = props.params.exerciseId;
     this.isTraining = props.params.form === "training";
+    this.parentRoute = "";
     this.handleCreatingForm = this.handleCreatingForm.bind(this);
     this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -35,24 +36,18 @@ class Form extends React.Component {
 
   componentDidUpdate() {
     if (this.state.isDataSaved) {
-      (!this.isTraining)
-        ? this.props.router.push(`/app/workout/${this.id}`)
-        : this.props.router.push("/app");
+      this.props.router.push(this.parentRoute);
     }
   }
 
   componentWillMount() {
-    let parentRoute;
-    switch (this.props.params.form) {
-      case "exercise":
-        parentRoute = `/app/workout/${this.id}`; break;
-      case "training":
-        parentRoute = "/app"; break;
-      case "password":
-      case "personal":
-        parentRoute = "/app/profile"; break;
-    }
-    this.props.getParentRoute(parentRoute);
+    this.parentRoute = this.getInfoFromFormType({
+      exercise: `/app/workout/${this.id}`,
+      training: "/app",
+      personal: "/app/profile",
+      password: "/app/profile"
+    });
+    this.props.getParentRoute(this.parentRoute);
   }
 
   componentDidMount() {
@@ -60,10 +55,19 @@ class Form extends React.Component {
     if (this.exerciseId || this.isTraining && this.id) {
       this.fetchData();
     } else {
-      let formHeaderName = (this.isTraining) ? "Создать тренировку" : "Создать упражнение";
+      let formHeaderName = this.getInfoFromFormType({
+        exercise: "Создать упражнение",
+        training: "Создать тренировку",
+        personal: "Редактировать профиль",
+        password: "Редактировать пароль"
+      });
       this.props.getRouteName(formHeaderName);
       document.title = formHeaderName;
     }
+  }
+
+  getInfoFromFormType(obj) {
+    return obj[this.props.params.form];
   }
 
   fetchData() {
@@ -172,6 +176,7 @@ class Form extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const isFormEditing = this.exerciseId || this.isTraining && this.id;
     return (
       <FormComponent

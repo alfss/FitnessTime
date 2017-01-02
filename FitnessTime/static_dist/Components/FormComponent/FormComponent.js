@@ -52,7 +52,7 @@ function Form ({
                   type={input.type}
                   name={input.name}
                   onChange={handleInputChange}
-                  value={inputValue[input.name]}
+                  value={inputValue[input.name] || ""}
                   placeholder={input.placeholder}
                   />
           </label>;
