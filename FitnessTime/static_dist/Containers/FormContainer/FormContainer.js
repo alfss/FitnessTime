@@ -65,8 +65,8 @@ class Form extends React.Component {
     return this.getInfoFromFormType({
       exercise: Boolean(this.exerciseId),
       training: Boolean(this.trainingId),
-      personal: true,
-      password: true
+      personal: false,
+      password: false
     });
   }
 
@@ -137,7 +137,7 @@ class Form extends React.Component {
     const body = this.createBody();
     const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
     this.props.setFetchingData(true);
-    Rest.putForm(this.props.params.form, body, id)
+    Rest.putExercise(this.props.params.form, id, body)
       .then(data => {
         this.props.setFetchingData(false);
         if (data.status === 200) this.setState({ isDataSaved: true });
@@ -180,7 +180,7 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.props.params);
+    console.log(this.state);
     const isFormEditing = this.exerciseId || this.isTraining && this.trainingId;
     return (
       <FormComponent

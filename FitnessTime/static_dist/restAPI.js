@@ -56,12 +56,21 @@ class rest {
     return this.restSend(`/api/v1/workout/${path}/`, options);
   }
 
-  putForm(path, body, id) {
+
+  putUserInfo(body) {
+    return this.putForm("/api/v1/common/users/profile/", body);
+  }
+
+  putExercise(path, id, body) {
+    return this.putForm(`/api/v1/workout/${path}/${id}/`, body);
+  }
+
+  putForm(link, body) {
     const options = this.createOptions({
       method: "PUT",
       body
     });
-    return this.restSend(`/api/v1/workout/${path}/${id}/`, options);
+    return this.restSend(link, options);
   }
 
   restSend(url, options) {
