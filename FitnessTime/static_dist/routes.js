@@ -14,7 +14,7 @@ const routes = (
       <Route path="page:page" component={WorkoutTraining}/>
       <Route path="workout/:id" component={Workout}/>
       <Route path="form/:form" component={Form}>
-        <Route path=":id" component={Form}>
+        <Route path=":trainingId" component={Form}>
           <Route path=":exerciseId" component={Form} />
         </Route>
       </Route>

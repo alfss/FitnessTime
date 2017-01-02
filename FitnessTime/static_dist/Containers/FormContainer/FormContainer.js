@@ -5,7 +5,7 @@ import Rest from "../../restAPI";
 class Form extends React.Component {
   constructor(props) {
     super();
-    this.id = props.params.id;
+    this.trainingId = props.params.trainingId;
     this.exerciseId = props.params.exerciseId;
     this.isTraining = props.params.form === "training";
     this.parentRoute = "";
@@ -18,12 +18,7 @@ class Form extends React.Component {
       isDataSaved: false,
       imagePreview: "",
       oldData: {},
-      newData: {
-        "title": "",
-        "repeat": "",
-        "weight": "",
-        "rest_time": ""
-      }
+      newData: {}
     };
   }
 
@@ -42,7 +37,7 @@ class Form extends React.Component {
 
   componentWillMount() {
     this.parentRoute = this.getInfoFromFormType({
-      exercise: `/app/workout/${this.id}`,
+      exercise: `/app/workout/${this.trainingId}`,
       training: "/app",
       personal: "/app/profile",
       password: "/app/profile"
@@ -52,7 +47,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
-    if (this.exerciseId || this.isTraining && this.id) {
+    if (this.exerciseId || this.isTraining && this.trainingId) {
       this.fetchData();
     } else {
       let formHeaderName = this.getInfoFromFormType({
@@ -70,9 +65,13 @@ class Form extends React.Component {
     return obj[this.props.params.form];
   }
 
+  shouldFetchData() {
+    (this.exerciseId || this.isTraining && this.trainingId);
+  }
+
   fetchData() {
     this.props.setFetchingData(true);
-    Rest.getTrainings(this.id)
+    Rest.getTrainings(this.trainingId)
       .then(data => {
         this.props.setFetchingData(false);
         let formData = this.exerciseId
@@ -131,7 +130,7 @@ class Form extends React.Component {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
-    const id = this.isTraining ? this.id : this.state.newData.uuid;
+    const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
     this.props.setFetchingData(true);
     Rest.putForm(this.props.params.form, body, id)
       .then(data => {
@@ -142,7 +141,7 @@ class Form extends React.Component {
 
   createBody() {
     let body = new FormData(document.querySelector(".form"));
-    if (!this.isTraining) body.append("training", this.id);
+    if (!this.isTraining) body.append("training", this.trainingId);
     return body;
   }
 
@@ -176,8 +175,8 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-    const isFormEditing = this.exerciseId || this.isTraining && this.id;
+    console.log(this.props.params);
+    const isFormEditing = this.exerciseId || this.isTraining && this.trainingId;
     return (
       <FormComponent
         formType={this.props.params.form}
