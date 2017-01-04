@@ -5,8 +5,8 @@ import Rest from "../../restAPI";
 class Form extends React.Component {
   constructor(props) {
     super();
-    this.trainingId = props.params.trainingId;
-    this.exerciseId = props.params.exerciseId;
+    this.trainingId = props.trainingId;
+    this.exerciseId = props.exerciseId;
     this.isTraining = props.params.form === "training";
     this.parentRoute;
     this.handleCreatingForm = this.handleCreatingForm.bind(this);
@@ -36,28 +36,28 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    this.parentRoute = this.getInfoFromFormType({
-      exercise: `/app/workout/${this.trainingId}`,
-      training: "/app",
-      personal: "/app/profile",
-      password: "/app/profile"
-    });
+    // this.parentRoute = this.getInfoFromFormType({
+    //   exercise: `/app/workout/${this.trainingId}`,
+    //   training: "/app",
+    //   personal: "/app/profile",
+    //   password: "/app/profile"
+    // });
+    this.parentRoute = this.props.formInfo.parentRoute;
     this.props.getParentRoute(this.parentRoute);
   }
 
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
-    if (this.isFetchNeeded()) {
+    if (this.props.formInfo.isFetchNeeded) {
       this.fetchData();
-      this.formAction = this.handleEditingForm;
     } else {
-      let formHeaderName = this.getInfoFromFormType({
-        exercise: "Создать упражнение",
-        training: "Создать тренировку",
-        personal: "Редактировать профиль",
-        password: "Редактировать пароль"
-      });
-      this.formAction = this.handleCreatingForm;
+      // let formHeaderName = this.getInfoFromFormType({
+      //   exercise: "Создать упражнение",
+      //   training: "Создать тренировку",
+      //   personal: "Редактировать профиль",
+      //   password: "Редактировать пароль"
+      // });
+      let formHeaderName = this.props.formInfo.headerName;
       this.props.getRouteName(formHeaderName);
       document.title = formHeaderName;
     }
@@ -136,7 +136,7 @@ class Form extends React.Component {
     if (!this.isFormValid()) return;
     const body = this.createBody();
     this.props.setFetchingData(true);
-    Rest.postForm(this.props.params.form, body)
+    Rest.postWorkout(this.props.params.form, body)
       .then(data => {
         this.props.setFetchingData(false);
         if (data.status === 201) this.setState({ isDataSaved: true });
@@ -149,7 +149,7 @@ class Form extends React.Component {
     const body = this.createBody();
     const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
     this.props.setFetchingData(true);
-    Rest.putExercise(this.props.params.form, id, body)
+    this.props.formInfo.action(this.props.params.form, id, body)
       .then(data => {
         this.props.setFetchingData(false);
         if (data.status === 200) this.setState({ isDataSaved: true });
@@ -192,10 +192,11 @@ class Form extends React.Component {
   }
 
   render() {
+    const formAction = this.props.formInfo.isEditable ? this.handleEditingForm : this.handleCreatingForm;
     return (
       <FormComponent
         formType={this.props.params.form}
-        formAction={this.setFormAction()}
+        formAction={formAction}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
         inputValue={this.state.newData}
