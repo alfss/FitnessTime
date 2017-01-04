@@ -6,7 +6,7 @@ class Form extends React.Component {
   constructor(props) {
     super();
     this.trainingId = props.trainingId;
-    this.exerciseId = props.exerciseId;
+    // this.exerciseId = props.exerciseId;
     this.isTraining = props.params.form === "training";
     this.parentRoute;
     // this.handleCreatingForm = this.handleCreatingForm.bind(this);
@@ -66,7 +66,7 @@ class Form extends React.Component {
 
   // isFetchNeeded() {
   //   return this.getInfoFromFormType({
-  //     exercise: Boolean(this.exerciseId),
+      // exercise: Boolean(this.exerciseId),
   //     training: Boolean(this.trainingId),
   //     personal: false,
   //     password: false
@@ -75,7 +75,7 @@ class Form extends React.Component {
 
   // setFormAction() {
   //   const isEditable = this.getInfoFromFormType({
-  //     exercise: Boolean(this.exerciseId),
+      // exercise: Boolean(this.exerciseId),
   //     training: Boolean(this.trainingId),
   //     personal: true,
   //     password: true
@@ -89,11 +89,11 @@ class Form extends React.Component {
 
   fetchData() {
     this.props.setFetchingData(true);
-    Rest.getTrainings(this.trainingId)
+    Rest.getTrainings(this.props.trainingId)
       .then(data => {
         this.props.setFetchingData(false);
-        let formData = this.exerciseId
-          ? data.exercises.filter(exercise => exercise.uuid === this.exerciseId)[0]
+        let formData = this.props.exerciseId
+          ? data.exercises.filter(exercise => exercise.uuid === this.props.exerciseId)[0]
           : { title: data.title };
         if (!formData) throw Error(404);
         this.setState({
@@ -161,7 +161,7 @@ class Form extends React.Component {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
-    const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
+    const id = this.isTraining ? this.props.trainingId : this.state.newData.uuid;
     this.props.formInfo.action(body, this.props.params.form, id)
       .then(data => {
         this.props.setFetchingData(false);
@@ -171,7 +171,7 @@ class Form extends React.Component {
 
   createBody() {
     let body = new FormData(document.querySelector(".form"));
-    if (!this.isTraining) body.append("training", this.trainingId);
+    if (!this.isTraining) body.append("training", this.props.trainingId);
     return body;
   }
 
@@ -210,6 +210,7 @@ class Form extends React.Component {
       <FormComponent
         formType={this.props.params.form}
         // formAction={formAction}
+        formFields={this.props.formInfo.formFields}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
         sendForm={this.sendForm}
