@@ -48,7 +48,7 @@ class rest {
     return this.restSend(`/api/v1/workout/training/${id}/set_order_exercises/`, options);
   }
 
-  postWorkout(path, body) {
+  postWorkout(body, path) {
     const options = this.createOptions({
       method: "POST",
       body
@@ -61,7 +61,7 @@ class rest {
     return this.putForm("/api/v1/common/users/profile/", body);
   }
 
-  putWorkout(path, id, body) {
+  putWorkout(body, path, id) {
     return this.putForm(`/api/v1/workout/${path}/${id}/`, body);
   }
 

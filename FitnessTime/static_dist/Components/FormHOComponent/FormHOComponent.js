@@ -11,14 +11,14 @@ function FormHOC (props) {
       headerName: "Создать упражнение",
       isFetchNeeded: Boolean(exerciseId),
       isEditable: Boolean(exerciseId),
-      action: exerciseId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout
+      action: exerciseId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest)
     },
     training: {
       parentRoute: "/app",
       headerName: "Создать тренировку",
       isFetchNeeded: Boolean(trainingId),
       isEditable: Boolean(trainingId),
-      action: trainingId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout
+      action: trainingId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest)
     },
     personal: {
       parentRoute: "/app/profile",

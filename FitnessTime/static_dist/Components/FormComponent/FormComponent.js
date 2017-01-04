@@ -21,11 +21,12 @@ const formTypes = {
 };
 
 function Form ({
-  formAction,
+  // formAction,
   handleImageDrop,
   formType,
   handleInputChange,
   inputValue,
+  sendForm,
   image
 }) {
   const inputInner = (image)
@@ -60,7 +61,7 @@ function Form ({
       { formTypes[formType].map(renderInput) }
       { fileInput }
       <div className="form__controls">
-        <button className="button" onClick={formAction}>Save</button>
+        <button className="button" onClick={sendForm}>Save</button>
       </div>
     </form>
   );

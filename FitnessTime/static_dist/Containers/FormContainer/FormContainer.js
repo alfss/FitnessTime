@@ -9,9 +9,10 @@ class Form extends React.Component {
     this.exerciseId = props.exerciseId;
     this.isTraining = props.params.form === "training";
     this.parentRoute;
-    this.handleCreatingForm = this.handleCreatingForm.bind(this);
-    this.handleEditingForm = this.handleEditingForm.bind(this);
+    // this.handleCreatingForm = this.handleCreatingForm.bind(this);
+    // this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.sendForm = this.sendForm.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.state = {
@@ -63,24 +64,24 @@ class Form extends React.Component {
     }
   }
 
-  isFetchNeeded() {
-    return this.getInfoFromFormType({
-      exercise: Boolean(this.exerciseId),
-      training: Boolean(this.trainingId),
-      personal: false,
-      password: false
-    });
-  }
+  // isFetchNeeded() {
+  //   return this.getInfoFromFormType({
+  //     exercise: Boolean(this.exerciseId),
+  //     training: Boolean(this.trainingId),
+  //     personal: false,
+  //     password: false
+  //   });
+  // }
 
-  setFormAction() {
-    const isEditable = this.getInfoFromFormType({
-      exercise: Boolean(this.exerciseId),
-      training: Boolean(this.trainingId),
-      personal: true,
-      password: true
-    });
-    return isEditable ? this.handleEditingForm : this.handleCreatingForm;
-  }
+  // setFormAction() {
+  //   const isEditable = this.getInfoFromFormType({
+  //     exercise: Boolean(this.exerciseId),
+  //     training: Boolean(this.trainingId),
+  //     personal: true,
+  //     password: true
+  //   });
+  //   return isEditable ? this.handleEditingForm : this.handleCreatingForm;
+  // }
 
   getInfoFromFormType(obj) {
     return obj[this.props.params.form];
@@ -131,28 +132,40 @@ class Form extends React.Component {
     this.setState({ imagePreview: image[0].preview });
   }
 
-  handleCreatingForm(e) {
-    e.preventDefault();
-    if (!this.isFormValid()) return;
-    const body = this.createBody();
-    this.props.setFetchingData(true);
-    Rest.postWorkout(this.props.params.form, body)
-      .then(data => {
-        this.props.setFetchingData(false);
-        if (data.status === 201) this.setState({ isDataSaved: true });
-      });
-  }
+  // handleCreatingForm(e) {
+  //   e.preventDefault();
+  //   if (!this.isFormValid()) return;
+  //   const body = this.createBody();
+  //   this.props.setFetchingData(true);
+  //   Rest.postWorkout(this.props.params.form, body)
+  //     .then(data => {
+  //       this.props.setFetchingData(false);
+  //       if (data.status === 201) this.setState({ isDataSaved: true });
+  //     });
+  // }
+  //
+  // handleEditingForm(e) {
+  //   e.preventDefault();
+  //   if (!this.isFormValid()) return;
+  //   const body = this.createBody();
+  //   const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
+  //   this.props.setFetchingData(true);
+  //   this.props.formInfo.action(this.props.params.form, id, body)
+  //     .then(data => {
+  //       this.props.setFetchingData(false);
+  //       if (data.status === 200) this.setState({ isDataSaved: true });
+  //     });
+  // }
 
-  handleEditingForm(e) {
+  sendForm(e) {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
     const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
-    this.props.setFetchingData(true);
-    this.props.formInfo.action(this.props.params.form, id, body)
+    this.props.formInfo.action(body, this.props.params.form, id)
       .then(data => {
         this.props.setFetchingData(false);
-        if (data.status === 200) this.setState({ isDataSaved: true });
+        if (data.status === 200 || data.status === 201 ) this.setState({ isDataSaved: true });
       });
   }
 
@@ -192,13 +205,14 @@ class Form extends React.Component {
   }
 
   render() {
-    const formAction = this.props.formInfo.isEditable ? this.handleEditingForm : this.handleCreatingForm;
+    // const formAction = this.props.formInfo.isEditable ? this.handleEditingForm : this.handleCreatingForm;
     return (
       <FormComponent
         formType={this.props.params.form}
-        formAction={formAction}
+        // formAction={formAction}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
+        sendForm={this.sendForm}
         inputValue={this.state.newData}
         image={this.state.imagePreview}
       />
