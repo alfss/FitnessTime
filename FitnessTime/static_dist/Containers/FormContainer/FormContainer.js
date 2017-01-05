@@ -147,7 +147,7 @@ class Form extends React.Component {
 
   isDataChanged() {
     for (let key in this.state.newData) {
-      if (!this.state.oldData.title) {
+      if (!this.state.oldData[key]) {
         if (this.state.newData[key]) return true;
       } else {
         if (key === "example_photo") {
