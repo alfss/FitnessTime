@@ -40,7 +40,8 @@ class Form extends React.Component {
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
     if (this.props.formInfo.isFetchNeeded) {
-      this.fetchData(this.getUserProfile.bind(this));
+      const fetchFunction = this.props.trainingId ? this.getTrainings.bind(this) : this.getUserProfile.bind(this);
+      this.fetchData(fetchFunction);
     } else {
       let formHeaderName = this.props.formInfo.headerName;
       this.props.getRouteName(formHeaderName);
@@ -62,10 +63,9 @@ class Form extends React.Component {
       });
   }
 
-  getWorkouts() {
+  getTrainings() {
     return Rest.getTrainings(this.props.trainingId)
       .then(data => {
-        // this.props.setFetchingData(false);
         let formData = this.props.exerciseId
           ? data.exercises.filter(exercise => exercise.uuid === this.props.exerciseId)[0]
           : { title: data.title };
