@@ -32,7 +32,7 @@ function FormHOC (props) {
       isFetchNeeded: true,
       action: Rest.putUserInfo.bind(Rest),
       formFields: [
-        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин"},
+        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новый логин"},
         { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту"}
       ]
     },

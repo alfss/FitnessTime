@@ -134,14 +134,13 @@ class Form extends React.Component {
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
-    const fieldsForChecking = this.props.formInfo.formFields.map(field => field.name);
-    for (let i = 0; i < fieldsForChecking.length; i++) {
-      const formField = form[fieldsForChecking[i]];
+    this.props.formInfo.formFields.forEach(field => {
+      const formField = form[field.name];
       if (!formField.value) {
         isFormValid = false;
         formField.previousSibling.classList.remove("removed");
       }
-    }
+    });
     return isFormValid;
   }
 
