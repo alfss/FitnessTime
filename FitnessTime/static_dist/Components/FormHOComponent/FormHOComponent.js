@@ -2,15 +2,13 @@ import Form from "../../Containers/FormContainer/FormContainer";
 import Rest from "../../restAPI";
 
 function FormHOC (props) {
-  const formType = props.params.form;
   const trainingId = props.params.trainingId;
   const exerciseId = props.params.exerciseId;
-  const data = {
+  const formInfo = {
     exercise: {
       parentRoute: `/app/workout/${trainingId}`,
       headerName: "Создать упражнение",
       isFetchNeeded: Boolean(exerciseId),
-      isEditable: Boolean(exerciseId),
       action: exerciseId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest),
       formFields: [
         { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
@@ -23,7 +21,6 @@ function FormHOC (props) {
       parentRoute: "/app",
       headerName: "Создать тренировку",
       isFetchNeeded: Boolean(trainingId),
-      isEditable: Boolean(trainingId),
       action: trainingId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest),
       formFields: [
         { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки" }
@@ -32,11 +29,11 @@ function FormHOC (props) {
     personal: {
       parentRoute: "/app/profile",
       headerName: "Редактировать профиль",
-      isFetchNeeded: false,
+      isFetchNeeded: true,
       action: Rest.putUserInfo.bind(Rest),
       formFields: [
-        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин" },
-        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту" }
+        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин", required: true },
+        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту", required: true }
       ]
     },
     password: {
@@ -50,11 +47,10 @@ function FormHOC (props) {
       ]
     }
   };
-
   return (
     <Form
       {...props}
-      formInfo={data[formType]}
+      formInfo={formInfo[props.params.form]}
       trainingId={trainingId}
       exerciseId={exerciseId}
     />

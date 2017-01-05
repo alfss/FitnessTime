@@ -1,33 +1,12 @@
 import Dropzone from "react-dropzone";
 
-// const formTypes = {
-//   exercise: [
-//     { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
-//     { label: "Повторы", name: "repeat", type: "number", placeholder: "Колличество повторов" },
-//     { label: "Вес", name: "weight", type: "number", placeholder: "Необходимый вес (в килограммах)" },
-//     { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)" }
-//   ],
-//   training: [
-//     { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки" }
-//   ],
-//   password: [
-//     { label: "Пароль", name:"password", type: "password", placeholder: "Введите пароль" },
-//     { label: "Подтвердите пароль", name:"confirm-password", type: "password", placeholder: "Повторите пароль" }
-//   ],
-//   personal: [
-//     { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин" },
-//     { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту" }
-//   ]
-// };
-
 function Form ({
-  // formAction,
   formFields,
   handleImageDrop,
   formType,
   handleInputChange,
   inputValue,
-  sendForm,
+  handleSendingForm,
   image
 }) {
   const inputInner = (image)
@@ -53,6 +32,7 @@ function Form ({
                   onChange={handleInputChange}
                   value={inputValue[input.name] || ""}
                   placeholder={input.placeholder}
+                  required={input.required}
                   />
           </label>;
   }
@@ -62,7 +42,7 @@ function Form ({
       { formFields.map(renderInput) }
       { fileInput }
       <div className="form__controls">
-        <button className="button" onClick={sendForm}>Save</button>
+        <button className="button" onClick={handleSendingForm}>Save</button>
       </div>
     </form>
   );

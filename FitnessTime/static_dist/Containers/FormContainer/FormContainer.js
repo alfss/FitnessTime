@@ -5,14 +5,10 @@ import Rest from "../../restAPI";
 class Form extends React.Component {
   constructor(props) {
     super();
-    this.trainingId = props.trainingId;
-    // this.exerciseId = props.exerciseId;
     this.isTraining = props.params.form === "training";
     this.parentRoute;
-    // this.handleCreatingForm = this.handleCreatingForm.bind(this);
-    // this.handleEditingForm = this.handleEditingForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.sendForm = this.sendForm.bind(this);
+    this.handleSendingForm = this.handleSendingForm.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.state = {
@@ -37,12 +33,6 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    // this.parentRoute = this.getInfoFromFormType({
-    //   exercise: `/app/workout/${this.trainingId}`,
-    //   training: "/app",
-    //   personal: "/app/profile",
-    //   password: "/app/profile"
-    // });
     this.parentRoute = this.props.formInfo.parentRoute;
     this.props.getParentRoute(this.parentRoute);
   }
@@ -50,48 +40,32 @@ class Form extends React.Component {
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
     if (this.props.formInfo.isFetchNeeded) {
-      this.fetchData();
+      this.fetchData(this.getUserProfile.bind(this));
     } else {
-      // let formHeaderName = this.getInfoFromFormType({
-      //   exercise: "Создать упражнение",
-      //   training: "Создать тренировку",
-      //   personal: "Редактировать профиль",
-      //   password: "Редактировать пароль"
-      // });
       let formHeaderName = this.props.formInfo.headerName;
       this.props.getRouteName(formHeaderName);
       document.title = formHeaderName;
     }
   }
 
-  // isFetchNeeded() {
-  //   return this.getInfoFromFormType({
-      // exercise: Boolean(this.exerciseId),
-  //     training: Boolean(this.trainingId),
-  //     personal: false,
-  //     password: false
-  //   });
-  // }
-
-  // setFormAction() {
-  //   const isEditable = this.getInfoFromFormType({
-      // exercise: Boolean(this.exerciseId),
-  //     training: Boolean(this.trainingId),
-  //     personal: true,
-  //     password: true
-  //   });
-  //   return isEditable ? this.handleEditingForm : this.handleCreatingForm;
-  // }
-
   getInfoFromFormType(obj) {
     return obj[this.props.params.form];
   }
 
-  fetchData() {
-    this.props.setFetchingData(true);
-    Rest.getTrainings(this.props.trainingId)
+  getUserProfile() {
+    return Rest.getUserProfile()
       .then(data => {
-        this.props.setFetchingData(false);
+        this.setState({
+          newData: data,
+          oldData: data
+        });
+      });
+  }
+
+  getWorkouts() {
+    return Rest.getTrainings(this.props.trainingId)
+      .then(data => {
+        // this.props.setFetchingData(false);
         let formData = this.props.exerciseId
           ? data.exercises.filter(exercise => exercise.uuid === this.props.exerciseId)[0]
           : { title: data.title };
@@ -101,10 +75,14 @@ class Form extends React.Component {
           oldData: formData,
           imagePreview: formData.example_photo
         });
-      })
-      .catch( error => {
+      }).catch( error => {
         if (error.message === "404") this.props.renderNotFoundPage(true);
       });
+  }
+
+  fetchData(fetchData) {
+    this.props.setFetchingData(true);
+    fetchData().then(this.props.setFetchingData);
   }
 
   checkForUnsavedData() {
@@ -132,32 +110,7 @@ class Form extends React.Component {
     this.setState({ imagePreview: image[0].preview });
   }
 
-  // handleCreatingForm(e) {
-  //   e.preventDefault();
-  //   if (!this.isFormValid()) return;
-  //   const body = this.createBody();
-  //   this.props.setFetchingData(true);
-  //   Rest.postWorkout(this.props.params.form, body)
-  //     .then(data => {
-  //       this.props.setFetchingData(false);
-  //       if (data.status === 201) this.setState({ isDataSaved: true });
-  //     });
-  // }
-  //
-  // handleEditingForm(e) {
-  //   e.preventDefault();
-  //   if (!this.isFormValid()) return;
-  //   const body = this.createBody();
-  //   const id = this.isTraining ? this.trainingId : this.state.newData.uuid;
-  //   this.props.setFetchingData(true);
-  //   this.props.formInfo.action(this.props.params.form, id, body)
-  //     .then(data => {
-  //       this.props.setFetchingData(false);
-  //       if (data.status === 200) this.setState({ isDataSaved: true });
-  //     });
-  // }
-
-  sendForm(e) {
+  handleSendingForm(e) {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
@@ -172,16 +125,19 @@ class Form extends React.Component {
   createBody() {
     let body = new FormData(document.querySelector(".form"));
     if (!this.isTraining) body.append("training", this.props.trainingId);
+    for (let key of body.keys()) {
+      if (!body.get(key)) body.delete(key);
+    }
     return body;
   }
 
   isFormValid() {
     let isFormValid = true;
     const form = document.forms[0];
-    const fieldsForChecking = (this.isTraining) ? ["title"] : ["title", "repeat", "weight", "rest_time"];
+    const fieldsForChecking = this.props.formInfo.formFields.map(field => field.name);
     for (let i = 0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
-      if (!formField.value) {
+      if (!formField.value && formField.required) {
         isFormValid = false;
         formField.previousSibling.classList.remove("removed");
       }
@@ -205,15 +161,13 @@ class Form extends React.Component {
   }
 
   render() {
-    // const formAction = this.props.formInfo.isEditable ? this.handleEditingForm : this.handleCreatingForm;
     return (
       <FormComponent
         formType={this.props.params.form}
-        // formAction={formAction}
         formFields={this.props.formInfo.formFields}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
-        sendForm={this.sendForm}
+        handleSendingForm={this.handleSendingForm}
         inputValue={this.state.newData}
         image={this.state.imagePreview}
       />
