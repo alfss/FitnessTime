@@ -32,7 +32,6 @@ function Form ({
                   onChange={handleInputChange}
                   value={inputValue[input.name] || ""}
                   placeholder={input.placeholder}
-                  required={input.required}
                   />
           </label>;
   }

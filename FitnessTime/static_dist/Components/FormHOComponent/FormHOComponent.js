@@ -32,18 +32,19 @@ function FormHOC (props) {
       isFetchNeeded: true,
       action: Rest.putUserInfo.bind(Rest),
       formFields: [
-        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин", required: true },
-        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту", required: true }
+        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новое логин"},
+        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту"}
       ]
     },
     password: {
       parentRoute: "/app/profile",
       headerName: "Редактировать пароль",
       isFetchNeeded: false,
-      action: Rest.putUserInfo.bind(Rest),
+      action: Rest.putPassword.bind(Rest),
       formFields: [
-        { label: "Пароль", name:"password", type: "password", placeholder: "Введите пароль" },
-        { label: "Подтвердите пароль", name:"confirm-password", type: "password", placeholder: "Повторите пароль" }
+        { label: "Старый пароль", name:"old_password", type: "password", placeholder: "Введите старый пароль" },
+        { label: "Новый пароль", name:"new_password", type: "password", placeholder: "Введите новый пароль" },
+        { label: "Подтвердите пароль", name:"new_confirm_password", type: "password", placeholder: "Повторите пароль" }
       ]
     }
   };

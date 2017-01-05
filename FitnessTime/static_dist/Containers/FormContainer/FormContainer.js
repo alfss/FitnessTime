@@ -137,7 +137,7 @@ class Form extends React.Component {
     const fieldsForChecking = this.props.formInfo.formFields.map(field => field.name);
     for (let i = 0; i < fieldsForChecking.length; i++) {
       const formField = form[fieldsForChecking[i]];
-      if (!formField.value && formField.required) {
+      if (!formField.value) {
         isFormValid = false;
         formField.previousSibling.classList.remove("removed");
       }

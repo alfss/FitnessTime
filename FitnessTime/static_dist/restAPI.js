@@ -61,6 +61,10 @@ class rest {
     return this.putForm("/api/v1/common/users/profile/", body);
   }
 
+  putPassword(body) {
+    return this.putForm("/api/v1/common/users/password/", body);
+  }
+
   putWorkout(body, path, id) {
     return this.putForm(`/api/v1/workout/${path}/${id}/`, body);
   }
