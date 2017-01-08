@@ -47,10 +47,6 @@ class Form extends React.Component {
     }
   }
 
-  getInfoFromFormType(obj) {
-    return obj[this.props.params.form];
-  }
-
   getUserProfile() {
     return Rest.getUserProfile()
       .then(data => {
