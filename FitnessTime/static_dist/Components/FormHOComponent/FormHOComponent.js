@@ -29,7 +29,7 @@ function FormHOC (props) {
     personal: {
       parentRoute: "/app/profile",
       headerName: "Редактировать профиль",
-      isFetchNeeded: true,
+      isFetchNeeded: false,
       action: Rest.putUserInfo.bind(Rest),
       formFields: [
         { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новый логин", error: "Это поле не должно быть пустым"},
@@ -48,9 +48,11 @@ function FormHOC (props) {
       ]
     }
   };
+  console.log(props.user);
   return (
     <Form
       {...props}
+      // user={props.user}
       formInfo={formInfo[props.params.form]}
       trainingId={trainingId}
       exerciseId={exerciseId}

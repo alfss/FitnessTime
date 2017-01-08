@@ -25,6 +25,12 @@ class Form extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.form === "personal" && nextProps.user.username) {
+      this.setUserProfile(nextProps.user);
+    }
+  }
+
   componentDidUpdate() {
     if (this.state.isDataSaved) {
       this.props.router.push(this.parentRoute);
@@ -38,8 +44,7 @@ class Form extends React.Component {
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
     if (this.props.formInfo.isFetchNeeded) {
-      const fetchFunction = this.props.trainingId ? this.getTrainings.bind(this) : this.getUserProfile.bind(this);
-      this.fetchData(fetchFunction);
+      this.fetchData(this.getTrainings.bind(this));
     } else {
       let formHeaderName = this.props.formInfo.headerName;
       this.props.getRouteName(formHeaderName);
@@ -47,14 +52,11 @@ class Form extends React.Component {
     }
   }
 
-  getUserProfile() {
-    return Rest.getUserProfile()
-      .then(data => {
-        this.setState({
-          newData: data,
-          oldData: data
-        });
-      });
+  setUserProfile(user) {
+    this.setState({
+      newData: user,
+      oldData: user
+    });
   }
 
   getTrainings() {
