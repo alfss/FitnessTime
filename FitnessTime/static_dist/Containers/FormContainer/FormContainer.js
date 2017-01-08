@@ -44,7 +44,8 @@ class Form extends React.Component {
   componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.checkForUnsavedData);
     if (this.props.formInfo.isFetchNeeded) {
-      this.fetchData(this.getTrainings.bind(this));
+      this.props.setFetchingData(true);
+      this.getTrainings().then(this.props.setFetchingData);
     } else {
       let formHeaderName = this.props.formInfo.headerName;
       this.props.getRouteName(formHeaderName);
@@ -76,17 +77,11 @@ class Form extends React.Component {
       });
   }
 
-  fetchData(fetchData) {
-    this.props.setFetchingData(true);
-    fetchData().then(this.props.setFetchingData);
-  }
-
   checkForUnsavedData() {
     if (this.state.isDataSaved) return;
     const message = "You have unsaved information, are you sure you want to leave this page?";
     if (this.isDataChanged()) return message;
   }
-
 
   handleInputChange(e) {
     if (!e.target.previousSibling.classList.contains("removed")) e.target.previousSibling.classList.add("removed");
