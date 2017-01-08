@@ -146,14 +146,12 @@ class Form extends React.Component {
 
   isDataChanged() {
     for (let key in this.state.newData) {
-      if (!this.state.oldData[key]) {
-        if (this.state.newData[key]) return true;
-      } else {
-        if (key === "example_photo") {
-          if (this.state.newData[key] !== this.state.imagePreview) return true;
-          else continue;
-        }
-        if (this.state.oldData[key] !== this.state.newData[key]) return true;
+      const newValue = this.state.newData[key];
+      const oldValue = this.state.oldData[key];
+      if (!oldValue && newValue
+          || key === "example_photo" && newValue !== this.state.imagePreview
+          || oldValue && oldValue !== newValue) {
+        return true;
       }
     }
     return false;
