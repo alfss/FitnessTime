@@ -11,7 +11,7 @@ class App extends React.Component {
     this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
     this.setFetchingData = this.setFetchingData.bind(this);
     this.setAppState = this.setAppState.bind(this);
-    // this.setUser = this.setUser.bind(this);
+    this.setUser = this.setUser.bind(this);
     this.state = {
       user: {},
       routeName: "",
@@ -55,9 +55,9 @@ class App extends React.Component {
     return () => this.setState({ appState: state });
   }
 
-  // setUser(user) {
-  //   this.setState({ user });
-  // }
+  setUser(user) {
+    this.setState({ user });
+  }
 
   render() {
     const children = React.cloneElement(this.props.children, {
@@ -67,6 +67,7 @@ class App extends React.Component {
       setFetchingData: this.setFetchingData,
       appState: this.state.appState,
       setAppState: this.setAppState,
+      setUser: this.setUser,
       user: this.state.user
     });
     const notFoundPage = <NotFoundPage

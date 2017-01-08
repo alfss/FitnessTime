@@ -110,7 +110,17 @@ class Form extends React.Component {
       .then(data => {
         this.props.setFetchingData(false);
         if (data.ok) this.setState({ isDataSaved: true });
+        return data.json();
+      })
+      .then(data => {
+        this.finishSending(data);
       });
+  }
+
+  finishSending(data) {
+    if (data.username) {
+      this.props.setUser(data);
+    }
   }
 
   createBody() {
