@@ -136,7 +136,9 @@ class Form extends React.Component {
     const form = document.forms[0];
     this.props.formInfo.formFields.forEach(field => {
       const formField = form[field.name];
-      if (!formField.value) {
+      if (!formField.value
+          || field.name === "new_confirm_password"
+          && formField.value !== form["new_password"].value) {
         isFormValid = false;
         formField.previousSibling.classList.remove("removed");
       }

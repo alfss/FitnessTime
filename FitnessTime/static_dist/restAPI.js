@@ -1,6 +1,6 @@
 import Token from "./getCSRFToken";
 
-class rest {
+class restAPI {
   getUserProfile() {
     return this.restGet("/api/v1/common/users/profile/");
   }
@@ -96,4 +96,4 @@ class rest {
   }
 }
 
-export default new rest();
+export default new restAPI();

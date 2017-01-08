@@ -11,10 +11,10 @@ function FormHOC (props) {
       isFetchNeeded: Boolean(exerciseId),
       action: exerciseId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest),
       formFields: [
-        { label: "Название", name: "title", type: "text", placeholder: "Название упражнения"},
-        { label: "Повторы", name: "repeat", type: "number", placeholder: "Колличество повторов" },
-        { label: "Вес", name: "weight", type: "number", placeholder: "Необходимый вес (в килограммах)" },
-        { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)" }
+        { label: "Название", name: "title", type: "text", placeholder: "Название упражнения", error: "Это поле не должно быть пустым"},
+        { label: "Повторы", name: "repeat", type: "number", placeholder: "Колличество повторов", error: "Это поле не должно быть пустым" },
+        { label: "Вес", name: "weight", type: "number", placeholder: "Необходимый вес (в килограммах)", error: "Это поле не должно быть пустым" },
+        { label: "Отдых", name: "rest_time", type: "number", placeholder: "Время отдыха (в секундах)", error: "Это поле не должно быть пустым" }
       ]
     },
     training: {
@@ -23,7 +23,7 @@ function FormHOC (props) {
       isFetchNeeded: Boolean(trainingId),
       action: trainingId ? Rest.putWorkout.bind(Rest) : Rest.postWorkout.bind(Rest),
       formFields: [
-        { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки" }
+        { label: "Название тренировки", name:"title", type: "text", placeholder: "Название тренировки", error: "Это поле не должно быть пустым" }
       ]
     },
     personal: {
@@ -32,8 +32,8 @@ function FormHOC (props) {
       isFetchNeeded: true,
       action: Rest.putUserInfo.bind(Rest),
       formFields: [
-        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новый логин"},
-        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту"}
+        { label: "Новый логин", name:"username", type: "name", placeholder: "Введите новый логин", error: "Это поле не должно быть пустым"},
+        { label: "Новая почта", name:"email", type: "email", placeholder: "Введите новую почту", error: "Это поле не должно быть пустым"}
       ]
     },
     password: {
@@ -42,9 +42,9 @@ function FormHOC (props) {
       isFetchNeeded: false,
       action: Rest.putPassword.bind(Rest),
       formFields: [
-        { label: "Старый пароль", name:"old_password", type: "password", placeholder: "Введите старый пароль" },
-        { label: "Новый пароль", name:"new_password", type: "password", placeholder: "Введите новый пароль" },
-        { label: "Подтвердите пароль", name:"new_confirm_password", type: "password", placeholder: "Повторите пароль" }
+        { label: "Старый пароль", name:"old_password", type: "password", placeholder: "Введите старый пароль", error: "Это поле не должно быть пустым" },
+        { label: "Новый пароль", name:"new_password", type: "password", placeholder: "Введите новый пароль", error: "Это поле не должно быть пустым" },
+        { label: "Подтвердите пароль", name:"new_confirm_password", type: "password", placeholder: "Повторите пароль", error: "Пароли должны совпадать" }
       ]
     }
   };

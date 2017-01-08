@@ -25,7 +25,7 @@ function Form ({
   function renderInput(input, i) {
     return <label key={i} className="form__label">
             {input.label}:
-            <span className="form__error removed">(Введите корректную информацию)</span>
+            <span className="form__error removed">({input.error})</span>
             <input className="form__input"
                   type={input.type}
                   name={input.name}
