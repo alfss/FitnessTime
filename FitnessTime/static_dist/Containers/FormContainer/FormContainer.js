@@ -3,9 +3,8 @@ import { withRouter } from "react-router";
 import Rest from "../../restAPI";
 
 class Form extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
-    this.isTraining = props.params.form === "training";
     this.parentRoute;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSendingForm = this.handleSendingForm.bind(this);
@@ -114,11 +113,11 @@ class Form extends React.Component {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
-    const id = this.isTraining ? this.props.trainingId : this.state.newData.uuid;
+    const id = this.props.exerciseId || this.props.trainingId;
     this.props.formInfo.action(body, this.props.params.form, id)
       .then(data => {
         this.props.setFetchingData(false);
-        if (data.status === 200 || data.status === 201 ) this.setState({ isDataSaved: true });
+        if (data.ok) this.setState({ isDataSaved: true });
       });
   }
 
