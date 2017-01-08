@@ -7,7 +7,7 @@ class Form extends React.Component {
     super();
     this.parentRoute = props.formInfo.parentRoute;
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSendingForm = this.handleSendingForm.bind(this);
+    this.handleSendingWorkout = this.handleSendingWorkout.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.checkForUnsavedData = this.checkForUnsavedData.bind(this);
     this.state = {
@@ -65,7 +65,7 @@ class Form extends React.Component {
     return Rest.getTrainings(this.props.trainingId)
       .then(data => {
         let formData = this.props.exerciseId
-          ? data.exercises.filter(exercise => exercise.uuid === this.props.exerciseId)[0]
+          ? data.exercises.find(exercise => exercise.uuid === this.props.exerciseId)
           : { title: data.title };
         if (!formData) throw Error(404);
         this.setState({
@@ -108,7 +108,7 @@ class Form extends React.Component {
     this.setState({ imagePreview: image[0].preview });
   }
 
-  handleSendingForm(e) {
+  handleSendingWorkout(e) {
     e.preventDefault();
     if (!this.isFormValid()) return;
     const body = this.createBody();
@@ -166,7 +166,7 @@ class Form extends React.Component {
         formFields={this.props.formInfo.formFields}
         handleInputChange={this.handleInputChange}
         handleImageDrop={this.handleImageDrop}
-        handleSendingForm={this.handleSendingForm}
+        handleSendingWorkout={this.handleSendingWorkout}
         inputValue={this.state.newData}
         image={this.state.imagePreview}
       />

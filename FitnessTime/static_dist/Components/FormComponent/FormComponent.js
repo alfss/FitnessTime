@@ -1,13 +1,13 @@
 import Dropzone from "react-dropzone";
 
 function Form ({
+  image,
+  formType,
+  inputValue,
   formFields,
   handleImageDrop,
-  formType,
   handleInputChange,
-  inputValue,
-  handleSendingForm,
-  image
+  handleSendingWorkout
 }) {
   const inputInner = (image)
     ? <img className="form__image" width="115" height="115"  src={image} />
@@ -41,7 +41,7 @@ function Form ({
       { formFields.map(renderInput) }
       { fileInput }
       <div className="form__controls">
-        <button className="button" onClick={handleSendingForm}>Save</button>
+        <button className="button" onClick={handleSendingWorkout}>Save</button>
       </div>
     </form>
   );
