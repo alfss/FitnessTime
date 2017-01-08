@@ -1,6 +1,6 @@
 import {Link} from "react-router";
 
-function ProfileComponent() {
+function ProfileComponent({user}) {
   return (
     <div className="profile">
       <div className="profile__info-block">
@@ -10,8 +10,8 @@ function ProfileComponent() {
                height="60"
           />
           <div className="profile__user-info">
-            <div className="profile__username">Zizik</div>
-            <div className="profile__user-mail">Zizik@mail</div>
+            <div className="profile__username">{user.username}</div>
+            <div className="profile__user-mail">{user.email}</div>
           </div>
       </div>
       <Link to="/app/form/personal" className="profile__action">Сменить персональные данные</Link>

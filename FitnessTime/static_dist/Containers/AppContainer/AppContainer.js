@@ -1,5 +1,6 @@
 import AppComponent from "../../Components/AppComponent/AppComponent";
 import NotFoundPage from "../../Containers/NotFound404Container/NotFound404Container";
+import Rest from "../../restAPI";
 
 class App extends React.Component {
   constructor() {
@@ -10,15 +11,21 @@ class App extends React.Component {
     this.renderNotFoundPage = this.renderNotFoundPage.bind(this);
     this.setFetchingData = this.setFetchingData.bind(this);
     this.setAppState = this.setAppState.bind(this);
-    this.setUser = this.setUser.bind(this);
+    // this.setUser = this.setUser.bind(this);
     this.state = {
-      user: "",
+      user: {},
       routeName: "",
       parentRoute: "",
       isPageExist: true,
       isDataFetching: false,
       appState: "default"
     };
+  }
+
+  componentDidMount() {
+    Rest.getUserProfile().then(user => {
+      this.setState({ user });
+    });
   }
 
   getRouteName(name) {
@@ -48,9 +55,9 @@ class App extends React.Component {
     return () => this.setState({ appState: state });
   }
 
-  setUser(user) {
-    this.setState({ user });
-  }
+  // setUser(user) {
+  //   this.setState({ user });
+  // }
 
   render() {
     const children = React.cloneElement(this.props.children, {
@@ -60,7 +67,7 @@ class App extends React.Component {
       setFetchingData: this.setFetchingData,
       appState: this.state.appState,
       setAppState: this.setAppState,
-      setUser: this.setUser
+      user: this.state.user
     });
     const notFoundPage = <NotFoundPage
                           renderNotFoundPage={this.renderNotFoundPage}
