@@ -3,9 +3,9 @@ import { withRouter } from "react-router";
 import Rest from "../../restAPI";
 
 class Form extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.parentRoute;
+    this.parentRoute = props.formInfo.parentRoute;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSendingForm = this.handleSendingForm.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
@@ -32,7 +32,6 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    this.parentRoute = this.props.formInfo.parentRoute;
     this.props.getParentRoute(this.parentRoute);
   }
 
