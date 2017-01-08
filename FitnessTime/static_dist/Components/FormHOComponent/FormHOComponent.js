@@ -48,7 +48,6 @@ function FormHOC (props) {
       ]
     }
   };
-  console.log(props.user);
   return (
     <Form
       {...props}

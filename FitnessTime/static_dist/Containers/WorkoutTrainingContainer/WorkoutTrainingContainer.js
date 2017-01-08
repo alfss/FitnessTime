@@ -11,7 +11,6 @@ class WorkoutTrainingsContainer extends React.Component {
     this.goToPreviousPage = this.goToPreviousPage.bind(this);
     this.state = {
       count: 0,
-      userName: "",
       currentPage: 1,
       pages: 1,
       workoutTrainingData: []
@@ -26,29 +25,26 @@ class WorkoutTrainingsContainer extends React.Component {
   componentDidMount() {
     const page = this.props.params.page || 1;
     this.fetchPageUrl(page);
-    // Rest.getUserProfile()
-    //   .then(user => {
-    //     this.props.setUser(user);
-    //     this.setState({ userName: user.username});
-    //   });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.page === "1") this.props.router.replace("/");
-    const nextPage = +nextProps.params.page || 1;
-    const currentPage = +this.props.params.page || 1;
-    if (nextPage !== currentPage) this.fetchPageUrl(nextPage);
-
-    if (nextProps.user.username !== this.props.user.username) {
-      this.props.getRouteName(`Тренировки ${nextProps.user.username}`);
-      document.title = `Тренировки ${nextProps.user.username}`;
-    }
+    this.setPage(nextProps.params.page);
+    this.setUser(nextProps.user.username);
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   if (this.state.userName !== nextState.userName) this.props.getRouteName(`Тренировки ${nextState.userName}`);
-  //   document.title = `Тренировки ${nextState.userName}`;
-  // }
+  setPage(page) {
+    if (page === "1") this.props.router.replace("/");
+    const nextPage = +page || 1;
+    const currentPage = +this.props.params.page || 1;
+    if (nextPage !== currentPage) this.fetchPageUrl(nextPage);
+  }
+
+  setUser(username) {
+    if (username !== this.props.user.username) {
+      this.props.getRouteName(`Тренировки ${username}`);
+      document.title = `Тренировки ${username}`;
+    }
+  }
 
   handleSwitchPage(page) {
     return () => {
