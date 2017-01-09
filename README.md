@@ -3,9 +3,9 @@
 * docker-compose
 
 ## Build
-docker-compose build
+docker-compose -p fitnesstime build
 
-docker-compose up -d
+docker-compose -p fitnesstime up -d
 
 ## only first time
 docker exec -it fitnesstime_postgres_1 psql -U postgres -c "create database fitness_time"
@@ -21,6 +21,10 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
 >
 >Superuser created successfully.
 
+## Build static
+- `npm install webpack -g` and `npm install` - only first time, to install webpack and pull all dependencies.
+- `webpack` - to build project.
+- `npm start` - to enter in develop mode (build static and start watchers)
 
 ## directory structure
 
@@ -53,7 +57,7 @@ docker exec -it fitnesstime_web_1 ./manage.py createsuperuser
       └── registration    # это шаблоны для регистрации и входа (изначально не надо трогать)
            ├── login.html
            └── register.html
-  
+
 ```
 
 

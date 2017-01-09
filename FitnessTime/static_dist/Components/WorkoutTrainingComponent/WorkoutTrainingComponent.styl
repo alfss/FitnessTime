@@ -1,0 +1,25 @@
+.workout-training {
+  text-align: center;
+  margin-bottom: 85px;
+
+  @media (min-width: 540px) {
+    margin-bottom: 0;
+  }
+
+  &__item {
+    position: relative;
+  }
+  
+  &__item-link {
+    display: block;
+    color: $text-color;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+    padding: $gutter-big;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $light-grey;
+    }
+  }
+}

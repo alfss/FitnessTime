@@ -1,0 +1,85 @@
+.section {
+  &__paddings {
+    padding-top: 100px;
+    padding-bottom: 50px;
+
+    @media (max-width: 768px) {
+      padding-top: 50px;
+    }
+  }
+
+  &__headline {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &__heading {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 60px;
+    color: #111;
+    font-weight: 100;
+
+    @media (max-width: 768px) {
+      font-size: 50px;
+    }
+
+    &_white {
+      color: #fff;
+    }
+  }
+
+  &__paragraph {
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    line-height: 28px;
+  }
+
+  &__underline {
+    position: relative;
+    font-size: 20px;
+    max-width: 350px;
+    margin: auto;
+    margin-bottom: 110px;
+    color: #0099FF;
+
+    &:before, &:after {
+      position: absolute;
+      content: "";
+      width: 150px;
+      height: 1px;
+      background-color: #777;
+      top: 50%;
+
+      @media (max-width: 768px) {
+        width: 110px;
+      }
+    }
+
+    &:before { left: 0; }
+    &:after { right: 0; }
+  }
+
+  &__icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    transform: translate(-50%, -50%);
+
+    &_briefcase {
+      background-image: url(../Images/MainPageImages/briefcase.svg);
+    }
+    &_download {
+      background-image: url(../Images/MainPageImages/download.svg);
+    }
+    &_picture {
+      background-image: url(../Images/MainPageImages/picture.svg);
+    }
+  }
+}

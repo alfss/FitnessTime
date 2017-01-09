@@ -12,19 +12,27 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+#for aws frankurt
+os.environ['S3_USE_SIGV4'] = 'True'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+def get_setting(x, y=None):
+    return os.getenv(x, y)
+
+def str2bool(v):
+    return v.lower() in ("yes", "true", "t", "1")
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu'
+SECRET_KEY = get_setting('secret_key', '*)dvg_@fcu^np7q8^)n4+lh3ymil2p=xh%65sk^ss&4$csltmu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str2bool(get_setting('enable_debug', 'yes'))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 # Application definition
 
@@ -37,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'social.apps.django_app.default',
+    'storages',
     'rest_framework',
     'imagekit',
     'common',
@@ -92,10 +101,10 @@ WSGI_APPLICATION = 'FitnessTime.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fitness_time',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'postgres',
+        'NAME': get_setting('db_name', 'fitness_time'),
+        'USER': get_setting('db_user', 'postgres'),
+        'PASSWORD': get_setting('db_pass', ''),
+        'HOST': get_setting('db_host', 'postgres'),
         'PORT': '5432',
     }
 }
@@ -137,8 +146,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = get_setting('static_url', '/static/')
+STATIC_ROOT = get_setting('static_root', os.path.join(BASE_DIR, 'static'))
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -176,15 +185,15 @@ SOCIAL_AUTH_PIPELINE = (
 
 AUTH_USER_MODEL = "common.User"
 
-EMAIL_HOST = 'smtprelay'
-EMAIL_PORT = 2525
+EMAIL_HOST = get_setting('email_host', 'smtprelay')
+EMAIL_PORT = get_setting('email_port', 2525)
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 #dev settgins
-SOCIAL_AUTH_GOOGLE_PLUS_KEY="867124234625-k249s24gko2gdgc4an7li96kecvei8dp.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_PLUS_SECRET="p6oRoAe1I1XqcyNjNtoar4ns"
+SOCIAL_AUTH_GOOGLE_PLUS_KEY=get_setting('google_plus_key', '867124234625-k249s24gko2gdgc4an7li96kecvei8dp.apps.googleusercontent.com')
+SOCIAL_AUTH_GOOGLE_PLUS_SECRET=get_setting('google_plus_secret', 'p6oRoAe1I1XqcyNjNtoar4ns')
 SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
     'https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.me',
@@ -192,5 +201,16 @@ SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 ]
 
 #dev settgins
-SOCIAL_AUTH_VK_OAUTH2_SECRET="7PWAPV6LJwURRm2VLYm7"
-SOCIAL_AUTH_VK_OAUTH2_KEY="5494236"
+SOCIAL_AUTH_VK_OAUTH2_SECRET=get_setting('vk_oauth2_secret', '7PWAPV6LJwURRm2VLYm7')
+SOCIAL_AUTH_VK_OAUTH2_KEY=get_setting('vk_oauth2_key', '5494236')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE=['email', ]
+
+#media
+if str2bool(get_setting('aws_enable', 'no')):
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_ACCESS_KEY_ID = get_setting('aws_access_key_id', 'AKIAICY4QBM4KE4WSWNA')
+    AWS_STORAGE_BUCKET_NAME = get_setting('aws_storage_bucket_name', 'fitnesstime')
+    AWS_SECRET_ACCESS_KEY = get_setting('aws_secret_access_key', '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')
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+    AWS_S3_REGION_NAME = 'eu-central-1'
+

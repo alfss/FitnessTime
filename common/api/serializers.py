@@ -3,16 +3,18 @@ from common.models import User
 
 
 class UserMiniSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail', lookup_field='uuid')
 
     class Meta:
         model = User
-        fields = ('uuid', 'username','url', )
+        fields = ('uuid', 'username', )
 
-
-class UserSerializer(UserMiniSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api-v1:common:user-detail', lookup_field='uuid')
+class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('uuid', 'username', 'email', 'first_name', 'last_name' ,'url', )
+        fields = ('uuid', 'username', 'email', 'first_name', 'last_name', )
+
+class UserChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True, style={'input_type': 'password'})
+    new_password = serializers.CharField(required=True, style={'input_type': 'password'})
+    new_confirm_password = serializers.CharField(required=True, style={'input_type': 'password'})

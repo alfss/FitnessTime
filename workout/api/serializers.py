@@ -15,21 +15,21 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = ('url', 'uuid', 'title', 'repeat', 'weight', 'rest_time', 'example_photo', 'training', )
+        fields = ('url', 'uuid', 'title', 'repeat', 'weight', 'rest_time', 'example_photo', 'training', 'priority', )
 
 class TrainingSerializer(serializers.ModelSerializer):
     exercises = ExerciseSerializer(many=True, read_only=True)
-    owner = UserMiniSerializer(read_only=True)
+    owner = UserMiniSerializer(read_only=True, default=serializers.CurrentUserDefault())
     label = LabelField(required=False, allow_null=True)
     url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:training-detail', lookup_field='uuid')
 
     class Meta:
         model = Training
-        fields = ('url', 'uuid', 'owner', 'title', 'color', 'label', 'exercises', )
+        fields = ('url', 'uuid', 'owner', 'title', 'color', 'label', 'exercises', 'sequence_priority', )
 
 class LabelSerializer(serializers.ModelSerializer):
     trainings = TrainingSerializer(many=True, read_only=True)
-    owner = UserMiniSerializer(read_only=True)
+    owner = UserMiniSerializer(read_only=True, default=serializers.CurrentUserDefault())
     url = serializers.HyperlinkedIdentityField(view_name='api-v1:workout:label-detail', lookup_field='uuid')
 
     class Meta:

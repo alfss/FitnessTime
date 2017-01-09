@@ -1,22 +1,41 @@
-from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet
+from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView, UpdateAPIView
+from rest_framework.response import Response
 
-from common.api.filters import AnyCanGetUserByIdFilter
-from common.models import User as UserModel
-from workout.api.permissions import ReadOnlyPermission
+from common.models import User
 from . import serializers
 
-class User(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
-           mixins.ListModelMixin, GenericViewSet):
-    lookup_field = 'uuid'
-    lookup_value_regex = '[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'
 
-    queryset = UserModel.objects.all().order_by('-id')
-    permission_classes = (ReadOnlyPermission, )
+class UserProfileView(RetrieveUpdateAPIView):
 
-    filter_backends = (AnyCanGetUserByIdFilter, )
+    serializer_class = serializers.UserProfileSerializer
 
-    def get_serializer_class(self):
-        if self.request.user.is_staff:
-            return serializers.UserSerializer
-        return serializers.UserMiniSerializer
+    def get_object(self):
+        return self.request.user
+
+class UserChangePasswordView(UpdateAPIView):
+
+    serializer_class = serializers.UserChangePasswordSerializer
+    model = User
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+
+            if serializer.data.get('new_password') !=  serializer.data.get('new_confirm_password'):
+                return Response({"new_confirm_password": ["Those passwords don't match."]}, status=status.HTTP_400_BAD_REQUEST)
+
+            self.object.set_password(serializer.data.get("new_confirm_password"))
+            self.object.save()
+            return Response("Success.", status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

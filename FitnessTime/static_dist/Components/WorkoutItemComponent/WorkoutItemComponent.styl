@@ -1,0 +1,98 @@
+.workout-item {
+  text-align: center;
+  margin-bottom: 85px;
+
+  @media (min-width: 540px) {
+    margin-bottom: 0;
+  }
+
+  &__trigger {
+    display: block;
+  }
+
+  &__name {
+    position: relative;
+    color: $text-color;
+    padding: $gutter-big;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+    cursor: pointer;
+    background: $white;
+  }
+
+  &__drag {
+    display: inline-block;
+    position: absolute;
+    top: 14px;
+    right: 7px;
+    width: 28px;
+    height: 30px;
+    background: url(../Images/drag.svg) no-repeat;
+    background-size: contain;
+  }
+
+  &__menu {
+    position: absolute;
+    z-index: 10;
+    top: 45px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px $box-shadow-light, 0 3px 6px $box-shadow;
+    display: inline-block;
+    width: 200px;
+    border: 1px solid #E0E0E0;
+  }
+
+  &__full-data {
+    text-align: left;
+    padding: $gutter-big;
+    background-color: $background;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+  }
+
+  &__info{
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  &__description{
+    flex-grow: 1;
+    padding-top: 15px;
+  }
+
+  &__description-name {
+    display: inline-block;
+    width: 88px;
+  }
+
+  &__repeats, &__weight {
+    margin-bottom: 5px;
+  }
+
+  &__image {
+    cursor: pointer;
+  }
+
+  &__no-image {
+    height: 100px;
+    background-image: url(../Images/noimage.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &__wrapper {
+    transition: height .8s ease;
+    overflow: hidden;
+  }
+
+  &__timer-warn {
+    animation-name: timer;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes timer {
+    from { background-color: $background; }
+    50% { background-color: #ffa500; }
+    to { background-color: $background; }
+}

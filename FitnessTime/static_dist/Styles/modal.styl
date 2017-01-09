@@ -1,0 +1,54 @@
+.modal {
+
+  &__overlay {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: alpha(#3e3e3e, .9);
+    top: 0;
+
+    &_app {
+      top: 66px;
+    }
+  }
+
+  &__content {
+    border: 1px solid #ccc;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    margin: auto;
+    padding: 10px;
+    background: #fff;
+  }
+
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  &__app {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    background-image: url(../Images/preloader.gif);
+    background-size: contain;
+    transform: translateY(-50%);
+    outline: none;
+  }
+
+  &__close-btn {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: url(../Images/close.svg) no-repeat;
+    background-size: contain;
+  }
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}

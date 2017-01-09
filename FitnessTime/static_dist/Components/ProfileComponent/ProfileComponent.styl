@@ -1,0 +1,42 @@
+.profile {
+  height: $content-heigh;
+
+  &__info-block {
+    display flex;
+    padding: 10px 20px;
+    border-bottom: 2px solid $material-blue-rgba-medium;
+  }
+
+  &__user-img {
+    border: 1px solid $material-blue-rgba-medium;
+    padding: 2px;
+  }
+
+  &__user-info {
+    align-self: center;
+    margin-left: 30px;
+  }
+
+  &__username {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  &__user-mail {
+    font-size: 14px;
+  }
+
+  &__action {
+    display: block;
+    border-bottom: 1px solid $material-blue-rgba-medium;
+    text-align: center;
+    padding: 12px 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: $text-color;
+
+    &:hover {
+      background-color: $light-grey;
+    }
+  }
+}

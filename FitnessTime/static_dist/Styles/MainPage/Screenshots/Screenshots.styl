@@ -1,0 +1,32 @@
+.main-screenshots {
+  background-color: #F2F3FD;
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__img-item {
+    max-width: 390px;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
+    margin-bottom: 24px
+
+    @media (min-width: 768px) and (max-width: 992px) {
+      max-width: 340px;
+    }
+  }
+
+  &__img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}

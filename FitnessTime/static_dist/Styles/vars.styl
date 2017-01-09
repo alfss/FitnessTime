@@ -1,0 +1,57 @@
+//Colors
+$text-color = #6b7b8a;
+
+$material-blue= #3498DB;
+$material-blue-rgba-light = alpha($material-blue, 0.2);
+$material-blue-rgba-medium = alpha($material-blue, 0.5);
+$material-red = #e94043;
+$material-orange = #f6774f;
+$light-grey = alpha(#d3e0e8, 0.4);
+$background = #f6f6f6;
+$white = #fff;
+
+$box-shadow = alpha(#000, .27);
+$box-shadow-light = alpha(#000, .12);
+
+//Gutters
+$gutter = 10px;
+$gutter-big = 20px;
+
+//Dimensions
+$width = 8.33333333%;
+$content-heigh = calc(100vh - 66px);
+
+//Fonts
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,700);
+
+//Default
+body {
+  font-family: "roboto", sans-serif;
+  color: $text-color;
+}
+
+//Classes
+.removed {
+  display: none !important;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+}

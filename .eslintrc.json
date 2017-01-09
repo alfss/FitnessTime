@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [ "react" ],
+    "globals": {
+        "React": true,
+        "classNames": true
+    },
+    "rules": {
+        "no-console": 0,
+        "indent": [ "error" , 2 , { "VariableDeclarator": 2, "SwitchCase": 1 } ],
+        "linebreak-style": [ "error" , "windows" ],
+        "quotes": [ "error" , "double" ],
+        "semi": [ "error" , "always" ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "no-var": "error"
+    }
+}

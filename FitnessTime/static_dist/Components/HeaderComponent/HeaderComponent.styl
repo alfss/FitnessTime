@@ -1,0 +1,136 @@
+.header {
+  height: 66px;
+  background-color: $material-blue;
+  display: flex;
+  align-items: center;
+
+  &__action {
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: 14px;
+    height: 100%;
+    width: 44px;
+
+    &_nav {
+      background-image: url(../Images/menu.svg);
+      background-size: 30px;
+    }
+
+    &_prev-page {
+      background-image: url(../Images/left-angle-bracket.svg);
+      cursor: pointer;
+    }
+  }
+
+  &__page-name {
+    color: $white;
+    margin: auto;
+  }
+
+  &__nav {
+    position: absolute;
+    top: 66px;
+    left: 0;
+    height: $content-heigh;
+    width: 60vmax;
+    max-width: 270px;
+    transform: translateX(-100%);
+    z-index: 100;
+    background-color: $white;
+    transition: transform .4s ease;
+    border-left: 2px solid $material-blue-rgba-light;
+
+    &_open {
+      transform: translateX(0);
+    }
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__list-item {
+    list-style: none;
+  }
+
+  &__nav-link {
+    color: $text-color;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    position: relative;
+    border-bottom: 1px solid $material-blue-rgba-light;
+
+    &:hover {
+      background-color: $light-grey;
+    }
+  }
+
+
+  &__user {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: $background;
+    border-bottom: 2px solid $material-blue-rgba-light;
+    padding: 5px;
+    height: 60px;
+  }
+
+  &__user-img {
+    border: 1px solid darken($background, 30%);
+    padding: 2px;
+    flex-shrink: 0;
+  }
+
+  &__username {
+    margin-top: 4px;
+    margin-left: 12px;
+    font-size: 18px;
+  }
+
+  &__nav-icon {
+    margin-left: 3px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    &_setup {
+      background-image: url(../Images/gear.svg);
+      background-position: 0 -2px;
+    }
+    &_exit {
+      background-image: url(../Images/exit.svg);
+      background-size: 23px;
+    }
+  }
+
+  &__nav-name {
+    margin-left: 10px;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 66px;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: #3e3e3e;
+    opacity: 0;
+    z-index: 99;
+    transition: opacity .8s, width 0s .8s, height 0s .8s;
+
+    &_open {
+      transition: opacity .8s;
+      opacity: .9;
+      width: 100%;
+      height: $content-heigh;
+    }
+  }
+}

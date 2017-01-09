@@ -1,6 +1,12 @@
 import uuid
 
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import permissions, viewsets, filters
+from rest_framework.decorators import detail_route
+from rest_framework.exceptions import ParseError
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
+
 from workout.api.filters import AnyCanGetTraningByIdFilter
 from workout.api.permissions import IsOwnerPermission
 from . import serializers
@@ -27,6 +33,7 @@ class TrainingViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+        queryset = queryset.prefetch_related('exercises')
         label = self.request.query_params.get('label', None)
 
         try:
@@ -39,6 +46,32 @@ class TrainingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(label__uuid=None)
 
         return queryset
+
+    #Custom methods
+    @detail_route(methods=['post'], permission_classes=permission_classes)
+    def set_order_exercises(self, request, uuid=None):
+        '''
+        Sets a new order of exercises
+
+        json data example:
+        { "exercise" : ["uuid exercise","uuid exercise2","uuid exercise3","uuid exercise4"] }
+        {"exercise": ["4e42d81d-0ba7-4398-b1d9-a69ff7abbca0","b574e490-8a7f-4961-9daf-d51e6f1f459d"] }
+        '''
+        training = self.get_object()
+        try:
+            request.data
+            training.set_order_exercises(request.data['exercises'])
+        except (ParseError, ValueError) as error:
+            return Response(
+                'Invalid JSON - {0}'.format(error),
+                status=HTTP_400_BAD_REQUEST
+            )
+        except (KeyError) as error:
+            return Response(
+                'Invalid JSON - KeyError not found: {0}'.format(error),
+                status=HTTP_400_BAD_REQUEST
+            )
+        return Response({'status': request.data })
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     lookup_field = 'uuid'
@@ -69,7 +102,6 @@ class LabelViewSet(viewsets.ModelViewSet):
     search_fields = ('title', )
     ordering_fields = ('title', 'uuid', )
     ordering = ('title', )
-
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

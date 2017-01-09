@@ -1,8 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-    <p>User: {{request.user}} ID: {{request.user.id}}</p>
-    <a href="{% url 'logout' %}" class="">
-        Logout
-    </a>
+
+    <div id="app"></div>
+
 {% endblock %}

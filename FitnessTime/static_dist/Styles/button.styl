@@ -1,0 +1,63 @@
+.button {
+  width: 80%;
+  padding: 10px 0;
+  background-color: #fff;
+  border: none;
+  border-radius: 3px;
+  color: $white;
+  background-color: $material-blue;
+
+  &:hover {
+    background-color: darken($material-blue, 5%);
+  }
+
+  &:disabled {
+    background-color: lighten($material-blue, 25%);
+  }
+
+  &_reset {
+    background-color: $material-red;
+    &:hover {
+      background-color: darken($material-red, 8%);
+    }
+  }
+  &_pause {
+    background-color: $material-orange;
+    &:hover {
+      background-color: darken($material-orange, 8%);
+    }
+  }
+
+  &_app-actions {
+    position: fixed;
+    bottom: 28px;
+    transform: translateX(-50%);
+
+    @media (min-width: 568px) {
+      width: 480px;
+    }
+  }
+
+  &_round {
+    position: fixed;
+    cursor: pointer;
+    bottom: 22px;
+    right: 22px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 1px $box-shadow;
+  }
+
+  &__add {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 16px;
+    background: url(../Images/plus.svg) no-repeat center;
+    background-size: contain;
+  }
+}
