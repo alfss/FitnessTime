@@ -18,8 +18,7 @@ class WorkoutTrainingsContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getParentRoute("");
-    document.title = "Тренировки";
+    this.setPageName();
   }
 
   componentDidMount() {
@@ -28,11 +27,17 @@ class WorkoutTrainingsContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setPage(nextProps.params.page);
+    this.setPageNumber(nextProps.params.page);
     this.setUser(nextProps.user.username);
   }
 
-  setPage(page) {
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.username !== this.state.username) {
+      this.setPageName(`Тренировки ${nextState.username}`);
+    }
+  }
+
+  setPageNumber(page) {
     if (page === "1") this.props.router.replace("/");
     const nextPage = +page || 1;
     const currentPage = +this.props.params.page || 1;
@@ -40,10 +45,14 @@ class WorkoutTrainingsContainer extends React.Component {
   }
 
   setUser(username) {
-    if (username !== this.props.user.username) {
-      this.props.getRouteName(`Тренировки ${username}`);
-      document.title = `Тренировки ${username}`;
+    if (username !== this.state.username) {
+      this.setState({ username });
     }
+  }
+
+  setPageName(name) {
+    this.props.getRouteName(name);
+    document.title = name || "Ваши тренировки";
   }
 
   handleSwitchPage(page) {

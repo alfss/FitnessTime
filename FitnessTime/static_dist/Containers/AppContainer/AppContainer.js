@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   getRouteName(name) {
-    this.setState({ routeName: name });
+    this.setState({ routeName: name || ""});
   }
 
   getParentRoute(path) {
