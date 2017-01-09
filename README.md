@@ -1,8 +1,8 @@
 demo: http://fitnesstime.alfss.net/
 
 #Authors:
-Anderi Fofanov <zizidukabrik@gmail.com> 
-Sergei Kravchuk <alfss.obsd@gmail.com>
+* Anderi Fofanov <zizidukabrik@gmail.com> 
+* Sergei Kravchuk <alfss.obsd@gmail.com>
 
 
 #You need
