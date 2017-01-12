@@ -17,11 +17,9 @@ class WorkoutTrainingsContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.setPageName();
-  }
-
   componentDidMount() {
+    this.setPageName();
+    this.props.getParentRoute();
     const page = this.props.params.page || 1;
     this.fetchPageUrl(page);
   }

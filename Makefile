@@ -1,6 +1,6 @@
 REGISTRY_NAME := "fitnesstime-repo"
 IMAGE_NAME := "fitnesstime-app"
-IMAGE_VERSION := "v12"
+IMAGE_VERSION := "v13"
 
 all: build save
 .PHONY : all
